@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { LanguageProvider } from './context/LanguageContext';
 import { UserProvider } from './context/UserContext';
 import Layout from './components/Layout';
@@ -13,7 +13,7 @@ const App: React.FC = () => {
   return (
     <LanguageProvider>
       <UserProvider>
-        <BrowserRouter>
+        <HashRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
@@ -24,7 +24,7 @@ const App: React.FC = () => {
               <Route path="map" element={<div className="p-8 text-center text-slate-400 font-bold">Coming Soon: Interactive Map</div>} />
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </UserProvider>
     </LanguageProvider>
   );

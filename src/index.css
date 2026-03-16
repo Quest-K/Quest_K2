@@ -1,11 +1,13 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Outfit:wght@700;900&display=swap');
+
+:root {
   --color-primary: #1A237E;
   --color-secondary: #D32F2F;
   --color-accent: #FFD700;
-
   --font-sans: "Inter", "Noto Sans KR", sans-serif;
   --font-display: "Outfit", "Noto Sans KR", sans-serif;
 }
@@ -31,7 +33,6 @@
 }
 
 @layer utilities {
-
   /* 프리미엄 카드 스타일 */
   .premium-card {
     background: white;
