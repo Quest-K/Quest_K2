@@ -1,13 +1,60 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>temp_project</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K-Quest: Korea Travel Mission</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>🇰🇷 K-Quest</h1>
+        <p>한국 여행의 특별한 추억을 미션으로 완성하세요!</p>
+    </header>
+
+    <main>
+        <section id="region-selection">
+            <h2>어디로 여행하시나요?</h2>
+            <div class="grid-container">
+                <button class="region-btn" data-region="seoul">서울</button>
+                <button class="region-btn" data-region="gyeonggi">경기</button>
+                <button class="region-btn" data-region="gangwon">강원</button>
+                <button class="region-btn" data-region="chungcheong">충청</button>
+                <button class="region-btn" data-region="jeolla">전라</button>
+                <button class="region-btn" data-region="gyeongsang">경상</button>
+                <button class="region-btn" data-region="jeju">제주</button>
+                <button class="region-btn" data-region="anywhere">지역 무관</button>
+            </div>
+        </section>
+
+        <hr>
+
+        <section id="mission-list-section">
+            <div class="filter-bar">
+                <span class="badge tag-kculture">#K-드라마</span>
+                <span class="badge tag-traditional">#전통경험</span>
+                <span class="badge tag-daily">#한국인일상</span>
+            </div>
+            
+            <div id="mission-container">
+                <div class="mission-card">
+                    <h3>편의점에서 한강 라면 먹기</h3>
+                    <div class="mission-meta">
+                        <span class="difficulty">난이도: ⭐⭐</span>
+                        <span class="cost-indicator">비용: 저렴</span>
+                    </div>
+                    <p>서울 한강 공원에서 즉석 조리기로 라면을 끓여 먹어보세요.</p>
+                    <button class="view-detail">상세 보기</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="ad-banner">
+        <div class="ad-placeholder">
+            <p>ADVERTISEMENT</p>
+        </div>
+    </footer>
+</body>
 </html>
