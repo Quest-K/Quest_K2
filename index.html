@@ -3,58 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>K-Quest: Korea Travel Mission</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="main.js" defer></script>
+    <title>K-Quest | Discover Korea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #335495; /* 한국적인 청색 */
+            --accent-color: #E63946;  /* 강조 레드 */
+            --bg-color: #F8F9FA;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        /* 헤더 디자인 */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 { margin: 0; font-size: 24px; letter-spacing: 1px; }
+        header p { margin: 5px 0 0; font-size: 14px; opacity: 0.9; }
+
+        main { padding: 20px; max-width: 500px; margin: 0 auto; }
+
+        /* 지역 선택 버튼 그리드 */
+        .section-title { font-size: 18px; font-weight: bold; margin-bottom: 15px; }
+        
+        .region-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .region-btn {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 10px 5px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .region-btn:hover, .region-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* 태그 스타일 */
+        .tag-container { margin-bottom: 20px; display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag {
+            font-size: 12px;
+            background: #E9ECEF;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: #666;
+        }
+
+        /* 미션 카드 UI */
+        .mission-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .mission-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .mission-title { font-size: 19px; font-weight: bold; margin: 0 0 10px 0; color: #222; }
+        
+        .mission-info { font-size: 13px; color: #777; margin-bottom: 15px; display: flex; gap: 15px; }
+        .info-item b { color: #444; }
+
+        .mission-desc { font-size: 15px; line-height: 1.6; color: #555; margin-bottom: 20px; }
+
+        .btn-detail {
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        /* 광고 영역 영역 */
+        .ad-section {
+            background: #eee;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            margin-top: 30px;
+            color: #999;
+            font-size: 12px;
+            border: 1px dashed #ccc;
+        }
+    </style>
 </head>
 <body>
+
     <header>
-        <h1>🇰🇷 K-Quest</h1>
-        <p>한국 여행의 특별한 추억을 미션으로 완성하세요!</p>
+        <h1>🇰🇷 K-QUEST</h1>
+        <p>Make your Korea trip unforgettable!</p>
     </header>
 
     <main>
-        <section id="region-selection">
-            <h2>어디로 여행하시나요?</h2>
-            <div class="grid-container">
-                <button class="region-btn" data-region="seoul">서울</button>
-                <button class="region-btn" data-region="gyeonggi">경기</button>
-                <button class="region-btn" data-region="gangwon">강원</button>
-                <button class="region-btn" data-region="chungcheong">충청</button>
-                <button class="region-btn" data-region="jeolla">전라</button>
-                <button class="region-btn" data-region="gyeongsang">경상</button>
-                <button class="region-btn" data-region="jeju">제주</button>
-                <button class="region-btn" data-region="anywhere">지역 무관</button>
-            </div>
-        </section>
+        <div class="section-title">어디로 떠나시나요?</div>
+        <div class="region-grid">
+            <button class="region-btn">서울</button>
+            <button class="region-btn">경기</button>
+            <button class="region-btn">강원</button>
+            <button class="region-btn">충청</button>
+            <button class="region-btn">전라</button>
+            <button class="region-btn">경상</button>
+            <button class="region-btn">제주</button>
+            <button class="region-btn">전체</button>
+        </div>
 
-        <hr>
+        <div class="tag-container">
+            <span class="tag">#K-드라마</span>
+            <span class="tag">#전통체험</span>
+            <span class="tag">#현지인맛집</span>
+        </div>
 
-        <section id="mission-list-section">
-            <div class="filter-bar">
-                <span class="badge tag-kculture">#K-드라마</span>
-                <span class="badge tag-traditional">#전통경험</span>
-                <span class="badge tag-daily">#한국인일상</span>
+        <div class="mission-card">
+            <div class="mission-title">편의점에서 한강 라면 먹기</div>
+            <div class="mission-info">
+                <span class="info-item">난이도 <b>⭐⭐</b></span>
+                <span class="info-item">비용 <b>₩ (저렴)</b></span>
             </div>
-            
-            <div id="mission-container">
-                <div class="mission-card">
-                    <h3>편의점에서 한강 라면 먹기</h3>
-                    <div class="mission-meta">
-                        <span class="difficulty">난이도: ⭐⭐</span>
-                        <span class="cost-indicator">비용: 저렴</span>
-                    </div>
-                    <p>서울 한강 공원에서 즉석 조리기로 라면을 끓여 먹어보세요.</p>
-                    <button class="view-detail">상세 보기</button>
-                </div>
-            </div>
-        </section>
+            <p class="mission-desc">
+                서울 한강 공원의 편의점에서 즉석 조리기를 이용해 라면을 끓여 먹으며 여유를 즐겨보세요!
+            </p>
+            <button class="btn-detail" onclick="location.href='#'">미션 상세 보기</button>
+        </div>
+
+        <div class="ad-section">
+            ADVERTISEMENT
+        </div>
     </main>
 
-    <footer id="ad-banner">
-        <div class="ad-placeholder">
-            <p>ADVERTISEMENT</p>
-        </div>
-    </footer>
 </body>
 </html>
