@@ -1,116 +1,93 @@
 <style>
-/* 강원 페이지 전용 스타일 */
-.region-card {
-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-border: 1px solid #f1f5f9;
-}
-.region-card:active {
-transform: scale(0.96);
-background-color: #f0fbff;
-}
+    .gangwon-region-card {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #f1f5f9;
+        background: white;
+    }
+    .gangwon-region-card:active {
+        transform: scale(0.96);
+        background-color: #f0fdf4; /* 강원도의 푸른 느낌을 담은 연한 녹색/청색 계열 */
+    }
 </style>
 
-<div class="animate-in slide-in-from-bottom-4">
-<!-- Guide Section -->
-<section class="px-6 py-8">
-<h2 id="guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
-푸른 바다와 산의
+<div class="opacity-0 animate-[fadeIn_0.5s_ease-in_forwards]">
+    <section class="px-6 py-8">
+        <h2 id="gangwon-guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
+            푸른 바다와 산의<br>강원도로 떠나보세요!
+        </h2>
+        <p id="gangwon-guide-sub" class="text-slate-500 mt-2 text-sm font-bold">탐험하고 싶은 지역을 선택해 주세요.</p>
+    </section>
 
-
-
-강원도로 떠나보세요!
-</h2>
-<p id="guide-sub" class="text-slate-500 mt-2 text-sm font-bold">탐험하고 싶은 지역을 선택해 주세요.</p>
-</section>
-
-<!-- Region Cards Grid -->
-<section class="px-4 grid grid-cols-1 gap-4">
-    <!-- 영동 -->
-    <div class="region-card bg-white rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px]" onclick="alert('영동 지역 준비중')">
-        <div class="text-5xl mb-4">🌊</div>
-        <span id="label-yd" class="text-lg font-black text-slate-900">영동 지역</span>
-        <p id="desc-yd" class="text-sm text-slate-400 font-bold mt-1">강릉 · 속초 · 양양</p>
-    </div>
-
-    <!-- 영서 -->
-    <div class="region-card bg-white rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px]" onclick="alert('영서 지역 준비중')">
-        <div class="text-5xl mb-4">⛰️</div>
-        <span id="label-ys" class="text-lg font-black text-slate-900">영서 지역</span>
-        <p id="desc-ys" class="text-sm text-slate-400 font-bold mt-1">춘천 · 원주 · 평창</p>
-    </div>
-</section>
-
-<!-- Info Card -->
-<section class="px-5 my-10">
-    <div class="bg-emerald-600 rounded-3xl p-6 flex items-start gap-4 shadow-xl shadow-emerald-100">
-        <div class="text-xl bg-white/20 p-2 rounded-xl">📍</div>
-        <div>
-            <h4 id="info-title" class="text-sm font-black text-white">강원도 여행 팁</h4>
-            <p id="info-desc" class="text-xs text-emerald-50 mt-2 leading-relaxed font-medium">
-                서핑과 바다를 즐기려면 <span class='font-black underline'>양양/강릉</span>을, <br>
-                호수와 산의 정취를 느끼려면 <span class='font-black underline'>춘천/평창</span>을 추천합니다!
-            </p>
+    <section class="px-4 grid grid-cols-1 gap-4">
+        <div class="gangwon-region-card rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px]" onclick="alert('영동 지역 미션 준비 중!')">
+            <div class="text-5xl mb-4">🌊</div>
+            <span id="gangwon-label-yd" class="text-lg font-black text-slate-900">영동 지역</span>
+            <p id="gangwon-desc-yd" class="text-sm text-slate-400 font-bold mt-1">강릉 · 속초 · 양양</p>
         </div>
-    </div>
-</section>
 
+        <div class="gangwon-region-card rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px]" onclick="alert('영서 지역 미션 준비 중!')">
+            <div class="text-5xl mb-4">⛰️</div>
+            <span id="gangwon-label-ys" class="text-lg font-black text-slate-900">영서 지역</span>
+            <span id="gangwon-desc-ys" class="text-sm text-slate-400 font-bold mt-1">춘천 · 원주 · 평창</span>
+        </div>
+    </section>
 
+    <section class="px-5 mt-10 mb-10">
+        <div class="bg-emerald-600 rounded-3xl p-6 flex items-start gap-4 shadow-xl">
+            <div class="text-xl bg-white/20 p-2 rounded-xl">📍</div>
+            <div>
+                <h4 id="gangwon-info-title" class="text-sm font-black text-white">강원도 여행 팁</h4>
+                <p id="gangwon-info-desc" class="text-xs text-emerald-50 mt-2 leading-relaxed font-medium">
+                    서핑과 바다를 즐기려면 <span class='font-black underline text-white'>양양/강릉</span>을,<br>
+                    호수와 산의 정취를 느끼려면 <span class='font-black underline text-white'>춘천/평창</span>을 추천합니다!
+                </p>
+            </div>
+        </div>
+    </section>
 </div>
 
 <script>
 (function() {
-const lang = localStorage.getItem('selectedLang') || 'KO';
-const i18n = {
-KO: {
-guideMain: "푸른 바다와 산의
+    const i18n = {
+        KO: {
+            guideMain: "푸른 바다와 산의<br>강원도로 떠나보세요!",
+            guideSub: "탐험하고 싶은 지역을 선택해 주세요.",
+            yd: "영동 지역", ydDesc: "강릉 · 속초 · 양양",
+            ys: "영서 지역", ysDesc: "춘천 · 원주 · 평창",
+            infoTitle: "강원도 여행 팁",
+            infoDesc: "서핑과 바다를 즐기려면 <span class='font-black underline text-white'>양양/강릉</span>을, 호수와 산의 정취를 느끼려면 <span class='font-black underline text-white'>춘천/평창</span>을 추천합니다!"
+        },
+        EN: {
+            guideMain: "Explore mountains and<br>seas in Gangwon!",
+            guideSub: "Please select the area you want to explore.",
+            yd: "Yeongdong Area", ydDesc: "Gangneung, Sokcho, Yangyang",
+            ys: "Yeongseo Area", ysDesc: "Chuncheon, Wonju, Pyeongchang",
+            infoTitle: "Travel Tips",
+            infoDesc: "Choose <span class='font-black underline text-white'>Yangyang/Gangneung</span> for surfing and sea, or <span class='font-black underline text-white'>Chuncheon/Pyeongchang</span> for lakes and mountains!"
+        }
+    };
 
+    function applyLanguage() {
+        const lang = localStorage.getItem('selectedLang') || 'KO';
+        const data = i18n[lang] || i18n.KO;
+        
+        const updates = {
+            'gangwon-guide-main': data.guideMain,
+            'gangwon-guide-sub': data.guideSub,
+            'gangwon-label-yd': data.yd,
+            'gangwon-desc-yd': data.ydDesc,
+            'gangwon-label-ys': data.ys,
+            'gangwon-desc-ys': data.ysDesc,
+            'gangwon-info-title': data.infoTitle,
+            'gangwon-info-desc': data.infoDesc
+        };
 
-
-강원도로 떠나보세요!",
-guideSub: "탐험하고 싶은 지역을 선택해 주세요.",
-yd: "영동 지역", ydDesc: "강릉 · 속초 · 양양",
-ys: "영서 지역", ysDesc: "춘천 · 원주 · 평창",
-infoTitle: "강원도 여행 팁",
-infoDesc: "서핑과 바다를 즐기려면 <span class='font-black underline'>양양/강릉</span>을, 호수와 산의 정취를 느끼려면 <span class='font-black underline'>춘천/평창</span>을 추천합니다!"
-},
-EN: {
-guideMain: "Explore mountains and
-
-
-
-seas in Gangwon!",
-guideSub: "Please select the area you want to explore.",
-yd: "Yeongdong Area", ydDesc: "Gangneung, Sokcho",
-ys: "Yeongseo Area", ysDesc: "Chuncheon, Wonju",
-infoTitle: "Travel Tips",
-infoDesc: "Choose <span class='font-black underline'>Yangyang/Gangneung</span> for surfing and sea, or <span class='font-black underline'>Chuncheon/Pyeongchang</span> for lakes and mountains!"
-},
-JP: {
-guideMain: "青い海と山の
-
-
-
-江原道へ旅立ちましょう！",
-guideSub: "探検したい区域を選択してください。",
-yd: "嶺東地域", ydDesc: "江陵 · 束草 · 襄陽",
-ys: "嶺西地域", ysDesc: "春川 · 原州 · 平昌",
-infoTitle: "江原道旅行チップ",
-infoDesc: "サーフィンと海を楽しむなら <span class='font-black underline'>襄陽/江릉</span>을, 湖と山の情緒を感じるなら <span class='font-black underline'>春川/平昌</span>をおすすめします！"
-}
-};
-
-    const data = i18n[lang];
-    if (data) {
-        document.getElementById(&#39;guide-main&#39;).innerHTML = data.guideMain;
-        document.getElementById(&#39;guide-sub&#39;).innerText = data.guideSub;
-        document.getElementById(&#39;label-yd&#39;).innerText = data.yd;
-        document.getElementById(&#39;desc-yd&#39;).innerText = data.ydDesc;
-        document.getElementById(&#39;label-ys&#39;).innerText = data.ys;
-        document.getElementById(&#39;desc-ys&#39;).innerText = data.ysDesc;
-        document.getElementById(&#39;info-title&#39;).innerText = data.infoTitle;
-        document.getElementById(&#39;info-desc&#39;).innerHTML = data.infoDesc;
+        for (const [id, value] of Object.entries(updates)) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = value;
+        }
     }
+
+    applyLanguage();
 })();
-
-
 </script>
