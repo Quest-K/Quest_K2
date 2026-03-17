@@ -29,10 +29,11 @@ JavaScript (Vanilla JS)
 -   Photozone.html (신규 생성필요)
 -   K-life.html (신규 생성필요)
 -   activity.html (신규 생성필요)
+  
 - Mission.html: 미션 (상단바, 하단바 삭제 필요)
 - Rank.html: 랭킹 (신규 생성필요)
 - History.html: 기록 (상단바, 하단바 삭제 필요)
 - Mypage.html: 마이페이지 (신규 생성필요)
+
 - style.css: 반응형 스타일링 및 애니메이션 정의
 - script.js: 버튼 클릭 및 데이터 처리 로직
-
