@@ -1,192 +1,88 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>K-Quest - Select Jeonla Region</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-            background-color: #f8fafc;
-            -webkit-tap-highlight-color: transparent;
-        }
+<!-- 전라도 페이지 전용 스타일 -->
+<style>
+    .region-card {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #f1f5f9;
+        background: white;
+    }
+    .region-card:active {
+        transform: scale(0.96);
+        background-color: #f0fdf4; /* 전라도의 에메랄드 그린 포인트 컬러 */
+    }
+    
+    /* index.html에 정의되지 않았을 경우를 대비한 로컬 애니메이션 */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+</style>
 
-        header {
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
+<!-- 본문 컨텐츠 영역 -->
+<div class="opacity-0 animate-fadeIn">
+    <!-- Guide Section -->
+    <section class="px-6 py-8">
+        <h2 id="jeonla-guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
+            맛과 전통의 고장,<br>전라도를 경험하세요!
+        </h2>
+        <p id="jeonla-guide-sub" class="text-slate-500 mt-2 text-sm font-bold">전라도의 매력을 느낄 지역을 선택하세요.</p>
+    </section>
 
-        /* Language Dropdown Styles */
-        .lang-container { position: relative; display: inline-block; }
-        .lang-btn {
-            background: #f1f5f9;
-            padding: 0.4rem 0.8rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #475569;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            border: 1px solid #e2e8f0;
-        }
-        .lang-dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: calc(100% + 8px);
-            background: white;
-            min-width: 140px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border-radius: 16px;
-            overflow: hidden;
-            z-index: 100;
-            border: 1px solid #f1f5f9;
-        }
-        .lang-dropdown.show { display: block; }
-        .lang-option {
-            padding: 0.8rem 1rem;
-            font-size: 0.875rem;
-            color: #475569;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .lang-option:hover { background: #f8fafc; }
-        .lang-option.active {
-            color: #10b981; /* Emerald Green */
-            font-weight: bold;
-            background: #f0fdf4;
-        }
+    <!-- Region Cards Grid -->
+    <section class="px-4 grid grid-cols-2 gap-4">
+        <!-- 전북권 -->
+        <div class="region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('전북권 미션 준비 중!')">
+            <div class="text-3xl mb-2">🥘</div>
+            <span id="label-jb" class="text-sm font-black text-slate-900">전북권</span>
+            <p id="desc-jb" class="text-[10px] text-slate-400 font-bold mt-1">전주 한옥마을 · 군산 시간여행</p>
+        </div>
 
-        /* Region Cards */
-        .region-card {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid #f1f5f9;
-        }
-        .region-card:active {
-            transform: scale(0.96);
-            background-color: #f0fdf4;
-        }
+        <!-- 전남 동부권 -->
+        <div class="region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('전남 동부권 미션 준비 중!')">
+            <div class="text-3xl mb-2">⚓</div>
+            <span id="label-jn-east" class="text-sm font-black text-slate-900">전남 동부권</span>
+            <p id="desc-jn-east" class="text-[10px] text-slate-400 font-bold mt-1">여수 밤바다 · 순천만 정원</p>
+        </div>
 
-        .pb-safe {
-            padding-bottom: calc(6rem + env(safe-area-inset-bottom));
-        }
-    </style>
-</head>
-<body class="text-slate-900">
+        <!-- 전남 서부권 -->
+        <div class="region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('전남 서부권 미션 준비 중!')">
+            <div class="text-3xl mb-2">🎋</div>
+            <span id="label-jn-west" class="text-sm font-black text-slate-900">전남 서부권</span>
+            <p id="desc-jn-west" class="text-[10px] text-slate-400 font-bold mt-1">목포 근대화거리 · 담양 죽녹원</p>
+        </div>
 
-    <div class="max-w-2xl mx-auto min-h-screen flex flex-col pb-safe">
-        
-        <!-- [고정 상단바] -->
-        <header class="bg-white/90 backdrop-blur-md px-5 py-3 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
-            <div class="flex items-center gap-2">
-                <button onclick="history.back()" class="p-1.5 -ml-1 rounded-full hover:bg-slate-100 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <h1 id="header-title" class="text-lg font-bold text-slate-900 text-center">전라 지역 선택</h1>
+        <!-- 광주광역시 -->
+        <div class="region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('광주광역시 미션 준비 중!')">
+            <div class="text-3xl mb-2">🌆</div>
+            <span id="label-gj" class="text-sm font-black text-slate-900">광주광역시</span>
+            <p id="desc-gj" class="text-[10px] text-slate-400 font-bold mt-1">예술의 거리 · 양림동 펭귄마을</p>
+        </div>
+    </section>
+
+    <!-- Info Card -->
+    <section class="px-5 my-10">
+        <div class="bg-emerald-600 rounded-3xl p-6 flex items-start gap-4 shadow-xl shadow-emerald-100">
+            <div class="text-xl bg-white/20 p-2 rounded-xl">🍵</div>
+            <div>
+                <h4 id="info-title" class="text-sm font-black text-white">전라도 미식 여행 팁</h4>
+                <p id="info-desc" class="text-xs text-emerald-50 mt-2 leading-relaxed font-medium">
+                    진정한 한국의 맛을 느끼고 싶다면 <span class='font-black underline'>전주 비빔밥</span>과 <span class='font-black underline'>남해안 해산물</span>을 놓치지 마세요! 여수와 목포의 야경은 덤입니다.
+                </p>
             </div>
-            
-            <div class="flex items-center gap-2">
-                <div class="lang-container">
-                    <button class="lang-btn shadow-sm" onclick="toggleLangDropdown(event)">
-                        <span class="text-emerald-500">🌐</span>
-                        <span id="currentLangDisplay">KO</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 9l-7 7-7-7" />
-                        </svg>
-                    </button>
-                    <div id="langDropdown" class="lang-dropdown">
-                        <div class="lang-option" data-lang="KO" onclick="changeLanguage('KO')"><span>🇰🇷</span> 한국어</div>
-                        <div class="lang-option" data-lang="EN" onclick="changeLanguage('EN')"><span>🇺🇸</span> English</div>
-                        <div class="lang-option" data-lang="JP" onclick="changeLanguage('JP')"><span>🇯🇵</span> 日本語</div>
-                    </div>
-                </div>
-                <button class="p-2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg></button>
-            </div>
-        </header>
+        </div>
+    </section>
+</div>
 
-        <!-- Guide Section -->
-        <section class="px-6 py-8">
-            <h2 id="guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
-                맛과 전통의 고장,<br>전라도를 경험하세요!
-            </h2>
-            <p id="guide-sub" class="text-slate-500 mt-2 text-sm font-bold">전라도의 매력을 느낄 지역을 선택하세요.</p>
-        </section>
-
-        <!-- Region Cards Grid -->
-        <section class="px-4 grid grid-cols-2 gap-4">
-            <!-- 전북 (Jeonju, Gunsan) -->
-            <div class="region-card bg-white rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]">
-                <div class="text-3xl mb-2">🥘</div>
-                <span id="label-jb" class="text-sm font-black text-slate-900">전북권</span>
-                <p id="desc-jb" class="text-[10px] text-slate-400 font-bold mt-1">전주 한옥마을 · 군산 시간여행</p>
-            </div>
-
-            <!-- 전남 동부 (Yeosu, Suncheon) -->
-            <div class="region-card bg-white rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]">
-                <div class="text-3xl mb-2">⚓</div>
-                <span id="label-jn-east" class="text-sm font-black text-slate-900">전남 동부권</span>
-                <p id="desc-jn-east" class="text-[10px] text-slate-400 font-bold mt-1">여수 밤바다 · 순천만 정원</p>
-            </div>
-
-            <!-- 전남 서부 (Mokpo, Damyang) -->
-            <div class="region-card bg-white rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]">
-                <div class="text-3xl mb-2">🎋</div>
-                <span id="label-jn-west" class="text-sm font-black text-slate-900">전남 서부권</span>
-                <p id="desc-jn-west" class="text-[10px] text-slate-400 font-bold mt-1">목포 근대화거리 · 담양 죽녹원</p>
-            </div>
-
-            <!-- 광주 (Gwangju Metropolitan City) -->
-            <div class="region-card bg-white rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]">
-                <div class="text-3xl mb-2">🌆</div>
-                <span id="label-gj" class="text-sm font-black text-slate-900">광주광역시</span>
-                <p id="desc-gj" class="text-[10px] text-slate-400 font-bold mt-1">예술의 거리 · 양림동 펭귄마을</p>
-            </div>
-        </section>
-
-        <!-- Info Card -->
-        <section class="px-5 my-10">
-            <div class="bg-emerald-600 rounded-3xl p-6 flex items-start gap-4 shadow-xl shadow-emerald-100">
-                <div class="text-xl bg-white/20 p-2 rounded-xl">🍵</div>
-                <div>
-                    <h4 id="info-title" class="text-sm font-black text-white">전라도 미식 여행 팁</h4>
-                    <p id="info-desc" class="text-xs text-emerald-50 mt-2 leading-relaxed font-medium">
-                        진정한 한국의 맛을 느끼고 싶다면 <span class='font-black underline'>전주 비빔밥</span>과 <span class='font-black underline'>남해안 해산물</span>을 놓치지 마세요! 여수와 목포의 야경은 덤입니다.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Bottom Navigation (Shared Component) -->
-        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/80 backdrop-blur-2xl border-t border-slate-100 px-10 py-4 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.04)]">
-            <button onclick="location.href='index.html'" class="flex flex-col items-center gap-1 text-emerald-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                <span id="nav-home" class="text-[10px] font-bold">홈</span>
-            </button>
-            <button class="flex flex-col items-center gap-1 text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                <span id="nav-mission" class="text-[10px] font-bold">미션</span>
-            </button>
-            <button class="flex flex-col items-center gap-1 text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                <span id="nav-rank" class="text-[10px] font-bold">랭킹</span>
-            </button>
-            <button class="flex flex-col items-center gap-1 text-slate-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                <span id="nav-record" class="text-[10px] font-bold">기록</span>
-            </button>
-        </nav>
-    </div>
-
-    <script>
-        const i18n = {
+<script>
+    /**
+     * 전라도 페이지 전용 다국어 텍스트 업데이트
+     * index.html에서 설정된 localStorage 값을 읽어와 실행됩니다.
+     */
+    (function() {
+        const langData = {
             KO: {
-                title: "전라 지역 선택",
                 guideMain: "맛과 전통의 고장,<br>전라도를 경험하세요!",
                 guideSub: "전라도의 매력을 느낄 지역을 선택하세요.",
                 jb: "전북권", jbDesc: "전주 한옥마을 · 군산 시간여행",
@@ -194,11 +90,9 @@
                 jnWest: "전남 서부권", jnWestDesc: "목포 근대화거리 · 담양 죽녹원",
                 gj: "광주광역시", gjDesc: "예술의 거리 · 양림동 펭귄마을",
                 infoTitle: "전라도 미식 여행 팁",
-                infoDesc: "진정한 한국의 맛을 느끼고 싶다면 <span class='font-black underline'>전주 비빔밥</span>과 <span class='font-black underline'>남해안 해산물</span>을 놓치지 마세요! 여수와 목포의 야경은 덤입니다.",
-                home: "홈", mission: "미션", rank: "랭킹", record: "기록"
+                infoDesc: "진정한 한국의 맛을 느끼고 싶다면 <span class='font-black underline'>전주 비빔밥</span>과 <span class='font-black underline'>남해안 해산물</span>을 놓치지 마세요!"
             },
             EN: {
-                title: "Select Jeonla",
                 guideMain: "Experience food and<br>tradition in Jeonla!",
                 guideSub: "Choose a region to feel the charm of Jeonla.",
                 jb: "Jeonbuk Area", jbDesc: "Jeonju Hanok Village, Gunsan",
@@ -206,65 +100,35 @@
                 jnWest: "West Jeonnam", jnWestDesc: "Mokpo, Damyang Bamboo Forest",
                 gj: "Gwangju City", gjDesc: "Art Street, Yangnim-dong Village",
                 infoTitle: "Jeonla Gourmet Tips",
-                infoDesc: "Don't miss <span class='font-black underline'>Jeonju Bibimbap</span> and <span class='font-black underline'>South Coast Seafood</span>! The night views of Yeosu and Mokpo are breathtaking.",
-                home: "Home", mission: "Mission", rank: "Ranking", record: "Record"
+                infoDesc: "Don't miss <span class='font-black underline'>Jeonju Bibimbap</span> and <span class='font-black underline'>Seafood</span>!"
             },
             JP: {
-                title: "全羅地域選択",
-                guideMain: "味と伝統の故郷、<br>全羅道を体験してください！",
-                guideSub: "全羅道の魅力を感じる地域を選択してください。",
+                guideMain: "味と伝統의故郷、<br>全羅道を体験してください！",
+                guideSub: "全羅道の魅력을感じる地域を選択してください。",
                 jb: "全北エリア", jbDesc: "全州韓屋村 · 群山時間旅行",
                 jnEast: "全南東部", jnEastDesc: "麗水の海 · 順天湾国家庭園",
                 jnWest: "全南西部", jnWestDesc: "木浦近代化通り · 潭陽竹緑苑",
                 gj: "光州広域市", gjDesc: "芸術の通り · 楊林洞ペンギン村",
                 infoTitle: "全羅道美食のコツ",
-                infoDesc: "本場の韓国の味を感じたいなら <span class='font-black underline'>全州ビビンバ</span>と <span class='font-black underline'>南海岸の海鮮</span>をお見逃しなく！麗水と木浦の夜景も絶品です。",
-                home: "ホーム", mission: "ミッション", rank: "ランキング", record: "記録"
+                infoDesc: "<span class='font-black underline'>全州ビビンバ</span>と <span class='font-black underline'>南海岸の海鮮</span>をお見逃しなく！"
             }
         };
 
-        function toggleLangDropdown(e) {
-            e.stopPropagation();
-            document.getElementById('langDropdown').classList.toggle('show');
-        }
+        const currentLang = localStorage.getItem('selectedLang') || 'KO';
+        const data = langData[currentLang] || langData.KO;
 
-        function changeLanguage(lang) {
-            document.getElementById('currentLangDisplay').innerText = lang;
-            const data = i18n[lang];
-            
-            document.getElementById('header-title').innerText = data.title;
-            document.getElementById('guide-main').innerHTML = data.guideMain;
-            document.getElementById('guide-sub').innerText = data.guideSub;
-            document.getElementById('label-jb').innerText = data.jb;
-            document.getElementById('desc-jb').innerText = data.jbDesc;
-            document.getElementById('label-jn-east').innerText = data.jnEast;
-            document.getElementById('desc-jn-east').innerText = data.jnEastDesc;
-            document.getElementById('label-jn-west').innerText = data.jnWest;
-            document.getElementById('desc-jn-west').innerText = data.jnWestDesc;
-            document.getElementById('label-gj').innerText = data.gj;
-            document.getElementById('desc-gj').innerText = data.gjDesc;
-            document.getElementById('info-title').innerText = data.infoTitle;
-            document.getElementById('info-desc').innerHTML = data.infoDesc;
-            document.getElementById('nav-home').innerText = data.home;
-            document.getElementById('nav-mission').innerText = data.mission;
-            document.getElementById('nav-rank').innerText = data.rank;
-            document.getElementById('nav-record').innerText = data.record;
-
-            document.querySelectorAll('.lang-option').forEach(opt => {
-                opt.classList.toggle('active', opt.dataset.lang === lang);
-            });
-            document.getElementById('langDropdown').classList.remove('show');
-            localStorage.setItem('selectedLang', lang);
-        }
-
-        window.onclick = function() {
-            document.getElementById('langDropdown').classList.remove('show');
-        };
-
-        window.onload = function() {
-            const savedLang = localStorage.getItem('selectedLang') || 'KO';
-            changeLanguage(savedLang);
-        };
-    </script>
-</body>
-</html>
+        // 텍스트 업데이트
+        document.getElementById('jeonla-guide-main').innerHTML = data.guideMain;
+        document.getElementById('jeonla-guide-sub').innerText = data.guideSub;
+        document.getElementById('label-jb').innerText = data.jb;
+        document.getElementById('desc-jb').innerText = data.jbDesc;
+        document.getElementById('label-jn-east').innerText = data.jnEast;
+        document.getElementById('desc-jn-east').innerText = data.jnEastDesc;
+        document.getElementById('label-jn-west').innerText = data.jnWest;
+        document.getElementById('desc-jn-west').innerText = data.jnWestDesc;
+        document.getElementById('label-gj').innerText = data.gj;
+        document.getElementById('desc-gj').innerText = data.gjDesc;
+        document.getElementById('info-title').innerText = data.infoTitle;
+        document.getElementById('info-desc').innerHTML = data.infoDesc;
+    })();
+</script>
