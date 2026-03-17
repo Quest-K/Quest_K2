@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>K-Quest - Missions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, sans-serif; background-color: #f8fafc; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .pb-safe { padding-bottom: calc(6rem + env(safe-area-inset-bottom)); }
+        .mission-card { transition: transform 0.2s; }
+        .mission-card:active { transform: scale(0.98); }
+    </style>
+</head>
+<body class="text-slate-900">
+    <div class="max-w-md mx-auto min-h-screen flex flex-col relative pb-safe">
+        
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 px-6 py-4 flex justify-between items-center border-b border-slate-100">
+            <h1 class="text-xl font-black text-indigo-600 italic tracking-tighter">K-QUEST</h1>
+            <div class="flex items-center gap-3">
+                <div class="text-right">
+                    <p class="text-[9px] font-bold text-slate-400 uppercase">My Points</p>
+                    <p class="text-sm font-black text-slate-900">2,450 P</p>
+                </div>
+                <div class="w-9 h-9 rounded-full bg-slate-900 text-white flex items-center justify-center text-xs font-bold">JD</div>
+            </div>
+        </header>
+
+        <!-- Search & Filter -->
+        <div class="px-6 py-4">
+            <div class="relative mb-6">
+                <input type="text" placeholder="미션 검색..." class="w-full bg-white border border-slate-200 rounded-2xl py-3 pl-11 pr-4 text-sm outline-none focus:ring-2 focus:ring-indigo-500/20">
+                <span class="absolute left-4 top-3.5 text-slate-300">🔍</span>
+            </div>
+
+            <!-- Region Tabs -->
+            <div class="flex gap-2 overflow-x-auto no-scrollbar mb-6">
+                <button class="px-5 py-2 rounded-full bg-indigo-600 text-white shadow-lg text-xs font-bold whitespace-nowrap">서울 (Seoul)</button>
+                <button class="px-5 py-2 rounded-full bg-white text-slate-400 border border-slate-100 text-xs font-bold whitespace-nowrap">경기 (Gyeonggi)</button>
+                <button class="px-5 py-2 rounded-full bg-white text-slate-400 border border-slate-100 text-xs font-bold whitespace-nowrap">지역무관</button>
+            </div>
+
+            <!-- Categories -->
+            <div class="grid grid-cols-3 gap-2 mb-8 text-center">
+                <button class="flex flex-col items-center justify-center py-3 rounded-2xl bg-white border border-indigo-600 text-indigo-600 shadow-sm">
+                    <span class="text-xl mb-1">🍱</span><span class="text-[11px] font-black">음식</span>
+                </button>
+                <button class="flex flex-col items-center justify-center py-3 rounded-2xl bg-white border border-slate-100 text-slate-400">
+                    <span class="text-xl mb-1">🎵</span><span class="text-[11px] font-black">뮤직</span>
+                </button>
+                <button class="flex flex-col items-center justify-center py-3 rounded-2xl bg-white border border-slate-100 text-slate-400">
+                    <span class="text-xl mb-1">📸</span><span class="text-[11px] font-black">핫스팟</span>
+                </button>
+            </div>
+
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-black text-slate-900 italic">Available Quests</h2>
+                <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded">15 Missions</span>
+            </div>
+
+            <!-- Mission Cards List -->
+            <div class="space-y-4">
+                <!-- Card 1 -->
+                <div class="mission-card bg-white rounded-[2rem] p-5 shadow-sm border border-slate-100 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl">🍖</div>
+                        <div class="flex-1 pr-10">
+                            <span class="text-[9px] font-black px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 uppercase">Food</span>
+                            <h3 class="font-bold text-sm mb-1 text-slate-900">Korean BBQ Master</h3>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">고깃집에서 직접 구워 쌈 싸먹기 도전</p>
+                        </div>
+                    </div>
+                    <button class="absolute top-5 right-5 p-2 text-slate-200"><span class="text-xl">🤍</span></button>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="mission-card bg-white rounded-[2rem] p-5 shadow-sm border border-slate-100 relative">
+                    <div class="flex items-start gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl">💃</div>
+                        <div class="flex-1 pr-10">
+                            <span class="text-[9px] font-black px-2 py-0.5 rounded-full bg-slate-100 text-slate-500 uppercase">Music</span>
+                            <h3 class="font-bold text-sm mb-1 text-slate-900">Gangnam Style Dance</h3>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">강남역 동상 앞에서 말춤 추기</p>
+                        </div>
+                    </div>
+                    <button class="absolute top-5 right-5 p-2 text-pink-500"><span class="text-xl">❤️</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/90 backdrop-blur-2xl border-t border-slate-100 px-10 py-5 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-lg">
+            <button class="flex flex-col items-center text-indigo-600">
+                <span class="text-xl">📍</span><span class="text-[10px] font-black mt-1">미션</span>
+            </button>
+            <button onclick="location.href='history.html'" class="flex flex-col items-center text-slate-300">
+                <span class="text-xl">📊</span><span class="text-[10px] font-black mt-1">기록</span>
+            </button>
+            <button class="flex flex-col items-center text-slate-300">
+                <span class="text-xl">⭐</span><span class="text-[10px] font-black mt-1">랭킹</span>
+            </button>
+            <button class="flex flex-col items-center text-slate-300">
+                <span class="text-xl">🎁</span><span class="text-[10px] font-black mt-1">상점</span>
+            </button>
+        </nav>
+    </div>
+</body>
+</html>
