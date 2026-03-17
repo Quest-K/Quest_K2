@@ -15,7 +15,7 @@
         .category-card {
             background: white;
             border-radius: 1.5rem;
-            padding: 1.5rem;
+            padding: 1.25rem 0.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -26,14 +26,14 @@
         }
         .category-card:active { transform: scale(0.95); }
         .icon-wrapper {
-            width: 3.5rem;
-            height: 3.5rem;
+            width: 3.25rem;
+            height: 3.25rem;
             border-radius: 1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
-            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
         }
         
         /* 공통 상단바 스타일 */
@@ -88,14 +88,13 @@
 
     <div class="max-w-2xl mx-auto min-h-screen pb-safe">
         
-        <!-- [고정 상단바] index.html & seoul.html 공통 -->
+        <!-- [고정 상단바] -->
         <header class="bg-white/90 backdrop-blur-md px-5 py-3 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
             <div class="flex items-center gap-2">
-                <!-- 뒤로가기 버튼 (index에서는 숨김 처리 가능하지만 구조 유지를 위해 배치) -->
                 <button id="back-btn" onclick="history.back()" class="hidden p-1.5 -ml-1 rounded-full hover:bg-slate-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <h1 class="text-2xl font-black gradient-text tracking-tighter" onclick="location.href='index.html'" class="cursor-pointer">K-Quest</h1>
+                <h1 class="text-2xl font-black gradient-text tracking-tighter cursor-pointer" onclick="location.href='index.html'">K-Quest</h1>
             </div>
             
             <div class="flex items-center gap-2">
@@ -130,24 +129,52 @@
             </div>
         </section>
 
-        <!-- Region Selection -->
+        <!-- Region Selection (총 8개 지역) -->
         <section class="px-5 mt-12">
             <div class="flex justify-between items-end mb-6">
                 <h3 id="txt-region-title" class="text-2xl font-black text-slate-900 leading-none">어디로 가시나요?</h3>
                 <button id="txt-region-all" class="text-sm font-bold text-indigo-600">전체 지역</button>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-4 gap-3">
+                <!-- 1. 서울 -->
                 <div class="category-card" onclick="location.href='./seoul.html'">
                     <div class="icon-wrapper bg-orange-50 text-orange-500">🏙️</div>
-                    <span id="txt-reg-seoul" class="text-sm font-black">서울</span>
+                    <span id="txt-reg-seoul" class="text-xs font-black">서울</span>
                 </div>
-                <div class="category-card" onclick="alertReady('Gyeonggi')">
-                    <div class="icon-wrapper bg-green-50 text-green-500">🌳</div>
-                    <span id="txt-reg-gyeonggi" class="text-sm font-black">경기</span>
+                <!-- 2. 경기 -->
+                <div class="category-card" onclick="location.href='./gyeonggi.html'">
+                    <div class="icon-wrapper bg-blue-50 text-blue-500">🏰</div>
+                    <span id="txt-reg-gyeonggi" class="text-xs font-black">경기</span>
                 </div>
-                <div class="category-card" onclick="alertReady('Nationwide')">
-                    <div class="icon-wrapper bg-blue-50 text-blue-500">🌍</div>
-                    <span id="txt-reg-any" class="text-sm font-black">전국</span>
+                <!-- 3. 강원 -->
+                <div class="category-card" onclick="alertReady('Gangwon')">
+                    <div class="icon-wrapper bg-green-50 text-green-500">🌲</div>
+                    <span id="txt-reg-gangwon" class="text-xs font-black">강원</span>
+                </div>
+                <!-- 4. 충청 -->
+                <div class="category-card" onclick="alertReady('Chungcheong')">
+                    <div class="icon-wrapper bg-yellow-50 text-yellow-600">🌳</div>
+                    <span id="txt-reg-chungcheong" class="text-xs font-black">충청</span>
+                </div>
+                <!-- 5. 전라 -->
+                <div class="category-card" onclick="alertReady('Jeonla')">
+                    <div class="icon-wrapper bg-purple-50 text-purple-500">🥘</div>
+                    <span id="txt-reg-jeonla" class="text-xs font-black">전라</span>
+                </div>
+                <!-- 6. 경상 -->
+                <div class="category-card" onclick="alertReady('Gyeongsang')">
+                    <div class="icon-wrapper bg-indigo-50 text-indigo-500">🌉</div>
+                    <span id="txt-reg-gyeongsang" class="text-xs font-black">경상</span>
+                </div>
+                <!-- 7. 제주 -->
+                <div class="category-card" onclick="location.href='./jeju.html'">
+                    <div class="icon-wrapper bg-red-50 text-red-500">🗿</div>
+                    <span id="txt-reg-jeju" class="text-xs font-black">제주</span>
+                </div>
+                <!-- 8. 전국(지역무관) -->
+                <div class="category-card" onclick="location.href='./anywhere.html'">
+                    <div class="icon-wrapper bg-gray-50 text-gray-500">🌍</div>
+                    <span id="txt-reg-any" class="text-xs font-black">전국</span>
                 </div>
             </div>
         </section>
@@ -163,9 +190,27 @@
 
     <script>
         const translations = {
-            'KO': { 'banner-tag': '포인트 부스트', 'banner-title': '광고 시청 시<br>포인트 2배 보상!', 'banner-desc': '상위 랭킹 도전의 지름길', 'region-title': '어디로 가시나요?', 'region-all': '전체 지역', 'reg-seoul': '서울', 'reg-gyeonggi': '경기', 'reg-any': '전국', 'nav-home': '홈', 'nav-mission': '미션', 'nav-rank': '랭킹', 'nav-record': '기록', 'alert-ready': ' 지역은 준비 중입니다.' },
-            'EN': { 'banner-tag': 'Point Boost', 'banner-title': 'Watch Ad for<br>Double Points!', 'banner-desc': 'Fastest way to climb the ranks', 'region-title': 'Where are you going?', 'region-all': 'All Regions', 'reg-seoul': 'Seoul', 'reg-gyeonggi': 'Gyeonggi', 'reg-any': 'Nationwide', 'nav-home': 'Home', 'nav-mission': 'Mission', 'nav-rank': 'Ranking', 'nav-record': 'Record', 'alert-ready': ' area is coming soon.' },
-            'JP': { 'banner-tag': 'ポイントブースト', 'banner-title': '広告視聴で<br>ポイント2倍！', 'banner-desc': '上位ランクへの近道', 'region-title': 'どこへ行きますか？', 'region-all': '全地域', 'reg-seoul': 'ソウル', 'reg-gyeonggi': '京畿', 'reg-any': '全国', 'nav-home': 'ホーム', 'nav-mission': 'ミッション', 'nav-rank': 'ランキング', 'nav-record': '記録', 'alert-ready': ' 地域は準備中です。' }
+            'KO': { 
+                'banner-tag': '포인트 부스트', 'banner-title': '광고 시청 시<br>포인트 2배 보상!', 'banner-desc': '상위 랭킹 도전의 지름길', 
+                'region-title': '어디로 가시나요?', 'region-all': '전체 지역', 
+                'reg-seoul': '서울', 'reg-gyeonggi': '경기', 'reg-gangwon': '강원', 'reg-chungcheong': '충청', 'reg-jeonla': '전라', 'reg-gyeongsang': '경상', 'reg-jeju': '제주', 'reg-any': '전국', 
+                'nav-home': '홈', 'nav-mission': '미션', 'nav-rank': '랭킹', 'nav-record': '기록', 
+                'alert-ready': ' 지역은 준비 중입니다.' 
+            },
+            'EN': { 
+                'banner-tag': 'Point Boost', 'banner-title': 'Watch Ad for<br>Double Points!', 'banner-desc': 'Fastest way to climb the ranks', 
+                'region-title': 'Where are you going?', 'region-all': 'All Regions', 
+                'reg-seoul': 'Seoul', 'reg-gyeonggi': 'Gyeonggi', 'reg-gangwon': 'Gangwon', 'reg-chungcheong': 'Chungcheong', 'reg-jeonla': 'Jeonla', 'reg-gyeongsang': 'Gyeongsang', 'reg-jeju': 'Jeju', 'reg-any': 'Nationwide', 
+                'nav-home': 'Home', 'nav-mission': 'Mission', 'nav-rank': 'Ranking', 'nav-record': 'Record', 
+                'alert-ready': ' area is coming soon.' 
+            },
+            'JP': { 
+                'banner-tag': 'ポイントブースト', 'banner-title': '広告視聴で<br>ポイント2倍！', 'banner-desc': '上位ランクへの近道', 
+                'region-title': 'どこへ行きますか？', 'region-all': '全地域', 
+                'reg-seoul': 'ソウル', 'reg-gyeonggi': '京畿', 'reg-gangwon': '江原', 'reg-chungcheong': '忠清', 'reg-jeonla': '全羅', 'reg-gyeongsang': '慶尚', 'reg-jeju': '済州', 'reg-any': '全国', 
+                'nav-home': 'ホーム', 'nav-mission': 'ミッション', 'nav-rank': 'ランキング', 'nav-record': '記録', 
+                'alert-ready': ' 地域は準備中です。' 
+            }
         };
 
         function toggleLangDropdown(e) { e.stopPropagation(); document.getElementById('langDropdown').classList.toggle('show'); }
@@ -175,7 +220,10 @@
             const data = translations[lang];
             Object.keys(data).forEach(key => {
                 const el = document.getElementById('txt-' + key) || document.getElementById(key);
-                if (el) key.includes('title') ? el.innerHTML = data[key] : el.innerText = data[key];
+                if (el) {
+                    if (key.includes('title')) el.innerHTML = data[key];
+                    else el.innerText = data[key];
+                }
             });
             document.querySelectorAll('.lang-option').forEach(opt => opt.classList.toggle('active', opt.dataset.lang === lang));
             document.getElementById('langDropdown').classList.remove('show');
@@ -184,8 +232,9 @@
 
         function alertReady(name) {
             const lang = localStorage.getItem('selectedLang') || 'KO';
-            const area = translations[lang]['reg-' + (name === 'Nationwide' ? 'any' : name.toLowerCase())];
-            alert(area + translations[lang]['alert-ready']);
+            const areaKey = 'reg-' + name.toLowerCase();
+            const areaName = translations[lang][areaKey] || name;
+            alert(areaName + translations[lang]['alert-ready']);
         }
 
         window.onclick = () => document.getElementById('langDropdown').classList.remove('show');
