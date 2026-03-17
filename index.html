@@ -93,6 +93,58 @@
             color: white;
             font-weight: bold;
         }
+
+        /* 다국어 선택 버튼 및 드롭다운 스타일 */
+        .lang-container {
+            position: relative;
+            display: inline-block;
+        }
+        .lang-btn {
+            background: #f1f5f9;
+            padding: 0.4rem 0.8rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            border: 1px solid #e2e8f0;
+        }
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: calc(100% + 8px);
+            background: white;
+            min-width: 100px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 100;
+            border: 1px solid #f1f5f9;
+        }
+        .lang-dropdown.show {
+            display: block;
+        }
+        .lang-option {
+            padding: 0.75rem 1rem;
+            font-size: 0.875rem;
+            color: #475569;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .lang-option:hover {
+            background: #f8fafc;
+        }
+        .lang-option.active {
+            color: #4f46e5;
+            font-weight: bold;
+            background: #eef2ff;
+        }
     </style>
 </head>
 <body class="pb-safe">
@@ -103,13 +155,36 @@
         <!-- Header -->
         <header class="bg-white/80 backdrop-blur-md px-5 py-4 flex justify-between items-center sticky top-0 z-50 shadow-sm">
             <h1 class="text-2xl font-bold gradient-text tracking-tight">K-Quest</h1>
-            <div class="flex gap-3">
-                <button class="p-2" onclick="handleNotification()">
+            <div class="flex items-center gap-1">
+                <!-- 다국어 언어 선택 컨테이너 -->
+                <div class="lang-container mr-1">
+                    <button class="lang-btn" onclick="toggleLangDropdown(event)">
+                        <span>🌐</span>
+                        <span id="currentLangDisplay">KO</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <!-- 드롭다운 메뉴 -->
+                    <div id="langDropdown" class="lang-dropdown">
+                        <div class="lang-option active" onclick="changeLanguage('KO', '한국어')">
+                            <span>🇰🇷 한국어</span>
+                        </div>
+                        <div class="lang-option" onclick="changeLanguage('EN', 'English')">
+                            <span>🇺🇸 English</span>
+                        </div>
+                        <div class="lang-option" onclick="changeLanguage('JP', '日本語')">
+                            <span>🇯🇵 日本語</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="p-1.5" onclick="handleNotification()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
                 </button>
-                <button class="p-2" onclick="handleProfile()">
+                <button class="p-1.5" onclick="handleProfile()">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
@@ -238,12 +313,45 @@
         </nav>
     </div>
 
-    <!-- 스크립트를 인라인으로 포함하여 ReferenceError 해결 -->
+    <!-- 스크립트 -->
     <script>
+        // 언어 설정 관련 스크립트
+        function toggleLangDropdown(event) {
+            event.stopPropagation();
+            document.getElementById('langDropdown').classList.toggle('show');
+        }
+
+        function changeLanguage(langCode, langName) {
+            // 현재 표시 언어 텍스트 업데이트
+            document.getElementById('currentLangDisplay').innerText = langCode;
+            
+            // 드롭다운 내 활성화 상태 표시 변경
+            const options = document.querySelectorAll('.lang-option');
+            options.forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.innerText.includes(langCode)) {
+                    opt.classList.add('active');
+                }
+            });
+
+            console.log("Language changed to:", langCode, `(${langName})`);
+            
+            // 드롭다운 닫기
+            document.getElementById('langDropdown').classList.remove('show');
+
+            // 실제 서비스에서는 여기서 다국어 라이브러리(i18next 등)를 연동하여 텍스트를 교체합니다.
+        }
+
+        // 화면 클릭 시 드롭다운 닫기
+        window.onclick = function(event) {
+            if (!event.target.closest('.lang-container')) {
+                document.getElementById('langDropdown').classList.remove('show');
+            }
+        }
+
         function selectRegion(regionName) {
             console.log("Region selected:", regionName);
             if (regionName === 'Seoul') {
-                // 깃허브 경로상의 seoul.html로 이동
                 window.location.href = './seoul.html';
             } else {
                 alert(regionName + " 지역은 준비 중입니다.");
