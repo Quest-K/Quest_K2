@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>K-Quest History</title>
+    <title>Quest-K History</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .pb-safe { padding-bottom: calc(5rem + env(safe-area-inset-bottom)); }
@@ -86,13 +86,10 @@
 
     <div class="max-w-2xl mx-auto min-h-screen pb-safe">
         
-        <!-- [고정 상단바] Index.html과 동일 -->
+        <!-- [고정 상단바] 뒤로가기 버튼 삭제 및 index.html과 완전 통일 -->
         <header class="bg-white/90 backdrop-blur-md px-5 py-3 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
-            <div class="flex items-center gap-2">
-                <button onclick="location.href='Index.html'" class="p-1.5 -ml-1 rounded-full hover:bg-slate-100">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
-                </button>
-                <h1 class="text-2xl font-black gradient-text tracking-tighter cursor-pointer" onclick="location.href='Index.html'">K-Quest</h1>
+            <div class="flex items-center">
+                <h1 class="text-2xl font-black gradient-text tracking-tighter cursor-pointer" onclick="location.href='index.html'">Quest-K</h1>
             </div>
             
             <div class="flex items-center gap-2">
@@ -108,6 +105,8 @@
                         <div class="lang-option" data-lang="JP" onclick="changeLanguage('JP')"><span>🇯🇵</span> 日本語</div>
                     </div>
                 </div>
+                <!-- 알림 및 프로필 아이콘 (Index와 동일하게 유지) -->
+                <button class="p-2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg></button>
                 <button class="p-2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg></button>
             </div>
         </header>
@@ -131,7 +130,6 @@
                     </div>
                     <p id="txt-overall-desc" class="text-[10px] text-indigo-100 font-medium">총 25개의 미션 중 8개를 완료했습니다.</p>
                 </div>
-                <!-- Background decoration -->
                 <div class="absolute right-[-10%] bottom-[-20%] w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
             </div>
 
@@ -178,9 +176,9 @@
             </section>
         </main>
 
-        <!-- [고정 하단바] Index.html 양식과 통일 및 경로 설정 -->
+        <!-- [고정 하단바] index.html 양식과 아이콘 완벽 통일 -->
         <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/80 backdrop-blur-2xl border-t border-slate-100 px-10 py-4 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.04)]">
-            <button class="nav-item" onclick="location.href='Index.html'">
+            <button class="nav-item" onclick="location.href='index.html'">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
                 <span id="nav-home">홈</span>
             </button>
@@ -228,7 +226,7 @@
                 'wishlist-title': '❤️ お気に入り',
                 'completed-title': '✅ 完了記録',
                 'completed-date': '完了日',
-                'completed-date2': '完了日',
+                'completed-date2': '完了일',
                 'nav-home': 'ホーム', 'nav-mission': 'ミッション', 'nav-rank': 'ランキング', 'nav-record': '記録'
             }
         };
@@ -239,7 +237,9 @@
         }
 
         function changeLanguage(lang) {
-            document.getElementById('currentLangDisplay').innerText = lang;
+            const display = document.getElementById('currentLangDisplay');
+            if (display) display.innerText = lang;
+            
             const data = translations[lang];
             Object.keys(data).forEach(key => {
                 const el = document.getElementById('txt-' + key) || document.getElementById(key);
@@ -250,7 +250,11 @@
             localStorage.setItem('selectedLang', lang);
         }
 
-        window.onclick = () => document.getElementById('langDropdown').classList.remove('show');
+        window.onclick = () => {
+            const dropdown = document.getElementById('langDropdown');
+            if (dropdown) dropdown.classList.remove('show');
+        };
+        
         window.onload = () => changeLanguage(localStorage.getItem('selectedLang') || 'KO');
     </script>
 </body>
