@@ -32,7 +32,9 @@ JavaScript (Vanilla JS)
 -   Gyeongsang.html
 -   Jeju.html
 - Mission.html: 미션
-- History: 기록
+- Rank.html: 랭킹
+- History.html: 기록
+- Mypage.html: 마이페이지
 - style.css: 반응형 스타일링 및 애니메이션 정의
 - script.js: 버튼 클릭 및 데이터 처리 로직
 
