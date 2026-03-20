@@ -1,157 +1,177 @@
-<div class="p-6 pb-24 animate-[fadeIn_0.4s_ease-out]">
-    <!-- 상단 요약 정보 (이용 시간 및 총 경험치) -->
+<div class="p-6 pb-24 animate-[fadeIn_0.5s_ease-out] bg-[#f8fafc]">
+    <!-- 1. 유저 마스터리 프로필 (세계관 반영) -->
     <section class="mb-8">
-        <h2 class="text-2xl font-black text-slate-900 mb-4 flex items-center gap-2">
-            <span class="w-1.5 h-6 bg-indigo-600 rounded-full"></span>
-            <span data-lang="history-title">나의 여행 기록</span>
-        </h2>
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2">
+                <span class="w-1.5 h-6 bg-indigo-600 rounded-full"></span>
+                <span data-lang="history-title">나의 마스터리</span>
+            </h2>
+            <span class="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full tracking-tighter">LV.12 JOURNEYMAN</span>
+        </div>
         
-        <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-slate-100 flex flex-col gap-4">
-            <div class="flex justify-between items-center">
-                <div>
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest" data-lang="play-time-label">총 여행 시간</p>
+        <div class="bg-white rounded-[2.5rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
+            <div class="flex items-center gap-5 mb-6">
+                <div class="relative">
+                    <div class="w-20 h-20 bg-gradient-to-tr from-indigo-600 to-purple-500 rounded-[2rem] flex items-center justify-center text-3xl shadow-lg shadow-indigo-200">
+                        👤
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-yellow-400 border-4 border-white rounded-full flex items-center justify-center text-[10px] font-black">
+                        75%
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest" data-lang="play-time-label">총 여행 시간</p>
                     <p class="text-2xl font-black text-slate-800">12h 45m</p>
-                </div>
-                <div class="text-right">
-                    <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest" data-lang="xp-reward-label">보너스 경험치</p>
-                    <p class="text-2xl font-black text-indigo-600">+120 XP</p>
+                    <div class="mt-2 flex gap-1">
+                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[8px] font-black rounded uppercase">Food Lv.3</span>
+                        <span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-[8px] font-black rounded uppercase">Geo Lv.1</span>
+                    </div>
                 </div>
             </div>
-            <!-- 경험치 게이지 -->
-            <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                <div class="h-full bg-indigo-500 rounded-full" style="width: 75%"></div>
+
+            <div class="space-y-3">
+                <div class="flex justify-between items-end">
+                    <p class="text-[10px] font-black text-indigo-600 uppercase tracking-tighter" data-lang="xp-reward-label">다음 등급까지 140 XP</p>
+                    <p class="text-[10px] font-bold text-slate-400 italic">Total 1,240 XP</p>
+                </div>
+                <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style="width: 75%"></div>
+                </div>
+                <p class="text-[10px] text-slate-400 text-center font-medium" data-lang="time-info">1시간 이용 시마다 10 XP가 자동으로 적립됩니다.</p>
             </div>
-            <p class="text-[10px] text-slate-400 text-center font-medium" data-lang="time-info">1시간 이용 시마다 10 XP가 자동으로 지급됩니다.</p>
         </div>
     </section>
 
-    <!-- 미션 완료 현황 (빙고 스타일) -->
-    <section class="mb-8">
-        <div class="flex justify-between items-end mb-4">
-            <h3 class="text-lg font-black text-slate-900" data-lang="bingo-title">미션 달성 빙고</h3>
-            <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-1 rounded-md">2 Lines Clear!</span>
+    <!-- 2. 전문가 분야별 빙고 (빙고를 전문가 노드별로 시각화) -->
+    <section class="mb-10">
+        <div class="flex justify-between items-end mb-4 px-1">
+            <h3 class="text-lg font-black text-slate-900" data-lang="bingo-title">전문가 달성 현황</h3>
+            <span class="text-[10px] font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">2 Lines Completed</span>
         </div>
+        
         <div class="grid grid-cols-4 gap-2">
-            <!-- 빙고 아이템들 (샘플) -->
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-md border-2 border-indigo-200 relative group cursor-pointer" onclick="showMissionDetail('K-BBQ Master', '2024.05.12 19:30')">
-                <span>🍖</span>
+            <!-- 음식 노드 미션들 -->
+            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-100 border-2 border-indigo-300 relative cursor-pointer" onclick="showMissionDetail('K-BBQ Master', '2024.05.12 19:30', '🥘')">
+                <span>🥘</span>
                 <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
             </div>
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-md border-2 border-indigo-200 relative">
-                <span>🎤</span>
+            <!-- 문화 노드 미션들 -->
+            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-100 border-2 border-indigo-300 relative cursor-pointer" onclick="showMissionDetail('Jjimjilbang Egg', '2024.05.15 21:00', '🥚')">
+                <span>🥚</span>
                 <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
             </div>
-            <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-xl grayscale opacity-50 border border-dashed border-slate-300">
-                <span>📸</span>
+            <!-- 지리 노드 미션 (미완료) -->
+            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale cursor-not-allowed">
+                <span>🗺️</span>
             </div>
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-md border-2 border-indigo-200 relative">
+            <!-- 역사 노드 미션 (미완료) -->
+            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale cursor-not-allowed">
+                <span>🏯</span>
+            </div>
+            <!-- 추가 빙고 슬롯 -->
+            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-100 border-2 border-indigo-300 relative">
                 <span>🏙️</span>
                 <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
             </div>
-            <!-- 추가 칸들... -->
-            <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-xl grayscale opacity-50 border border-dashed border-slate-300"><span>🚴</span></div>
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-md border-2 border-indigo-200 relative"><span>🥘</span></div>
-            <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-xl grayscale opacity-50 border border-dashed border-slate-300"><span>⛩️</span></div>
-            <div class="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center text-xl grayscale opacity-50 border border-dashed border-slate-300"><span>🛍️</span></div>
+            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale"><span>☕</span></div>
+            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale"><span>🎭</span></div>
+            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale"><span>🚴</span></div>
         </div>
-        <p class="mt-3 text-[10px] text-slate-400 font-medium text-center" data-lang="bingo-desc">미션을 완료하여 빙고판을 채우고 추가 보상을 획득하세요!</p>
     </section>
 
-    <!-- 탭 메뉴 (찜 리스트 / 경험치 이력) -->
+    <!-- 3. 상세 로그 (찜 / 경험치 이력) -->
     <section>
-        <div class="flex border-b border-slate-100 mb-4">
-            <button id="tab-wish" onclick="switchHistoryTab('wish')" class="flex-1 py-3 text-sm font-black text-indigo-600 border-b-2 border-indigo-600 transition-all" data-lang="tab-wish">찜 리스트</button>
-            <button id="tab-xp" onclick="switchHistoryTab('xp')" class="flex-1 py-3 text-sm font-bold text-slate-400 border-b-2 border-transparent transition-all" data-lang="tab-xp">경험치 이력</button>
+        <div class="flex p-1 bg-slate-100 rounded-2xl mb-5">
+            <button id="tab-wish" onclick="switchHistoryTab('wish')" class="flex-1 py-2.5 text-xs font-black rounded-xl transition-all bg-white text-slate-900 shadow-sm" data-lang="tab-wish">찜 리스트</button>
+            <button id="tab-xp" onclick="switchHistoryTab('xp')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-400" data-lang="tab-xp">경험치 이력</button>
         </div>
 
-        <!-- 찜 리스트 내용 -->
+        <!-- 찜 리스트: 스킬 트리와 연동된 느낌 -->
         <div id="content-wish" class="space-y-3">
-            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex items-center gap-4">
-                <div class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-xl">🏙️</div>
+            <div class="bg-white p-5 rounded-[2rem] border border-slate-50 shadow-sm flex items-center gap-4 group">
+                <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">🗺️</div>
                 <div class="flex-1">
-                    <p class="text-sm font-black text-slate-800">N Seoul Tower Photo Zone</p>
-                    <p class="text-[10px] text-slate-400 font-bold">Seoul · Photozone</p>
+                    <p class="text-sm font-black text-slate-800">East Coast Road Trip</p>
+                    <p class="text-[9px] text-indigo-500 font-bold uppercase tracking-tight">Geo Expert Quest</p>
                 </div>
-                <button class="text-red-400 p-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button class="text-rose-400 active:scale-90 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </button>
             </div>
-            <div class="bg-white p-4 rounded-2xl border border-slate-50 shadow-sm flex items-center gap-4">
-                <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-xl">🚴</div>
+            
+            <div class="bg-white p-5 rounded-[2rem] border border-slate-50 shadow-sm flex items-center gap-4 group opacity-80">
+                <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">✍️</div>
                 <div class="flex-1">
-                    <p class="text-sm font-black text-slate-800">Han River Bike Tour</p>
-                    <p class="text-[10px] text-slate-400 font-bold">Seoul · Activity</p>
+                    <p class="text-sm font-black text-slate-800">Digital Name Stamp</p>
+                    <p class="text-[9px] text-amber-600 font-bold uppercase tracking-tight">Side Quest</p>
                 </div>
-                <button class="text-red-400 p-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button class="text-rose-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
             </div>
         </div>
 
-        <!-- 경험치 이력 내용 (숨김 처리) -->
-        <div id="content-xp" class="hidden space-y-2">
-            <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-slate-50">
-                <div>
-                    <p class="text-xs font-black text-slate-800" data-lang="xp-item1">앱 이용 시간 보상 (12h)</p>
-                    <p class="text-[9px] text-slate-400 font-bold">2024.05.20 14:00</p>
+        <!-- 경험치 이력 -->
+        <div id="content-xp" class="hidden space-y-3">
+            <div class="flex justify-between items-center p-5 bg-white rounded-[2rem] border border-slate-50">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-lg">⏳</div>
+                    <div>
+                        <p class="text-xs font-black text-slate-800" data-lang="xp-item1">앱 이용 시간 보상 (12h)</p>
+                        <p class="text-[9px] text-slate-400 font-bold tracking-tighter">2024.05.20 14:00</p>
+                    </div>
                 </div>
                 <p class="text-sm font-black text-indigo-600">+10 XP</p>
             </div>
-            <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-slate-50">
-                <div>
-                    <p class="text-xs font-black text-slate-800" data-lang="xp-item2">미션 완료: K-BBQ Master</p>
-                    <p class="text-[9px] text-slate-400 font-bold">2024.05.12 19:30</p>
+            <div class="flex justify-between items-center p-5 bg-white rounded-[2rem] border border-slate-50">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-lg">🥘</div>
+                    <div>
+                        <p class="text-xs font-black text-slate-800" data-lang="xp-item2">음식 전문가 미션 완료</p>
+                        <p class="text-[9px] text-slate-400 font-bold tracking-tighter">2024.05.12 19:30</p>
+                    </div>
                 </div>
                 <p class="text-sm font-black text-indigo-600">+50 XP</p>
-            </div>
-            <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-slate-50">
-                <div>
-                    <p class="text-xs font-black text-slate-800" data-lang="xp-item3">데일리 퀴즈 정답</p>
-                    <p class="text-[9px] text-slate-400 font-bold">2024.05.11 09:15</p>
-                </div>
-                <p class="text-sm font-black text-indigo-600">+5 XP</p>
             </div>
         </div>
     </section>
 </div>
 
-<!-- 상세 내역 모달 (미션 클릭 시) -->
+<!-- 상세 내역 모달 -->
 <div id="mission-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-6 hidden">
-    <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onclick="closeMissionModal()"></div>
-    <div class="bg-white rounded-[2.5rem] w-full max-w-sm p-8 z-10 animate-[fadeIn_0.3s_ease-out] text-center">
-        <div id="modal-icon" class="text-5xl mb-4">🍖</div>
-        <h4 id="modal-title" class="text-xl font-black text-slate-900 mb-2">K-BBQ Master</h4>
-        <p class="text-slate-400 text-sm mb-6" data-lang="modal-desc">축하합니다! 미션을 성공적으로 완료했습니다.</p>
-        <div class="bg-slate-50 rounded-2xl p-4 mb-8">
-            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1" data-lang="modal-date-label">완료 일시</p>
+    <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-sm shadow-inner" onclick="closeMissionModal()"></div>
+    <div class="bg-white rounded-[3rem] w-full max-w-sm p-10 z-10 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)] text-center relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-2 bg-indigo-600"></div>
+        <div id="modal-icon" class="text-6xl mb-6 drop-shadow-lg">🥘</div>
+        <h4 id="modal-title" class="text-2xl font-black text-slate-900 mb-2 tracking-tighter">K-BBQ Master</h4>
+        <p class="text-slate-400 text-xs font-medium mb-8 leading-relaxed" data-lang="modal-desc">축하합니다! 전문가의 길에 한 걸음 더 다가섰습니다.</p>
+        
+        <div class="bg-slate-50 rounded-3xl p-5 mb-8">
+            <p class="text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] mb-2" data-lang="modal-date-label">COMPLETED AT</p>
             <p id="modal-date" class="text-sm font-black text-slate-700">2024.05.12 19:30</p>
         </div>
-        <button onclick="closeMissionModal()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-black text-sm active:scale-95 transition-all" data-lang="modal-close">확인</button>
+        
+        <button onclick="closeMissionModal()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-sm active:scale-95 transition-all shadow-xl shadow-slate-200" data-lang="modal-close">DONE</button>
     </div>
 </div>
 
+<style>
+    @keyframes slideUp { from { transform: translateY(20%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+</style>
+
 <script>
-    // 번역 데이터 확장
     const historyI18n = {
         KO: {
-            "history-title": "나의 여행 기록", "play-time-label": "총 여행 시간", "xp-reward-label": "보너스 경험치",
-            "time-info": "1시간 이용 시마다 10 XP가 자동으로 지급됩니다.", "bingo-title": "미션 달성 빙고",
-            "bingo-desc": "미션을 완료하여 빙고판을 채우고 추가 보상을 획득하세요!",
+            "history-title": "나의 마스터리 기록", "play-time-label": "총 누적 여행 시간", "xp-reward-label": "다음 등급 보너스",
+            "time-info": "1시간 이용 시마다 10 XP가 자동으로 적립됩니다.", "bingo-title": "전문가 달성 현황",
             "tab-wish": "찜 리스트", "tab-xp": "경험치 이력",
-            "xp-item1": "앱 이용 시간 보상 (12h)", "xp-item2": "미션 완료: K-BBQ Master", "xp-item3": "데일리 퀴즈 정답",
-            "modal-desc": "축하합니다! 미션을 성공적으로 완료했습니다.", "modal-date-label": "완료 일시", "modal-close": "확인"
+            "xp-item1": "앱 이용 시간 보상 (12h)", "xp-item2": "음식 전문가 미션 완료",
+            "modal-desc": "축하합니다! 전문가의 길에 한 걸음 더 다가섰습니다.", "modal-date-label": "미션 완료 일시", "modal-close": "확인"
         },
         EN: {
-            "history-title": "My History", "play-time-label": "Total Travel Time", "xp-reward-label": "Bonus XP",
-            "time-info": "Earn 10 XP for every hour spent in the app.", "bingo-title": "Mission Bingo",
-            "bingo-desc": "Complete missions to fill the board and get rewards!",
-            "tab-wish": "Wishlist", "tab-xp": "XP History",
-            "xp-item1": "App Usage Reward (12h)", "xp-item2": "Mission Done: K-BBQ Master", "xp-item3": "Daily Quiz Correct",
-            "modal-desc": "Congratulations! Mission completed successfully.", "modal-date-label": "Completion Date", "modal-close": "Close"
-        },
-        JP: {
-            "history-title": "旅行の記録", "play-time-label": "総利用時間", "xp-reward-label": "ボーナス経験値",
-            "time-info": "1時間の利用ごとに10 XPが自動的に付与されます。", "bingo-title": "ミッションビンゴ",
-            "bingo-desc": "ミッションをクリアしてビンゴを埋め、報酬を獲得しましょう！",
-            "tab-wish": "お気に入り", "tab-xp": "経験値履歴",
-            "xp-item1": "アプリ利用報酬 (12h)", "xp-item2": "ミッション完了: K-BBQ Master", "xp-item3": "デイリークイズ正解",
-            "modal-desc": "おめでとうございます！ミッションを完了しました。", "modal-date-label": "完了日時", "modal-close": "確認"
+            "history-title": "My Mastery Log", "play-time-label": "Total Travel Time", "xp-reward-label": "Bonus for Next Lv",
+            "time-info": "Earn 10 XP automatically for every hour of use.", "bingo-title": "Expertise Progress",
+            "tab-wish": "Wishlist", "tab-xp": "XP Logs",
+            "xp-item1": "App Usage Reward (12h)", "xp-item2": "Food Master Quest Done",
+            "modal-desc": "Congratulations! You are one step closer to becoming a Master.", "modal-date-label": "Completed At", "modal-close": "CLOSE"
         }
     };
 
@@ -162,23 +182,20 @@
         const xpContent = document.getElementById('content-xp');
 
         if (tab === 'wish') {
-            wishBtn.classList.add('text-indigo-600', 'border-indigo-600');
-            wishBtn.classList.remove('text-slate-400', 'border-transparent');
-            xpBtn.classList.add('text-slate-400', 'border-transparent');
-            xpBtn.classList.remove('text-indigo-600', 'border-indigo-600');
+            wishBtn.className = "flex-1 py-2.5 text-xs font-black rounded-xl transition-all bg-white text-slate-900 shadow-sm";
+            xpBtn.className = "flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-400";
             wishContent.classList.remove('hidden');
             xpContent.classList.add('hidden');
         } else {
-            xpBtn.classList.add('text-indigo-600', 'border-indigo-600');
-            xpBtn.classList.remove('text-slate-400', 'border-transparent');
-            wishBtn.classList.add('text-slate-400', 'border-transparent');
-            wishBtn.classList.remove('text-indigo-600', 'border-indigo-600');
+            xpBtn.className = "flex-1 py-2.5 text-xs font-black rounded-xl transition-all bg-white text-slate-900 shadow-sm";
+            wishBtn.className = "flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-400";
             xpContent.classList.remove('hidden');
             wishContent.classList.add('hidden');
         }
     }
 
-    function showMissionDetail(title, date) {
+    function showMissionDetail(title, date, icon) {
+        document.getElementById('modal-icon').innerText = icon;
         document.getElementById('modal-title').innerText = title;
         document.getElementById('modal-date').innerText = date;
         document.getElementById('mission-modal').classList.remove('hidden');
@@ -188,23 +205,12 @@
         document.getElementById('mission-modal').classList.add('hidden');
     }
 
-    // 언어 변경 감지 및 적용
-    window.addEventListener('languageChanged', (e) => {
-        const lang = e.detail;
-        const dict = historyI18n[lang];
-        document.querySelectorAll('[data-lang]').forEach(el => {
-            const key = el.getAttribute('data-lang');
-            if (dict[key]) el.innerHTML = dict[key];
-        });
-    });
-
-    // 초기 언어 설정
     (function init() {
-        const currentLang = localStorage.getItem('selectedLang') || 'KO';
-        const dict = historyI18n[currentLang];
+        const lang = localStorage.getItem('selectedLang') || 'KO';
+        const dict = historyI18n[lang] || historyI18n['EN'];
         document.querySelectorAll('[data-lang]').forEach(el => {
-            const key = el.getAttribute('data-lang');
-            if (dict[key]) el.innerHTML = dict[key];
+            const k = el.getAttribute('data-lang');
+            if (dict[k]) el.innerHTML = dict[k];
         });
     })();
 </script>
