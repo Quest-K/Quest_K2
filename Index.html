@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Quest-K Regional Router</title>
+    <title>Quest-K MVP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .pb-safe { padding-bottom: calc(9rem + env(safe-area-inset-bottom)); } /* 광고 영역 확보를 위해 패딩 증가 */
+        .pb-safe { padding-bottom: calc(9rem + env(safe-area-inset-bottom)); }
         .gradient-text { background: linear-gradient(to right, #4f46e5, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .category-card { background: white; border-radius: 1.5rem; padding: 1.25rem 0.5rem; display: flex; flex-direction: column; align-items: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: all 0.2s; border: 1px solid #f1f5f9; }
         .category-card:active { transform: scale(0.95); }
         .icon-wrapper { width: 3.25rem; height: 3.25rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.7rem; color: #94a3b8; font-weight: 600; cursor: pointer; transition: color 0.2s; flex: 1; }
+        
+        /* Navigation Styling - 3 Buttons MVP */
+        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #94a3b8; font-weight: 700; cursor: pointer; transition: color 0.2s; flex: 1; }
         .nav-item.active { color: #4f46e5; }
         
         #main-content { transition: opacity 0.2s ease-in-out; }
         .fade-out { opacity: 0; }
         .fade-in { opacity: 1; }
 
-        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #4f46e5; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         #lang-dropdown { display: none; transform-origin: top right; animation: dropdownScale 0.2s ease-out forwards; }
         @keyframes dropdownScale { from { opacity: 0; transform: scale(0.95) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-        /* Ad Banner Styling */
+        /* Ad Banner */
         .ad-banner {
             position: fixed;
-            bottom: 5.5rem; /* 하단 네비게이션 바로 위 */
+            bottom: 6rem;
             left: 50%;
             transform: translateX(-50%);
             width: calc(100% - 2.5rem);
@@ -42,16 +41,15 @@
             gap: 0.75rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
             z-index: 40;
-            overflow: hidden;
         }
-        .ad-badge { background: #f1f5f9; color: #94a3b8; font-size: 9px; font-weight: 800; padding: 2px 4px; border-radius: 4px; line-height: 1; }
+        .ad-badge { background: #f1f5f9; color: #94a3b8; font-size: 9px; font-weight: 800; padding: 2px 4px; border-radius: 4px; }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-900 overflow-x-hidden">
 
-    <div class="max-w-2xl mx-auto min-h-screen flex flex-col relative">
+    <div class="max-w-2xl mx-auto min-h-screen flex flex-col relative bg-white shadow-xl">
         
-        <!-- Header -->
+        <!-- Header (Restored Original) -->
         <header class="bg-white/90 backdrop-blur-md px-5 py-3 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
             <div class="flex items-center gap-2">
                 <button id="back-btn" onclick="goHome()" class="p-1.5 -ml-1 rounded-full hover:bg-slate-100 transition-colors invisible">
@@ -80,7 +78,7 @@
         <main id="main-content" class="flex-grow pb-safe overflow-y-auto">
         </main>
 
-        <!-- Ad Banner (고정형 배너) -->
+        <!-- Ad Banner -->
         <div class="ad-banner animate-[fadeIn_0.5s_ease-out]">
             <div class="ad-badge">AD</div>
             <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-xl">🎁</div>
@@ -91,31 +89,24 @@
             <button class="bg-indigo-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full whitespace-nowrap active:scale-95 transition-transform" data-lang="ad-btn">GO</button>
         </div>
 
-        <!-- Navigation -->
-        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/95 backdrop-blur-2xl border-t border-slate-100 px-6 py-4 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
+        <!-- MVP Bottom Navigation (3 Buttons) -->
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/95 backdrop-blur-2xl border-t border-slate-100 px-10 py-4 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
             <button id="nav-home" class="nav-item active" onclick="goHome()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                <span data-lang="nav-home">홈</span>
-            </button>
-            <button id="nav-mission" class="nav-item" onclick="loadExternalPage('Mission.html', 'mission')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
                 <span data-lang="nav-mission">미션</span>
             </button>
-            <button id="nav-quiz" class="nav-item" onclick="loadExternalPage('quiz.html', 'quiz')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span data-lang="nav-quiz">퀴즈</span>
+            <button id="nav-wish" class="nav-item" onclick="loadPageContent('tpl-wish', 'wish')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                <span data-lang="nav-wish">찜</span>
             </button>
-            <button id="nav-rank" class="nav-item" onclick="loadExternalPage('Rank.html', 'rank')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                <span data-lang="nav-rank">랭킹</span>
-            </button>
-            <button id="nav-history" class="nav-item" onclick="loadExternalPage('History.html', 'history')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            <button id="nav-history" class="nav-item" onclick="loadPageContent('tpl-history', 'history')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <span data-lang="nav-history">기록</span>
             </button>
         </nav>
     </div>
 
+    <!-- Home Template (Main Mission Explorer) -->
     <script type="text/template" id="tpl-home">
         <section class="px-5 mt-6">
             <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2.5rem] p-7 text-white shadow-xl h-44 flex flex-col justify-center relative overflow-hidden">
@@ -125,6 +116,7 @@
             </div>
         </section>
 
+        <!-- Regional Selector -->
         <section class="px-5 mt-10">
             <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
                 <span class="w-1.5 h-6 bg-indigo-600 rounded-full"></span>
@@ -142,19 +134,43 @@
             </div>
         </section>
 
+        <!-- Category Selector -->
         <section class="px-5 mt-10 mb-10">
             <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
                 <span class="w-1.5 h-6 bg-purple-600 rounded-full"></span>
                 <span data-lang="mission-cat-title">어떤 미션을 하고 싶나요?</span>
             </h3>
-            <div class="grid grid-cols-5 gap-2">
-                <div class="category-card" onclick="loadExternalPage('Food.html', 'home')"><div class="icon-wrapper !w-11 !h-11 !text-xl bg-red-50 text-red-500">🍎</div><span class="text-[0.65rem] font-bold" data-lang="cat-food">음식</span></div>
-                <div class="category-card" onclick="loadExternalPage('Music.html', 'home')"><div class="icon-wrapper !w-11 !h-11 !text-xl bg-pink-50 text-pink-500">🎵</div><span class="text-[0.65rem] font-bold" data-lang="cat-music">음악</span></div>
-                <div class="category-card" onclick="loadExternalPage('Photozone.html', 'home')"><div class="icon-wrapper !w-11 !h-11 !text-xl bg-cyan-50 text-cyan-500">📸</div><span class="text-[0.65rem] font-bold" data-lang="cat-photo">포토존</span></div>
-                <div class="category-card" onclick="loadExternalPage('K-life.html', 'home')"><div class="icon-wrapper !w-11 !h-11 !text-xl bg-emerald-50 text-emerald-500">🏠</div><span class="text-[0.65rem] font-bold" data-lang="cat-klife">K라이프</span></div>
-                <div class="category-card" onclick="loadExternalPage('Activity.html', 'home')"><div class="icon-wrapper !w-11 !h-11 !text-xl bg-amber-50 text-amber-500">🏃</div><span class="text-[0.65rem] font-bold" data-lang="cat-activity">액티비티</span></div>
+            <div class="grid grid-cols-4 gap-3">
+                <div class="category-card" onclick="loadExternalPage('Food.html', 'home')"><div class="icon-wrapper bg-red-50 text-red-500">🥘</div><span class="text-[0.7rem] font-black" data-lang="cat-food">음식</span></div>
+                <div class="category-card" onclick="loadExternalPage('Nature.html', 'home')"><div class="icon-wrapper bg-emerald-50 text-emerald-500">🏔️</div><span class="text-[0.7rem] font-black" data-lang="cat-nature">자연</span></div>
+                <div class="category-card" onclick="loadExternalPage('History.html', 'home')"><div class="icon-wrapper bg-amber-50 text-amber-500">🏯</div><span class="text-[0.7rem] font-black" data-lang="cat-history">역사</span></div>
+                <div class="category-card" onclick="loadExternalPage('K-life.html', 'home')"><div class="icon-wrapper bg-indigo-50 text-indigo-500">🏠</div><span class="text-[0.7rem] font-black" data-lang="cat-klife">K-라이프</span></div>
             </div>
         </section>
+    </script>
+
+    <!-- Wish Template -->
+    <script type="text/template" id="tpl-wish">
+        <div class="p-10 text-center animate-[fadeIn_0.3s_ease-out]">
+            <div class="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">💝</div>
+            <h3 class="text-xl font-black">Your Wishlist</h3>
+            <p class="text-slate-400 text-sm mt-2">Missions you want to do later.</p>
+            <div class="mt-8 text-slate-300 text-sm font-bold italic">No Items Yet</div>
+        </div>
+    </script>
+
+    <!-- History Template -->
+    <script type="text/template" id="tpl-history">
+        <div class="p-5 animate-[fadeIn_0.3s_ease-out]">
+            <div class="bg-indigo-50 p-6 rounded-[2rem] border border-indigo-100 mb-6 flex items-center justify-between">
+                <div>
+                    <p class="text-indigo-600 text-xs font-black uppercase tracking-widest">Achievements</p>
+                    <h3 class="text-2xl font-black text-indigo-900">0 Missions</h3>
+                </div>
+                <div class="text-4xl">🏅</div>
+            </div>
+            <div class="text-center py-10 text-slate-300 font-bold">No history available.</div>
+        </div>
     </script>
 
     <script>
@@ -164,28 +180,28 @@
 
         const mainI18n = {
             KO: {
-                "nav-home": "홈", "nav-mission": "미션", "nav-quiz": "퀴즈", "nav-rank": "랭킹", "nav-history": "기록",
+                "nav-mission": "미션", "nav-wish": "찜", "nav-history": "기록",
                 "banner-title": "광고 시청 시<br>포인트 2배 보상!", "banner-sub": "상위 랭킹 도전의 지름길",
                 "home-title": "어디로 가시나요?", "reg-seoul": "서울", "reg-gyeonggi": "경기", "reg-gangwon": "강원",
                 "reg-chungcheong": "충청", "reg-jeonla": "전라", "reg-gyeongsang": "경상", "reg-jeju": "제주", "reg-anywhere": "전국",
-                "mission-cat-title": "어떤 미션을 하고 싶나요?", "cat-food": "음식", "cat-music": "음악", "cat-photo": "포토존", "cat-klife": "K라이프", "cat-activity": "액티비티",
+                "mission-cat-title": "어떤 미션을 하고 싶나요?", "cat-food": "음식", "cat-nature": "자연", "cat-history": "역사", "cat-klife": "K-라이프",
                 "ad-msg": "광고 시청 시 랭킹 포인트를 2배로 받으세요!", "ad-btn": "이동"
             },
             EN: {
-                "nav-home": "Home", "nav-mission": "Mission", "nav-quiz": "Quiz", "nav-rank": "Rank", "nav-history": "History",
+                "nav-mission": "Mission", "nav-wish": "Wish", "nav-history": "History",
                 "banner-title": "Watch Ads<br>Get 2x Points!", "banner-sub": "Fastest way to rank up",
                 "home-title": "Where to go?", "reg-seoul": "Seoul", "reg-gyeonggi": "Gyeonggi", "reg-gangwon": "Gangwon",
                 "reg-chungcheong": "Chungcheong", "reg-jeonla": "Jeonla", "reg-gyeongsang": "Gyeongsang", "reg-jeju": "Jeju", "reg-anywhere": "All",
-                "mission-cat-title": "Choose your mission", "cat-food": "Food", "cat-music": "Music", "cat-photo": "Photo", "cat-klife": "K-Life", "cat-activity": "Activity",
+                "mission-cat-title": "Choose your mission", "cat-food": "Food", "cat-nature": "Nature", "cat-history": "History", "cat-klife": "K-Life",
                 "ad-msg": "Watch ads and get double ranking points!", "ad-btn": "GO"
             },
             JP: {
-                "nav-home": "ホーム", "nav-mission": "ミッション", "nav-quiz": "クイズ", "nav-rank": "ランキング", "nav-history": "記録",
+                "nav-mission": "ミッション", "nav-wish": "ウィッシュ", "nav-history": "記録",
                 "banner-title": "広告視聴で<br>ポイント2倍！", "banner-sub": "ランキングへの近道",
                 "home-title": "どこへ行きますか？", "reg-seoul": "ソウル", "reg-gyeonggi": "京畿", "reg-gangwon": "江原",
                 "reg-chungcheong": "忠清", "reg-jeonla": "全羅", "reg-gyeongsang": "慶尚", "reg-jeju": "済州", "reg-anywhere": "全国",
-                "mission-cat-title": "ミッションを選んでください", "cat-food": "グルメ", "cat-music": "音楽", "cat-photo": "フォト", "cat-klife": "Kライフ", "cat-activity": "活動",
-                "ad-msg": "広告を視聴してランキングポイントを2倍に！", "ad-btn": "移動"
+                "mission-cat-title": "ミッションを選んでください", "cat-food": "グルメ", "cat-nature": "自然", "cat-history": "歴史", "cat-klife": "Kライフ",
+                "ad-msg": "広告を視聴してランキングポイントを2배에！", "ad-btn": "移動"
             }
         };
 
@@ -198,9 +214,6 @@
             localStorage.setItem('selectedLang', langCode);
             applyMainLanguage();
             langDropdown.style.display = 'none';
-            
-            // 모든 하위 프레임/섹션에 언어 변경 알림 전송
-            window.dispatchEvent(new CustomEvent('languageChanged', { detail: langCode }));
         }
 
         function applyMainLanguage() {
@@ -213,6 +226,21 @@
             });
         }
 
+        // Internal Template Navigation
+        function loadPageContent(templateId, navId) {
+            contentArea.classList.add('fade-out');
+            setTimeout(() => {
+                contentArea.innerHTML = document.getElementById(templateId).innerHTML;
+                contentArea.classList.remove('fade-out');
+                contentArea.classList.add('fade-in');
+                updateNav(navId);
+                backBtn.classList.remove('invisible');
+                window.scrollTo(0, 0);
+                applyMainLanguage();
+            }, 100);
+        }
+
+        // External HTML Loading (Restore regional routing)
         async function loadExternalPage(fileName, navId) {
             contentArea.classList.add('fade-out');
             setTimeout(async () => {
@@ -221,7 +249,7 @@
                     const html = await response.text();
                     contentArea.innerHTML = html;
                     
-                    // 내부 스크립트 실행 최적화
+                    // Scripts in external html
                     const scripts = contentArea.querySelectorAll("script");
                     scripts.forEach(oldScript => {
                         const newScript = document.createElement("script");
@@ -238,7 +266,7 @@
                     window.scrollTo(0, 0);
                     applyMainLanguage();
                 } catch (e) {
-                    contentArea.innerHTML = `<div class="p-10 text-center text-slate-400 font-bold">Error loading page.</div>`;
+                    contentArea.innerHTML = `<div class="p-10 text-center text-slate-400 font-bold">Error loading ${fileName}.</div>`;
                 }
             }, 100);
         }
