@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Quest-K MVP</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .pb-safe { padding-bottom: calc(9rem + env(safe-area-inset-bottom)); }
@@ -12,287 +13,159 @@
         .category-card { background: white; border-radius: 1.5rem; padding: 1.25rem 0.5rem; display: flex; flex-direction: column; align-items: center; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: all 0.2s; border: 1px solid #f1f5f9; }
         .category-card:active { transform: scale(0.95); }
         .icon-wrapper { width: 3.25rem; height: 3.25rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 0.5rem; }
-        
-        /* Navigation Styling - 3 Buttons MVP */
         .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #94a3b8; font-weight: 700; cursor: pointer; transition: color 0.2s; flex: 1; }
         .nav-item.active { color: #4f46e5; }
-        
         #main-content { transition: opacity 0.2s ease-in-out; }
         .fade-out { opacity: 0; }
         .fade-in { opacity: 1; }
-
-        #lang-dropdown { display: none; transform-origin: top right; animation: dropdownScale 0.2s ease-out forwards; }
-        @keyframes dropdownScale { from { opacity: 0; transform: scale(0.95) translateY(-10px); } to { opacity: 1; transform: scale(1) translateY(0); } }
-
-        /* Ad Banner */
-        .ad-banner {
-            position: fixed;
-            bottom: 6rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 2.5rem);
-            max-width: 600px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 1rem;
-            padding: 0.5rem 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            z-index: 40;
-        }
-        .ad-badge { background: #f1f5f9; color: #94a3b8; font-size: 9px; font-weight: 800; padding: 2px 4px; border-radius: 4px; }
+        .mission-card { background: white; border: 1px solid #f1f5f9; border-radius: 1.25rem; padding: 1.25rem; margin-bottom: 1rem; animation: fadeIn 0.4s ease-out; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .tag { font-size: 0.65rem; font-weight: 800; padding: 2px 8px; border-radius: 6px; margin-right: 4px; }
     </style>
 </head>
 <body class="bg-[#f8fafc] text-slate-900 overflow-x-hidden">
 
     <div class="max-w-2xl mx-auto min-h-screen flex flex-col relative bg-white shadow-xl">
         
-        <!-- Header (Restored Original) -->
         <header class="bg-white/90 backdrop-blur-md px-5 py-3 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
             <div class="flex items-center gap-2">
                 <button id="back-btn" onclick="goHome()" class="p-1.5 -ml-1 rounded-full hover:bg-slate-100 transition-colors invisible">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7" /></svg>
                 </button>
                 <h1 class="text-2xl font-black gradient-text tracking-tighter cursor-pointer" onclick="goHome()">Quest-K</h1>
             </div>
-            
-            <div class="flex items-center gap-2 relative">
-                <button id="lang-btn" onclick="toggleLangDropdown(event)" class="bg-[#f1f5f9] px-3 py-1.5 rounded-full text-[0.75rem] font-bold text-slate-600 border border-slate-200 hover:bg-slate-200 transition-all flex items-center gap-1.5">
-                    <span class="text-blue-500">🌐</span> <span id="current-lang-label">KO</span>
-                </button>
-
-                <div id="lang-dropdown" class="absolute right-0 top-full mt-2 w-32 bg-white border border-slate-100 rounded-2xl shadow-xl overflow-hidden z-[110]">
-                    <div class="flex flex-col p-1">
-                        <button onclick="selectLanguage('KO')" class="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-colors"><span>🇰🇷</span> 한국어</button>
-                        <button onclick="selectLanguage('EN')" class="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-colors"><span>🇺🇸</span> English</button>
-                        <button onclick="selectLanguage('JP')" class="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl transition-colors"><span>🇯🇵</span> 日本語</button>
-                    </div>
-                </div>
-                <button class="p-2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg></button>
-            </div>
+            <button id="lang-btn" class="bg-[#f1f5f9] px-3 py-1.5 rounded-full text-[0.75rem] font-bold text-slate-600 border border-slate-200">
+                🌐 KO
+            </button>
         </header>
 
-        <!-- Content Area -->
-        <main id="main-content" class="flex-grow pb-safe overflow-y-auto">
-        </main>
+        <main id="main-content" class="flex-grow pb-safe overflow-y-auto"></main>
 
-        <!-- Ad Banner -->
-        <div class="ad-banner animate-[fadeIn_0.5s_ease-out]">
-            <div class="ad-badge">AD</div>
-            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-xl">🎁</div>
-            <div class="flex-1 overflow-hidden">
-                <p id="ad-text" class="text-[11px] font-bold text-slate-800 truncate" data-lang="ad-msg">광고를 시청하고 랭킹 포인트를 2배로 받으세요!</p>
-                <p class="text-[9px] text-slate-400 font-medium">sponsored by Quest-K Partners</p>
-            </div>
-            <button class="bg-indigo-600 text-white text-[10px] font-black px-3 py-1.5 rounded-full whitespace-nowrap active:scale-95 transition-transform" data-lang="ad-btn">GO</button>
-        </div>
-
-        <!-- MVP Bottom Navigation (3 Buttons) -->
         <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/95 backdrop-blur-2xl border-t border-slate-100 px-10 py-4 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
             <button id="nav-home" class="nav-item active" onclick="goHome()">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
-                <span data-lang="nav-mission">미션</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4" /></svg>
+                <span>미션</span>
             </button>
-            <button id="nav-wish" class="nav-item" onclick="loadPageContent('tpl-wish', 'wish')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                <span data-lang="nav-wish">찜</span>
+            <button id="nav-wish" class="nav-item" onclick="alert('준비 중인 기능입니다.')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                <span>찜</span>
             </button>
-            <button id="nav-history" class="nav-item" onclick="loadPageContent('tpl-history', 'history')">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                <span data-lang="nav-history">기록</span>
+            <button id="nav-history" class="nav-item" onclick="alert('준비 중인 기능입니다.')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>기록</span>
             </button>
         </nav>
     </div>
 
-    <!-- Home Template (Main Mission Explorer) -->
     <script type="text/template" id="tpl-home">
         <section class="px-5 mt-6">
             <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2.5rem] p-7 text-white shadow-xl h-44 flex flex-col justify-center relative overflow-hidden">
-                <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-                <h2 class="text-2xl font-black leading-tight z-10" data-lang="banner-title">광고 시청 시<br>포인트 2배 보상!</h2>
-                <p class="text-sm text-indigo-100 mt-2 z-10" data-lang="banner-sub">상위 랭킹 도전의 지름길</p>
+                <h2 class="text-2xl font-black leading-tight z-10">광고 시청 시<br>포인트 2배 보상!</h2>
+                <p class="text-sm text-indigo-100 mt-2 z-10">상위 랭킹 도전의 지름길</p>
             </div>
         </section>
 
-        <!-- Regional Selector -->
         <section class="px-5 mt-10">
-            <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
-                <span class="w-1.5 h-6 bg-indigo-600 rounded-full"></span>
-                <span data-lang="home-title">어디로 가시나요?</span>
-            </h3>
+            <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2"><span class="w-1.5 h-6 bg-indigo-600 rounded-full"></span>어디로 가시나요?</h3>
             <div class="grid grid-cols-4 gap-3">
-                <div class="category-card" onclick="loadExternalPage('Seoul.html', 'home')"><div class="icon-wrapper bg-orange-50 text-orange-500">🏙️</div><span class="text-[0.7rem] font-black" data-lang="reg-seoul">서울</span></div>
-                <div class="category-card" onclick="loadExternalPage('Gyeonggi.html', 'home')"><div class="icon-wrapper bg-blue-50 text-blue-500">🏰</div><span class="text-[0.7rem] font-black" data-lang="reg-gyeonggi">경기</span></div>
-                <div class="category-card" onclick="loadExternalPage('Gangwon.html', 'home')"><div class="icon-wrapper bg-green-50 text-green-500">🌲</div><span class="text-[0.7rem] font-black" data-lang="reg-gangwon">강원</span></div>
-                <div class="category-card" onclick="loadExternalPage('Chungcheong.html', 'home')"><div class="icon-wrapper bg-yellow-50 text-yellow-600">🌳</div><span class="text-[0.7rem] font-black" data-lang="reg-chungcheong">충청</span></div>
-                <div class="category-card" onclick="loadExternalPage('Jeonla.html', 'home')"><div class="icon-wrapper bg-purple-50 text-purple-500">🥘</div><span class="text-[0.7rem] font-black" data-lang="reg-jeonla">전라</span></div>
-                <div class="category-card" onclick="loadExternalPage('Gyeongsang.html', 'home')"><div class="icon-wrapper bg-indigo-50 text-indigo-500">🌉</div><span class="text-[0.7rem] font-black" data-lang="reg-gyeongsang">경상</span></div>
-                <div class="category-card" onclick="loadExternalPage('Jeju.html', 'home')"><div class="icon-wrapper bg-red-50 text-red-500">🗿</div><span class="text-[0.7rem] font-black" data-lang="reg-jeju">제주</span></div>
-                <div class="category-card" onclick="loadExternalPage('Anywhere.html', 'home')"><div class="icon-wrapper bg-gray-100 text-gray-500">🌍</div><span class="text-[0.7rem] font-black" data-lang="reg-anywhere">전국</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('region', '서울')"><div class="icon-wrapper bg-orange-50 text-orange-500">🏙️</div><span class="text-[0.7rem] font-black">서울</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('region', '경기')"><div class="icon-wrapper bg-blue-50 text-blue-500">🏰</div><span class="text-[0.7rem] font-black">경기</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('region', '제주')"><div class="icon-wrapper bg-red-50 text-red-500">🗿</div><span class="text-[0.7rem] font-black">제주</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('region', '전국공통')"><div class="icon-wrapper bg-gray-100 text-gray-500">🌍</div><span class="text-[0.7rem] font-black">전국</span></div>
             </div>
         </section>
 
-        <!-- Category Selector -->
         <section class="px-5 mt-10 mb-10">
-            <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2">
-                <span class="w-1.5 h-6 bg-purple-600 rounded-full"></span>
-                <span data-lang="mission-cat-title">어떤 미션을 하고 싶나요?</span>
-            </h3>
+            <h3 class="text-xl font-black text-slate-900 mb-6 flex items-center gap-2"><span class="w-1.5 h-6 bg-purple-600 rounded-full"></span>어떤 미션을 하고 싶나요?</h3>
             <div class="grid grid-cols-4 gap-3">
-                <div class="category-card" onclick="loadExternalPage('Food.html', 'home')"><div class="icon-wrapper bg-red-50 text-red-500">🥘</div><span class="text-[0.7rem] font-black" data-lang="cat-food">음식</span></div>
-                <div class="category-card" onclick="loadExternalPage('Nature.html', 'home')"><div class="icon-wrapper bg-emerald-50 text-emerald-500">🏔️</div><span class="text-[0.7rem] font-black" data-lang="cat-nature">자연</span></div>
-                <div class="category-card" onclick="loadExternalPage('History.html', 'home')"><div class="icon-wrapper bg-amber-50 text-amber-500">🏯</div><span class="text-[0.7rem] font-black" data-lang="cat-history">역사</span></div>
-                <div class="category-card" onclick="loadExternalPage('K-life.html', 'home')"><div class="icon-wrapper bg-indigo-50 text-indigo-500">🏠</div><span class="text-[0.7rem] font-black" data-lang="cat-klife">K-라이프</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('category', 'K-Food')"><div class="icon-wrapper bg-red-50 text-red-500">🥘</div><span class="text-[0.7rem] font-black">음식</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('category', 'Nature')"><div class="icon-wrapper bg-emerald-50 text-emerald-500">🏔️</div><span class="text-[0.7rem] font-black">자연</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('category', 'History')"><div class="icon-wrapper bg-amber-50 text-amber-500">🏯</div><span class="text-[0.7rem] font-black">역사</span></div>
+                <div class="category-card" onclick="fetchMissionsByFilter('category', 'K-Life')"><div class="icon-wrapper bg-indigo-50 text-indigo-500">🏠</div><span class="text-[0.7rem] font-black">K-라이프</span></div>
             </div>
         </section>
     </script>
 
-    <!-- Wish Template -->
-    <script type="text/template" id="tpl-wish">
-        <div class="p-10 text-center animate-[fadeIn_0.3s_ease-out]">
-            <div class="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">💝</div>
-            <h3 class="text-xl font-black">Your Wishlist</h3>
-            <p class="text-slate-400 text-sm mt-2">Missions you want to do later.</p>
-            <div class="mt-8 text-slate-300 text-sm font-bold italic">No Items Yet</div>
-        </div>
-    </script>
-
-    <!-- History Template -->
-    <script type="text/template" id="tpl-history">
+    <script type="text/template" id="tpl-mission-list">
         <div class="p-5 animate-[fadeIn_0.3s_ease-out]">
-            <div class="bg-indigo-50 p-6 rounded-[2rem] border border-indigo-100 mb-6 flex items-center justify-between">
-                <div>
-                    <p class="text-indigo-600 text-xs font-black uppercase tracking-widest">Achievements</p>
-                    <h3 class="text-2xl font-black text-indigo-900">0 Missions</h3>
-                </div>
-                <div class="text-4xl">🏅</div>
-            </div>
-            <div class="text-center py-10 text-slate-300 font-bold">No history available.</div>
+            <h3 id="list-title" class="text-xl font-black mb-6 text-slate-900"></h3>
+            <div id="mission-items"></div>
         </div>
     </script>
 
     <script>
+        // 1. Supabase 접속 정보 반영
+        const SUPABASE_URL = 'https://xyyoeovwrkcwhwdmjeyx.supabase.co'; 
+        const SUPABASE_ANON_KEY = 'sb_publishable_Jm_XX_GapNRJEdlQGBP7hw_JqdtHkjX';
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const contentArea = document.getElementById('main-content');
         const backBtn = document.getElementById('back-btn');
-        const langDropdown = document.getElementById('lang-dropdown');
 
-        const mainI18n = {
-            KO: {
-                "nav-mission": "미션", "nav-wish": "찜", "nav-history": "기록",
-                "banner-title": "광고 시청 시<br>포인트 2배 보상!", "banner-sub": "상위 랭킹 도전의 지름길",
-                "home-title": "어디로 가시나요?", "reg-seoul": "서울", "reg-gyeonggi": "경기", "reg-gangwon": "강원",
-                "reg-chungcheong": "충청", "reg-jeonla": "전라", "reg-gyeongsang": "경상", "reg-jeju": "제주", "reg-anywhere": "전국",
-                "mission-cat-title": "어떤 미션을 하고 싶나요?", "cat-food": "음식", "cat-nature": "자연", "cat-history": "역사", "cat-klife": "K-라이프",
-                "ad-msg": "광고 시청 시 랭킹 포인트를 2배로 받으세요!", "ad-btn": "이동"
-            },
-            EN: {
-                "nav-mission": "Mission", "nav-wish": "Wish", "nav-history": "History",
-                "banner-title": "Watch Ads<br>Get 2x Points!", "banner-sub": "Fastest way to rank up",
-                "home-title": "Where to go?", "reg-seoul": "Seoul", "reg-gyeonggi": "Gyeonggi", "reg-gangwon": "Gangwon",
-                "reg-chungcheong": "Chungcheong", "reg-jeonla": "Jeonla", "reg-gyeongsang": "Gyeongsang", "reg-jeju": "Jeju", "reg-anywhere": "All",
-                "mission-cat-title": "Choose your mission", "cat-food": "Food", "cat-nature": "Nature", "cat-history": "History", "cat-klife": "K-Life",
-                "ad-msg": "Watch ads and get double ranking points!", "ad-btn": "GO"
-            },
-            JP: {
-                "nav-mission": "ミッション", "nav-wish": "ウィッシュ", "nav-history": "記録",
-                "banner-title": "広告視聴で<br>ポイント2倍！", "banner-sub": "ランキングへの近道",
-                "home-title": "どこへ行きますか？", "reg-seoul": "ソウル", "reg-gyeonggi": "京畿", "reg-gangwon": "江原",
-                "reg-chungcheong": "忠清", "reg-jeonla": "全羅", "reg-gyeongsang": "慶尚", "reg-jeju": "済州", "reg-anywhere": "全国",
-                "mission-cat-title": "ミッションを選んでください", "cat-food": "グルメ", "cat-nature": "自然", "cat-history": "歴史", "cat-klife": "Kライフ",
-                "ad-msg": "広告を視聴してランキングポイントを2배에！", "ad-btn": "移動"
+        // 2. 미션 필터링 호출 함수
+        async function fetchMissionsByFilter(type, value) {
+            contentArea.innerHTML = '<div class="flex flex-col items-center justify-center h-64 text-slate-400"><div class="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600 mb-4"></div><p class="font-bold">미션을 불러오고 있습니다...</p></div>';
+            backBtn.classList.remove('invisible');
+            
+            const { data, error } = await _supabase
+                .from('missions')
+                .select('*')
+                .eq(type, value);
+
+            if (error) {
+                contentArea.innerHTML = `<div class="p-20 text-center text-red-500">데이터를 가져오지 못했습니다: ${error.message}</div>`;
+                return;
             }
-        };
 
-        function toggleLangDropdown(e) {
-            e.stopPropagation();
-            langDropdown.style.display = langDropdown.style.display === 'block' ? 'none' : 'block';
+            renderMissionList(`${value} 미션`, data);
         }
 
-        function selectLanguage(langCode) {
-            localStorage.setItem('selectedLang', langCode);
-            applyMainLanguage();
-            langDropdown.style.display = 'none';
-        }
+        // 3. 미션 리스트 렌더링 함수
+        function renderMissionList(title, items) {
+            contentArea.innerHTML = document.getElementById('tpl-mission-list').innerHTML;
+            document.getElementById('list-title').innerText = title;
+            const container = document.getElementById('mission-items');
 
-        function applyMainLanguage() {
-            const savedLang = localStorage.getItem('selectedLang') || 'KO';
-            document.getElementById('current-lang-label').innerText = savedLang;
-            const dict = mainI18n[savedLang];
-            document.querySelectorAll('[data-lang]').forEach(el => {
-                const key = el.getAttribute('data-lang');
-                if (dict[key]) el.innerHTML = dict[key];
+            if (items.length === 0) {
+                container.innerHTML = '<div class="py-20 text-center"><p class="text-slate-300 text-3xl mb-4">📭</p><p class="text-slate-400 font-bold">등록된 미션이 없습니다.</p></div>';
+                return;
+            }
+
+            items.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'mission-card';
+                el.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="tag bg-indigo-50 text-indigo-600">${item.category}</span>
+                        <span class="text-[10px] text-slate-400 font-bold">${item.region}</span>
+                    </div>
+                    <h4 class="font-black text-lg mb-1">${item.mission_name}</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed mb-4">${item.guide}</p>
+                    <div class="flex justify-between items-center pt-2 border-t border-slate-50">
+                        <div class="flex items-center gap-1">
+                            <span class="text-amber-500">⭐</span>
+                            <span class="text-slate-900 font-black text-sm">100P</span>
+                        </div>
+                        <button onclick="alert('${item.mission_name} 미션을 수락했습니다!')" class="bg-indigo-600 text-white text-[10px] px-4 py-2 rounded-full font-black shadow-lg shadow-indigo-100 active:scale-95 transition-all">도전하기</button>
+                    </div>
+                `;
+                container.appendChild(el);
             });
-        }
-
-        // Internal Template Navigation
-        function loadPageContent(templateId, navId) {
-            contentArea.classList.add('fade-out');
-            setTimeout(() => {
-                contentArea.innerHTML = document.getElementById(templateId).innerHTML;
-                contentArea.classList.remove('fade-out');
-                contentArea.classList.add('fade-in');
-                updateNav(navId);
-                backBtn.classList.remove('invisible');
-                window.scrollTo(0, 0);
-                applyMainLanguage();
-            }, 100);
-        }
-
-        // External HTML Loading (Restore regional routing)
-        async function loadExternalPage(fileName, navId) {
-            contentArea.classList.add('fade-out');
-            setTimeout(async () => {
-                try {
-                    const response = await fetch(`./${fileName}?v=${Date.now()}`);
-                    const html = await response.text();
-                    contentArea.innerHTML = html;
-                    
-                    // Scripts in external html
-                    const scripts = contentArea.querySelectorAll("script");
-                    scripts.forEach(oldScript => {
-                        const newScript = document.createElement("script");
-                        Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
-                        newScript.textContent = oldScript.textContent;
-                        document.body.appendChild(newScript);
-                        document.body.removeChild(newScript);
-                    });
-
-                    contentArea.classList.remove('fade-out');
-                    contentArea.classList.add('fade-in');
-                    updateNav(navId);
-                    backBtn.classList.remove('invisible');
-                    window.scrollTo(0, 0);
-                    applyMainLanguage();
-                } catch (e) {
-                    contentArea.innerHTML = `<div class="p-10 text-center text-slate-400 font-bold">Error loading ${fileName}.</div>`;
-                }
-            }, 100);
+            window.scrollTo(0, 0);
         }
 
         function goHome() {
-            contentArea.classList.add('fade-out');
-            setTimeout(() => {
-                contentArea.innerHTML = document.getElementById('tpl-home').innerHTML;
-                contentArea.classList.remove('fade-out');
-                contentArea.classList.add('fade-in');
-                updateNav('home');
-                backBtn.classList.add('invisible');
-                window.scrollTo(0, 0);
-                applyMainLanguage();
-            }, 100);
+            contentArea.innerHTML = document.getElementById('tpl-home').innerHTML;
+            backBtn.classList.add('invisible');
+            updateNav('home');
         }
 
         function updateNav(navId) {
-            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             const target = document.getElementById('nav-' + navId);
-            if (target) target.classList.add('active');
+            if(target) target.classList.add('active');
         }
 
-        window.onclick = () => langDropdown.style.display = 'none';
         window.onload = () => goHome();
     </script>
 </body>
 </html>
-
