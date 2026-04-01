@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MeoGo | Seoul Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap');
+        body { font-family: 'Pretendard', sans-serif; -webkit-tap-highlight-color: transparent; letter-spacing: -0.02em; }
+        .river-line { height: 8px; background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 50%, #60a5fa 100%); border-radius: 999px; position: relative; overflow: hidden; }
+        .river-line::after { content: ""; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: flow 3s infinite linear; }
+        @keyframes flow { 0% { left: -100%; } 100% { left: 100%; } }
+        .seoul-region-card { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid #f1f5f9; background: white; }
+        .seoul-region-card:active { transform: scale(0.96); background-color: #f0f7ff; border-color: #3b82f6; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
+
+    <main class="max-w-2xl mx-auto min-h-screen bg-white shadow-lg flex flex-col relative">
+        
+        <header class="bg-white/95 backdrop-blur-md px-6 py-4 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
+            <a href="Index.html" class="text-2xl font-900 text-[#0A1931] tracking-tighter no-underline">MeoGo</a>
+            <button onclick="history.back()" class="p-2 text-slate-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M15 19l-7-7 7-7"/></svg></button>
+        </header>
+
+        <div class="opacity-0 animate-fadeIn flex-grow pb-12">
+            <section class="px-6 py-12">
+                <h2 id="seoul-guide-main" class="text-3xl font-black text-slate-900 leading-tight tracking-tight">나의 취향에 맞는<br>서울은 어디인가요?</h2>
+                <p id="seoul-guide-sub" class="text-slate-500 mt-3 text-base font-bold">탐험하고 싶은 권역을 선택해 미션을 시작하세요.</p>
+            </section>
+
+            <section class="px-4">
+                <div class="grid grid-cols-3 gap-3 mb-8">
+                    <div class="seoul-region-card rounded-3xl p-4 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer h-40" onclick="handleCardClick('서대문권')">
+                        <div class="text-4xl mb-2">🎸</div>
+                        <span id="label-seodaemun" class="text-[14px] font-black text-slate-900">서대문권</span>
+                        <p id="desc-seodaemun" class="text-[11px] text-slate-500 font-bold mt-2 leading-tight">홍대·연남동<br>미디어 문화</p>
+                    </div>
+                    <div class="seoul-region-card rounded-3xl p-4 shadow-md border-2 border-indigo-500 flex flex-col items-center justify-center text-center cursor-pointer h-40 ring-4 ring-indigo-50" onclick="handleCardClick('동대문권')">
+                        <div class="text-4xl mb-2">🗼</div>
+                        <span id="label-dongdaemun" class="text-[14px] font-black text-indigo-900">동대문권</span>
+                        <p id="desc-dongdaemun" class="text-[11px] text-indigo-500 font-bold mt-2 leading-tight font-black">용산·중구·종로<br>필수 코스</p>
+                    </div>
+                    <div class="seoul-region-card rounded-3xl p-4 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer h-40" onclick="handleCardClick('강북권')">
+                        <div class="text-4xl mb-2">⛰️</div>
+                        <span id="label-gangbuk" class="text-[14px] font-black text-slate-900">강북권</span>
+                        <p id="desc-gangbuk" class="text-[11px] text-slate-500 font-bold mt-2 leading-tight">북한산·시장<br>힐링 액티비티</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-4 px-2 mb-8 text-blue-500 font-black italic text-[12px] tracking-widest uppercase">
+                    <div class="river-line flex-grow"></div>
+                    <span id="seoul-river-text">Han River</span>
+                    <div class="river-line flex-grow"></div>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="seoul-region-card rounded-3xl p-4 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer h-40" onclick="handleCardClick('강서권')">
+                        <div class="text-4xl mb-2">✈️</div>
+                        <span id="label-gangseo" class="text-[14px] font-black text-slate-900">강서권</span>
+                        <p id="desc-gangseo" class="text-[11px] text-slate-500 font-bold mt-2 leading-tight">마곡·여의도<br>금융 & 공항</p>
+                    </div>
+                    <div class="seoul-region-card rounded-3xl p-4 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer h-40" onclick="handleCardClick('강남권')">
+                        <div class="text-4xl mb-2">🏙️</div>
+                        <span id="label-gangnam" class="text-[14px] font-black text-slate-900">강남권</span>
+                        <p id="desc-gangnam" class="text-[11px] text-slate-500 font-bold mt-2 leading-tight">세련된 도시<br>샤로수길 감성</p>
+                    </div>
+                    <div class="seoul-region-card rounded-3xl p-4 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer h-40" onclick="handleCardClick('강동권')">
+                        <div class="text-4xl mb-2">☕</div>
+                        <span id="label-gangdong" class="text-[14px] font-black text-slate-900">강동권</span>
+                        <p id="desc-gangdong" class="text-[11px] text-slate-500 font-bold mt-2 leading-tight">성수동·공원<br>트렌디 포토존</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="px-5 mt-12 mb-10">
+                <div class="bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[32px] p-8 shadow-2xl">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="text-2xl bg-white/20 p-3 rounded-2xl">📍</div>
+                        <h4 id="seoul-info-title" class="text-xl font-black text-white">이번 여행의 테마는?</h4>
+                    </div>
+                    <div id="seoul-info-desc" class="space-y-5"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function handleCardClick(region) {
+            location.href = 'Mission.html?type=region&value=' + encodeURIComponent(region);
+        }
+
+        (function() {
+            const langData = {
+                KO: {
+                    guideMain: "나의 취향에 맞는<br>서울은 어디인가요?",
+                    guideSub: "탐험하고 싶은 권역을 선택해 미션을 시작하세요.",
+                    seodaemun: "서대문권", seodaemunDesc: "서대문·마포·은평<br>대학가 & 미디어",
+                    gangbuk: "강북권", gangbukDesc: "강북·도봉·노원<br>자연 & 힐링",
+                    dongdaemun: "동대문권", dongdaemunDesc: "용산·중구·종로<br>필수 코스",
+                    gangseo: "강서권", gangseoDesc: "강서·양천·영등포<br>여의도 & 마곡",
+                    gangnam: "강남권", gangnamDesc: "강남·서초·관악<br>도시미 & 로컬감성",
+                    gangdong: "강동권", gangdongDesc: "강동·성동·광진<br>성수동 & 포토존",
+                    infoTitle: "이번 여행의 테마는?",
+                    infoDesc: `
+                        <div class="flex items-start gap-3">
+                            <span class="text-indigo-200 text-sm font-black bg-white/10 px-3 py-1 rounded-lg min-w-[70px] text-center">전통</span>
+                            <p class="text-white text-[15px] leading-snug">용산·중구·종로가 있는 <span class="font-black underline decoration-indigo-400 decoration-2 underline-offset-4">동대문권</span></p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-indigo-200 text-sm font-black bg-white/10 px-3 py-1 rounded-lg min-w-[70px] text-center">문화</span>
+                            <p class="text-white text-[15px] leading-snug">대학가와 버스킹이 흐르는 <span class="font-black underline decoration-indigo-400 decoration-2 underline-offset-4">서대문권</span></p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-indigo-200 text-sm font-black bg-white/10 px-3 py-1 rounded-lg min-w-[70px] text-center">트렌드</span>
+                            <p class="text-white text-[15px] leading-snug">성수동 카페거리가 있는 <span class="font-black underline decoration-indigo-400 decoration-2 underline-offset-4">강동권</span></p>
+                        </div>`
+                },
+                EN: {
+                    guideMain: "Which part of Seoul<br>suits your style?",
+                    guideSub: "Select a zone to start your mission.",
+                    seodaemun: "Seodaemun", seodaemunDesc: "Seodaemun·Mapo<br>Uni-culture & Media",
+                    gangbuk: "Gangbuk", gangbukDesc: "Gangbuk·Dobong<br>Nature & Healing",
+                    dongdaemun: "Dongdaemun", dongdaemunDesc: "Yongsan·Jung-gu·Jongno<br>Must-visit Bucketlist",
+                    gangseo: "Gangseo", gangseoDesc: "Gangseo·Yeongdeungpo<br>Yeouido & Magok",
+                    gangnam: "Gangnam", gangnamDesc: "Gangnam·Seocho·Gwanak<br>Trendy City & Local",
+                    gangdong: "Gangdong", gangdongDesc: "Gangdong·Seongdong<br>Seongsu-dong & Photo",
+                    infoTitle: "What's your travel theme?",
+                    infoDesc: `
+                        <div class="flex items-start gap-3">
+                            <span class="text-indigo-200 text-[11px] font-black bg-white/10 px-2 py-1 rounded-lg min-w-[70px] text-center uppercase tracking-tighter">History</span>
+                            <p class="text-white text-[15px] leading-snug">Yongsan, Jung-gu, Jongno at <span class="font-black underline decoration-indigo-400 decoration-2 underline-offset-4">Dongdaemun Zone</span></p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-indigo-200 text-[11px] font-black bg-white/10 px-2 py-1 rounded-lg min-w-[70px] text-center uppercase tracking-tighter">Culture</span>
+                            <p class="text-white text-[15px] leading-snug">Univ-streets & Busking at <span class="font-black underline decoration-indigo-400 decoration-2 underline-offset-4">Seodaemun Zone</span></p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-indigo-200 text-[11px] font-black bg-white/10 px-2 py-1 rounded-lg min-w-[70px] text-center uppercase tracking-tighter">Trendy</span>
+                            <p class="text-white text-[15px] leading-snug">Trendy Seongsu-dong at <span class="font-black underline decoration-indigo-400 decoration-2 underline-offset-4">Gangdong Zone</span></p>
+                        </div>`
+                }
+            };
+
+            const currentLang = localStorage.getItem('selectedLang') || 'KO';
+            const data = langData[currentLang] || langData.KO;
+
+            const updates = {
+                'seoul-guide-main': data.guideMain,
+                'seoul-guide-sub': data.guideSub,
+                'label-seodaemun': data.seodaemun,
+                'desc-seodaemun': data.seodaemunDesc,
+                'label-gangbuk': data.gangbuk,
+                'desc-gangbuk': data.gangbukDesc,
+                'label-dongdaemun': data.dongdaemun,
+                'desc-dongdaemun': data.dongdaemunDesc,
+                'label-gangseo': data.gangseo,
+                'desc-gangseo': data.gangseoDesc,
+                'label-gangnam': data.gangnam,
+                'desc-gangnam': data.gangnamDesc,
+                'label-gangdong': data.gangdong,
+                'desc-gangdong': data.gangdongDesc,
+                'seoul-info-title': data.infoTitle,
+                'seoul-info-desc': data.infoDesc
+            };
+
+            for (const [id, value] of Object.entries(updates)) {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = value;
+            }
+        })();
+    </script>
+</body>
+</html>
