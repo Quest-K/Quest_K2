@@ -1,217 +1,170 @@
-<div class="p-6 pb-24 animate-[fadeIn_0.5s_ease-out] bg-[#f8fafc]">
-    <!-- 1. 유저 마스터리 프로필 (세계관 반영) -->
-    <section class="mb-8">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-2xl font-black text-slate-900 flex items-center gap-2">
-                <span class="w-1.5 h-6 bg-indigo-600 rounded-full"></span>
-                <span data-lang="history-title">나의 마스터리</span>
-            </h2>
-            <span class="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-full tracking-tighter">LV.12 JOURNEYMAN</span>
-        </div>
-        
-        <div class="bg-white rounded-[2.5rem] p-6 shadow-xl shadow-slate-200/50 border border-slate-100">
-            <div class="flex items-center gap-5 mb-6">
-                <div class="relative">
-                    <div class="w-20 h-20 bg-gradient-to-tr from-indigo-600 to-purple-500 rounded-[2rem] flex items-center justify-center text-3xl shadow-lg shadow-indigo-200">
-                        👤
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MeoGo | History</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap');
+        body { font-family: 'Pretendard', sans-serif; -webkit-tap-highlight-color: transparent; letter-spacing: -0.02em; }
+
+        .brand-navy { color: #0A1931; }
+        .brand-green { color: #1E5128; }
+        .bg-brand-navy { background-color: #0A1931; }
+        .bg-brand-green { background-color: #1E5128; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #94a3b8; font-weight: 700; cursor: pointer; flex: 1; text-decoration: none; }
+        .nav-item.active { color: #1E5128; }
+        .pb-safe { padding-bottom: 100px; }
+    </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#1A202C]">
+
+    <div class="max-w-2xl mx-auto min-h-screen flex flex-col relative bg-white shadow-2xl">
+
+        <header class="bg-white/95 backdrop-blur-md px-6 py-4 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
+            <a href="Index.html" class="text-2xl font-900 brand-navy tracking-tighter no-underline">MeoGo</a>
+            <div class="flex items-center gap-3">
+                <div class="text-right">
+                    <div class="text-[10px] font-800 text-slate-400 uppercase leading-none mb-1">GUEST</div>
+                    <div class="text-sm font-900 brand-green">1,250P</div>
+                </div>
+                <div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MeoGo" alt="avatar">
+                </div>
+            </div>
+        </header>
+
+        <main class="flex-grow pb-safe">
+            <div class="bg-white/95 backdrop-blur-md px-5 py-4 sticky top-[73px] z-[90] border-b border-slate-100">
+                <div class="flex items-center gap-3">
+                    <button onclick="history.back()" class="text-slate-400 hover:text-slate-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+                    </button>
+                    <h1 class="text-xl font-900 text-[#0A1931]">미션 완료 기록</h1>
+                    <span id="history-count" class="ml-auto text-sm font-800 text-slate-400"></span>
+                </div>
+            </div>
+
+            <!-- Stats summary -->
+            <div id="stats-bar" class="px-5 pt-4 hidden">
+                <div class="grid grid-cols-3 gap-3 mb-4">
+                    <div class="bg-[#F1F8F5] rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-900 text-[#1E5128]" id="stat-total">0</div>
+                        <div class="text-[10px] font-800 text-slate-500 uppercase mt-1">완료 미션</div>
                     </div>
-                    <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-yellow-400 border-4 border-white rounded-full flex items-center justify-center text-[10px] font-black">
-                        75%
+                    <div class="bg-orange-50 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-900 text-orange-600" id="stat-food">0</div>
+                        <div class="text-[10px] font-800 text-slate-500 uppercase mt-1">Food</div>
                     </div>
-                </div>
-                <div class="flex-1">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest" data-lang="play-time-label">총 여행 시간</p>
-                    <p class="text-2xl font-black text-slate-800">12h 45m</p>
-                    <div class="mt-2 flex gap-1">
-                        <span class="px-2 py-0.5 bg-indigo-50 text-indigo-600 text-[8px] font-black rounded uppercase">Food Lv.3</span>
-                        <span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-[8px] font-black rounded uppercase">Geo Lv.1</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-3">
-                <div class="flex justify-between items-end">
-                    <p class="text-[10px] font-black text-indigo-600 uppercase tracking-tighter" data-lang="xp-reward-label">다음 등급까지 140 XP</p>
-                    <p class="text-[10px] font-bold text-slate-400 italic">Total 1,240 XP</p>
-                </div>
-                <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full" style="width: 75%"></div>
-                </div>
-                <p class="text-[10px] text-slate-400 text-center font-medium" data-lang="time-info">1시간 이용 시마다 10 XP가 자동으로 적립됩니다.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. 전문가 분야별 빙고 (빙고를 전문가 노드별로 시각화) -->
-    <section class="mb-10">
-        <div class="flex justify-between items-end mb-4 px-1">
-            <h3 class="text-lg font-black text-slate-900" data-lang="bingo-title">전문가 달성 현황</h3>
-            <span class="text-[10px] font-black text-indigo-600 bg-indigo-50 px-2 py-1 rounded-lg">2 Lines Completed</span>
-        </div>
-        
-        <div class="grid grid-cols-4 gap-2">
-            <!-- 음식 노드 미션들 -->
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-100 border-2 border-indigo-300 relative cursor-pointer" onclick="showMissionDetail('K-BBQ Master', '2024.05.12 19:30', '🥘')">
-                <span>🥘</span>
-                <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
-            </div>
-            <!-- 문화 노드 미션들 -->
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-100 border-2 border-indigo-300 relative cursor-pointer" onclick="showMissionDetail('Jjimjilbang Egg', '2024.05.15 21:00', '🥚')">
-                <span>🥚</span>
-                <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
-            </div>
-            <!-- 지리 노드 미션 (미완료) -->
-            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale cursor-not-allowed">
-                <span>🗺️</span>
-            </div>
-            <!-- 역사 노드 미션 (미완료) -->
-            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale cursor-not-allowed">
-                <span>🏯</span>
-            </div>
-            <!-- 추가 빙고 슬롯 -->
-            <div class="aspect-square bg-indigo-600 rounded-2xl flex items-center justify-center text-xl shadow-lg shadow-indigo-100 border-2 border-indigo-300 relative">
-                <span>🏙️</span>
-                <div class="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
-            </div>
-            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale"><span>☕</span></div>
-            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale"><span>🎭</span></div>
-            <div class="aspect-square bg-white rounded-2xl flex items-center justify-center text-xl opacity-40 border-2 border-dashed border-slate-200 grayscale"><span>🚴</span></div>
-        </div>
-    </section>
-
-    <!-- 3. 상세 로그 (찜 / 경험치 이력) -->
-    <section>
-        <div class="flex p-1 bg-slate-100 rounded-2xl mb-5">
-            <button id="tab-wish" onclick="switchHistoryTab('wish')" class="flex-1 py-2.5 text-xs font-black rounded-xl transition-all bg-white text-slate-900 shadow-sm" data-lang="tab-wish">찜 리스트</button>
-            <button id="tab-xp" onclick="switchHistoryTab('xp')" class="flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-400" data-lang="tab-xp">경험치 이력</button>
-        </div>
-
-        <!-- 찜 리스트: 스킬 트리와 연동된 느낌 -->
-        <div id="content-wish" class="space-y-3">
-            <div class="bg-white p-5 rounded-[2rem] border border-slate-50 shadow-sm flex items-center gap-4 group">
-                <div class="w-12 h-12 bg-indigo-50 rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">🗺️</div>
-                <div class="flex-1">
-                    <p class="text-sm font-black text-slate-800">East Coast Road Trip</p>
-                    <p class="text-[9px] text-indigo-500 font-bold uppercase tracking-tight">Geo Expert Quest</p>
-                </div>
-                <button class="text-rose-400 active:scale-90 transition-transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-                </button>
-            </div>
-            
-            <div class="bg-white p-5 rounded-[2rem] border border-slate-50 shadow-sm flex items-center gap-4 group opacity-80">
-                <div class="w-12 h-12 bg-amber-50 rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform">✍️</div>
-                <div class="flex-1">
-                    <p class="text-sm font-black text-slate-800">Digital Name Stamp</p>
-                    <p class="text-[9px] text-amber-600 font-bold uppercase tracking-tight">Side Quest</p>
-                </div>
-                <button class="text-rose-400"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-            </div>
-        </div>
-
-        <!-- 경험치 이력 -->
-        <div id="content-xp" class="hidden space-y-3">
-            <div class="flex justify-between items-center p-5 bg-white rounded-[2rem] border border-slate-50">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 bg-slate-50 rounded-xl flex items-center justify-center text-lg">⏳</div>
-                    <div>
-                        <p class="text-xs font-black text-slate-800" data-lang="xp-item1">앱 이용 시간 보상 (12h)</p>
-                        <p class="text-[9px] text-slate-400 font-bold tracking-tighter">2024.05.20 14:00</p>
+                    <div class="bg-blue-50 rounded-2xl p-4 text-center">
+                        <div class="text-2xl font-900 text-blue-600" id="stat-other">0</div>
+                        <div class="text-[10px] font-800 text-slate-500 uppercase mt-1">Others</div>
                     </div>
                 </div>
-                <p class="text-sm font-black text-indigo-600">+10 XP</p>
             </div>
-            <div class="flex justify-between items-center p-5 bg-white rounded-[2rem] border border-slate-50">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 bg-indigo-50 rounded-xl flex items-center justify-center text-lg">🥘</div>
-                    <div>
-                        <p class="text-xs font-black text-slate-800" data-lang="xp-item2">음식 전문가 미션 완료</p>
-                        <p class="text-[9px] text-slate-400 font-bold tracking-tighter">2024.05.12 19:30</p>
-                    </div>
-                </div>
-                <p class="text-sm font-black text-indigo-600">+50 XP</p>
-            </div>
-        </div>
-    </section>
-</div>
 
-<!-- 상세 내역 모달 -->
-<div id="mission-modal" class="fixed inset-0 z-[200] flex items-center justify-center p-6 hidden">
-    <div class="absolute inset-0 bg-slate-900/70 backdrop-blur-sm shadow-inner" onclick="closeMissionModal()"></div>
-    <div class="bg-white rounded-[3rem] w-full max-w-sm p-10 z-10 animate-[slideUp_0.4s_cubic-bezier(0.16,1,0.3,1)] text-center relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-2 bg-indigo-600"></div>
-        <div id="modal-icon" class="text-6xl mb-6 drop-shadow-lg">🥘</div>
-        <h4 id="modal-title" class="text-2xl font-black text-slate-900 mb-2 tracking-tighter">K-BBQ Master</h4>
-        <p class="text-slate-400 text-xs font-medium mb-8 leading-relaxed" data-lang="modal-desc">축하합니다! 전문가의 길에 한 걸음 더 다가섰습니다.</p>
-        
-        <div class="bg-slate-50 rounded-3xl p-5 mb-8">
-            <p class="text-[9px] font-black text-slate-300 uppercase tracking-[0.2em] mb-2" data-lang="modal-date-label">COMPLETED AT</p>
-            <p id="modal-date" class="text-sm font-black text-slate-700">2024.05.12 19:30</p>
-        </div>
-        
-        <button onclick="closeMissionModal()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-sm active:scale-95 transition-all shadow-xl shadow-slate-200" data-lang="modal-close">DONE</button>
+            <div class="px-5 pt-2">
+                <div id="history-list"></div>
+            </div>
+        </main>
+
+        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/98 backdrop-blur-xl border-t border-slate-100 px-6 py-4 flex justify-between items-center z-50 rounded-t-[2rem] shadow-2xl">
+            <a href="Index.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg><span>미션</span></a>
+            <a href="Wish.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg><span>찜</span></a>
+            <a href="History.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg><span>기록</span></a>
+            <a href="mypage.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg><span>마이</span></a>
+        </nav>
     </div>
-</div>
 
-<style>
-    @keyframes slideUp { from { transform: translateY(20%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-</style>
-
-<script>
-    const historyI18n = {
-        KO: {
-            "history-title": "나의 마스터리 기록", "play-time-label": "총 누적 여행 시간", "xp-reward-label": "다음 등급 보너스",
-            "time-info": "1시간 이용 시마다 10 XP가 자동으로 적립됩니다.", "bingo-title": "전문가 달성 현황",
-            "tab-wish": "찜 리스트", "tab-xp": "경험치 이력",
-            "xp-item1": "앱 이용 시간 보상 (12h)", "xp-item2": "음식 전문가 미션 완료",
-            "modal-desc": "축하합니다! 전문가의 길에 한 걸음 더 다가섰습니다.", "modal-date-label": "미션 완료 일시", "modal-close": "확인"
-        },
-        EN: {
-            "history-title": "My Mastery Log", "play-time-label": "Total Travel Time", "xp-reward-label": "Bonus for Next Lv",
-            "time-info": "Earn 10 XP automatically for every hour of use.", "bingo-title": "Expertise Progress",
-            "tab-wish": "Wishlist", "tab-xp": "XP Logs",
-            "xp-item1": "App Usage Reward (12h)", "xp-item2": "Food Master Quest Done",
-            "modal-desc": "Congratulations! You are one step closer to becoming a Master.", "modal-date-label": "Completed At", "modal-close": "CLOSE"
+    <script>
+        function getHistory() {
+            try { return JSON.parse(localStorage.getItem('meogo_history') || '[]'); } catch { return []; }
         }
-    };
 
-    function switchHistoryTab(tab) {
-        const wishBtn = document.getElementById('tab-wish');
-        const xpBtn = document.getElementById('tab-xp');
-        const wishContent = document.getElementById('content-wish');
-        const xpContent = document.getElementById('content-xp');
+        function formatDateTime(iso) {
+            const d = new Date(iso);
+            const year = d.getFullYear();
+            const month = String(d.getMonth()+1).padStart(2,'0');
+            const day = String(d.getDate()).padStart(2,'0');
+            const hours = String(d.getHours()).padStart(2,'0');
+            const minutes = String(d.getMinutes()).padStart(2,'0');
+            const seconds = String(d.getSeconds()).padStart(2,'0');
 
-        if (tab === 'wish') {
-            wishBtn.className = "flex-1 py-2.5 text-xs font-black rounded-xl transition-all bg-white text-slate-900 shadow-sm";
-            xpBtn.className = "flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-400";
-            wishContent.classList.remove('hidden');
-            xpContent.classList.add('hidden');
-        } else {
-            xpBtn.className = "flex-1 py-2.5 text-xs font-black rounded-xl transition-all bg-white text-slate-900 shadow-sm";
-            wishBtn.className = "flex-1 py-2.5 text-xs font-bold rounded-xl transition-all text-slate-400";
-            xpContent.classList.remove('hidden');
-            wishContent.classList.add('hidden');
+            const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+            const weekday = weekdays[d.getDay()];
+
+            return year + '.' + month + '.' + day + ' (' + weekday + ') ' + hours + ':' + minutes + ':' + seconds;
         }
-    }
 
-    function showMissionDetail(title, date, icon) {
-        document.getElementById('modal-icon').innerText = icon;
-        document.getElementById('modal-title').innerText = title;
-        document.getElementById('modal-date').innerText = date;
-        document.getElementById('mission-modal').classList.remove('hidden');
-    }
+        function renderHistory() {
+            const list = getHistory().sort(function(a, b) {
+                return new Date(b.completed_at) - new Date(a.completed_at);
+            });
 
-    function closeMissionModal() {
-        document.getElementById('mission-modal').classList.add('hidden');
-    }
+            const container = document.getElementById('history-list');
+            const countEl = document.getElementById('history-count');
+            const statsBar = document.getElementById('stats-bar');
 
-    (function init() {
-        const lang = localStorage.getItem('selectedLang') || 'KO';
-        const dict = historyI18n[lang] || historyI18n['EN'];
-        document.querySelectorAll('[data-lang]').forEach(el => {
-            const k = el.getAttribute('data-lang');
-            if (dict[k]) el.innerHTML = dict[k];
-        });
-    })();
-</script>
+            countEl.textContent = list.length > 0 ? list.length + '개' : '';
 
+            if (list.length === 0) {
+                statsBar.classList.add('hidden');
+                container.innerHTML =
+                    '<div class="py-20 text-center flex flex-col items-center fade-in">' +
+                        '<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-200 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>' +
+                        '<p class="text-slate-400 font-800 text-lg mb-2">완료한 미션이 없습니다</p>' +
+                        '<p class="text-slate-300 font-600 text-sm">미션 페이지에서 미션을 완료해보세요</p>' +
+                        '<a href="Mission.html" class="mt-6 bg-[#1E5128] text-white text-sm px-6 py-3 rounded-2xl font-900 shadow-lg inline-block no-underline">미션 도전하기</a>' +
+                    '</div>';
+                return;
+            }
+
+            // Stats
+            statsBar.classList.remove('hidden');
+            document.getElementById('stat-total').textContent = list.length;
+            var foodCount = list.filter(function(i) { return (i.category || '').toLowerCase() === 'food'; }).length;
+            document.getElementById('stat-food').textContent = foodCount;
+            document.getElementById('stat-other').textContent = list.length - foodCount;
+
+            container.innerHTML = list.map(function(item, idx) {
+                var categoryColors = {
+                    'Food': 'bg-orange-50 text-orange-600 border-orange-100',
+                    'Nature': 'bg-green-50 text-green-600 border-green-100',
+                    'History': 'bg-amber-50 text-amber-600 border-amber-100',
+                    'K-Life': 'bg-purple-50 text-purple-600 border-purple-100'
+                };
+                var colorClass = categoryColors[item.category] || 'bg-slate-50 text-slate-600 border-slate-100';
+
+                var categoryIcons = { 'Food': '🍱', 'Nature': '🏔️', 'History': '📜', 'K-Life': '🏠' };
+                var icon = categoryIcons[item.category] || '✅';
+
+                return '<div class="bg-white rounded-[1.5rem] p-5 mb-3 border border-slate-100 shadow-sm fade-in" style="animation-delay: ' + (idx * 0.05) + 's">' +
+                    '<div class="flex items-start gap-4">' +
+                        '<div class="w-12 h-12 rounded-2xl flex items-center justify-center text-xl shrink-0 ' + colorClass + '">' + icon + '</div>' +
+                        '<div class="flex-1 min-w-0">' +
+                            '<div class="flex items-center gap-2 mb-1">' +
+                                '<span class="text-[10px] font-800 px-2 py-0.5 rounded-lg ' + colorClass + ' uppercase">' + (item.category || '') + '</span>' +
+                                '<span class="text-[10px] text-slate-400 font-700">' + (item.region || '') + '</span>' +
+                            '</div>' +
+                            '<h4 class="font-900 text-base text-[#0A1931] leading-tight mb-2 truncate">' + (item.mission_name || '') + '</h4>' +
+                            '<div class="flex items-center gap-1.5">' +
+                                '<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-[#1E5128]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>' +
+                                '<span class="text-xs text-slate-500 font-700">' + formatDateTime(item.completed_at) + '</span>' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="flex items-center shrink-0">' +
+                            '<span class="text-[#1E5128] font-900 text-sm">✓ 완료</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+            }).join('');
+        }
+
+        renderHistory();
+    </script>
+</body>
+</html>
