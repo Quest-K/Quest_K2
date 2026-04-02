@@ -25,9 +25,9 @@
 
         /* 필터 버튼 디자인 */
         .filter-btn { 
-            padding: 0.6rem 1.1rem; 
-            border-radius: 14px; 
-            font-size: 0.9rem; 
+            padding: 0.5rem 0.9rem; 
+            border-radius: 12px; 
+            font-size: 0.85rem; 
             font-weight: 700; 
             border: 1px solid #e2e8f0; 
             background: white; 
@@ -39,35 +39,44 @@
             background: var(--brand-navy); 
             color: white; 
             border-color: var(--brand-navy);
-            box-shadow: 0 4px 12px rgba(10, 25, 49, 0.1);
+            box-shadow: 0 4px 10px rgba(10, 25, 49, 0.1);
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
         
-        /* 미션 카드 스타일 */
+        /* 미션 카드 스타일 (사이즈 축소 및 최적화) */
         .mission-card { 
             background: white;
-            border-radius: 1.8rem;
-            padding: 1.75rem;
+            border-radius: 1.5rem;
+            padding: 1.25rem;
             border: 1px solid rgba(226, 232, 240, 0.6);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
         }
+        .mission-card:active { transform: scale(0.98); }
 
-        /* 카테고리별 태그 색상 정의 */
-        .tag-food { background-color: rgba(239, 68, 68, 0.1); color: #EF4444; }
-        .tag-life { background-color: rgba(59, 130, 246, 0.1); color: #3B82F6; }
-        .tag-history { background-color: rgba(139, 69, 19, 0.1); color: #8B4513; }
-        .tag-nature { background-color: rgba(16, 185, 129, 0.1); color: #10B981; }
+        /* 카테고리별 태그 */
+        .tag {
+            font-size: 10px;
+            font-weight: 900;
+            padding: 0.3rem 0.7rem;
+            border-radius: 10px;
+            text-transform: uppercase;
+        }
+        .tag-food { background-color: rgba(239, 68, 68, 0.08); color: #EF4444; }
+        .tag-life { background-color: rgba(59, 130, 246, 0.08); color: #3B82F6; }
+        .tag-history { background-color: rgba(139, 69, 19, 0.08); color: #8B4513; }
+        .tag-nature { background-color: rgba(16, 185, 129, 0.08); color: #10B981; }
         .tag-region { background-color: #F1F5F9; color: #64748B; }
         
-        /* 찜 버튼 */
+        /* 찜 버튼 축소 */
         .wish-btn {
-            width: 44px;
-            height: 44px;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 14px;
+            border-radius: 12px;
             background: #F8FAFC;
             color: #CBD5E1;
             transition: all 0.2s;
@@ -77,85 +86,57 @@
             color: #FB7185;
         }
 
-        /* 완료 버튼 (크기 최적화) */
+        /* 완료 버튼 최적화 */
         .complete-btn {
-            padding: 0.75rem 1.4rem;
-            border-radius: 14px;
-            font-size: 0.95rem;
+            padding: 0.6rem 1.1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
             font-weight: 800;
             background: var(--brand-green);
             color: white;
             display: flex;
             align-items: center;
-            gap: 0.6rem;
-            transition: all 0.2s;
+            gap: 0.4rem;
         }
-        .complete-btn:active { transform: scale(0.96); }
 
         .glass-header {
-            background: rgba(255, 255, 255, 0.96);
-            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
         }
-
-        /* 하단 네비게이션 (index.html 스타일 고정) */
-        .nav-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            font-size: 0.75rem; 
-            color: #94A3B8; 
-            font-weight: 700; 
-            flex: 1; 
-            text-decoration: none;
-        }
-        .nav-item.active { color: var(--brand-green); }
     </style>
 </head>
 <body class="bg-slate-50">
+    <!-- 전체를 감싸는 컨테이너에서 하단 패딩 제거 (Index.html의 하단바 고려) -->
     <div class="max-w-2xl mx-auto min-h-screen flex flex-col bg-white shadow-sm relative">
         
         <!-- 헤더 및 필터 섹션 -->
         <header class="sticky top-0 z-40 glass-header border-b border-slate-100">
-            <div class="px-6 py-6 flex justify-between items-end">
+            <div class="px-5 py-5 flex justify-between items-end">
                 <div>
-                    <h1 class="text-3xl font-900 text-[101931] tracking-tight">Mission</h1>
-                    <p class="text-[12px] font-700 text-slate-400 uppercase tracking-widest mt-1">Explore Korea</p>
+                    <h1 class="text-2xl font-900 text-[#0A1931] tracking-tight">Mission</h1>
+                    <p class="text-[10px] font-700 text-slate-400 uppercase tracking-widest mt-0.5">Explore Korea</p>
                 </div>
-                <span id="mission-count" class="text-xs font-800 bg-slate-100 text-slate-500 px-3.5 py-2 rounded-xl border border-slate-200">-</span>
+                <span id="mission-count" class="text-[10px] font-800 bg-slate-100 text-slate-500 px-3 py-1.5 rounded-lg border border-slate-200">-</span>
             </div>
             
-            <div class="space-y-3 pb-5">
-                <div class="px-6 overflow-x-auto flex gap-2 no-scrollbar" id="region-filters"></div>
-                <div class="px-6 overflow-x-auto flex gap-2 no-scrollbar" id="category-filters"></div>
+            <div class="space-y-2.5 pb-4">
+                <div class="px-5 overflow-x-auto flex gap-2 no-scrollbar" id="region-filters"></div>
+                <div class="px-5 overflow-x-auto flex gap-2 no-scrollbar" id="category-filters"></div>
             </div>
         </header>
 
-        <!-- 메인 미션 리스트 -->
-        <main class="flex-grow pb-32">
-            <div id="mission-list" class="px-6 pt-6 space-y-6">
-                <div class="text-center py-24 text-slate-400 font-700">Loading missions...</div>
+        <!-- 메인 미션 리스트 (하단바 영역 비워둠) -->
+        <main class="flex-grow">
+            <div id="mission-list" class="px-5 pt-5 space-y-4">
+                <div class="text-center py-20 text-slate-300 font-700 text-sm">Loading missions...</div>
             </div>
+            <!-- index.html의 하단바 높이만큼의 안전 여백만 추가 (내용 가림 방지) -->
+            <div class="h-24"></div>
         </main>
-
-        <!-- 하단 네비게이션 -->
-        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/98 border-t border-slate-100 px-6 py-5 flex justify-between items-center z-50 rounded-t-[2rem] shadow-lg">
-            <a href="index.html" class="nav-item">
-                <i class="fa-solid fa-house text-xl mb-1.5"></i><span>홈</span>
-            </a>
-            <a href="mission.html" class="nav-item active">
-                <i class="fa-solid fa-compass text-xl mb-1.5"></i><span>탐색</span>
-            </a>
-            <a href="wishlist.html" class="nav-item">
-                <i class="fa-solid fa-heart text-xl mb-1.5"></i><span>찜</span>
-            </a>
-            <a href="mypage.html" class="nav-item">
-                <i class="fa-solid fa-user text-xl mb-1.5"></i><span>마이</span>
-            </a>
-        </nav>
     </div>
 
     <!-- 알림용 토스트 -->
-    <div id="toast" class="fixed bottom-28 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/95 text-white px-7 py-4 rounded-2xl text-[14px] font-bold shadow-2xl opacity-0 pointer-events-none transition-all duration-300"></div>
+    <div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[100] bg-slate-900/90 text-white px-6 py-3.5 rounded-xl text-[13px] font-bold shadow-xl opacity-0 pointer-events-none transition-all duration-300"></div>
 
     <script>
         const SUPABASE_URL = 'https://xyyoeovwrkcwhwdmjeyx.supabase.co';
@@ -191,7 +172,7 @@
 
         async function fetchMissions() {
             const listDiv = document.getElementById('mission-list');
-            listDiv.innerHTML = '<div class="flex justify-center py-24"><div class="w-8 h-8 border-[3px] border-slate-200 border-t-brand-green rounded-full animate-spin"></div></div>';
+            listDiv.innerHTML = '<div class="flex justify-center py-20"><div class="w-6 h-6 border-[3px] border-slate-100 border-t-brand-green rounded-full animate-spin"></div></div>';
 
             try {
                 let query = _supabase.from('missions').select('*');
@@ -203,27 +184,30 @@
 
                 document.getElementById('mission-count').innerText = `${data.length} Missions`;
 
+                if (data.length === 0) {
+                    listDiv.innerHTML = '<div class="text-center py-20 text-slate-400 text-sm font-600">No missions found.</div>';
+                    return;
+                }
+
                 listDiv.innerHTML = data.map(m => `
                     <div class="mission-card">
-                        <div class="flex justify-between items-start mb-4">
-                            <div class="flex gap-2">
-                                <span class="text-[11px] font-900 ${getCategoryClass(m.category)} px-3 py-1.5 rounded-xl uppercase tracking-tight">${m.category}</span>
-                                <span class="text-[11px] font-900 tag-region px-3 py-1.5 rounded-xl uppercase tracking-tight">${m.region}</span>
+                        <div class="flex justify-between items-start mb-3">
+                            <div class="flex gap-1.5">
+                                <span class="tag ${getCategoryClass(m.category)}">${m.category}</span>
+                                <span class="tag tag-region">${m.region}</span>
                             </div>
                             <button onclick="toggleWishlist('${m.id}', this)" class="wish-btn">
-                                <i class="fa-solid fa-heart text-xl"></i>
+                                <i class="fa-solid fa-heart text-lg"></i>
                             </button>
                         </div>
                         
-                        <h3 class="text-xl font-900 text-[#0A1931] mb-2 leading-snug">${m.mission_name}</h3>
-                        <p class="text-[15px] font-500 text-slate-500 mb-6 leading-relaxed line-clamp-3">${m.guide}</p>
+                        <h3 class="text-lg font-900 text-[#0A1931] mb-1.5 leading-tight">${m.mission_name}</h3>
+                        <p class="text-[13px] font-500 text-slate-500 mb-4 leading-relaxed line-clamp-2">${m.guide}</p>
                         
-                        <div class="flex items-center justify-between pt-5 border-t border-slate-50">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-[#2D6A4F]/10 flex items-center justify-center">
-                                    <i class="fa-solid fa-coins text-[#2D6A4F] text-sm"></i>
-                                </div>
-                                <span class="text-base font-900 text-[#2D6A4F]">${m.base_points} pts</span>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-50">
+                            <div class="flex items-center gap-1.5">
+                                <i class="fa-solid fa-coins text-[#2D6A4F] text-xs"></i>
+                                <span class="text-sm font-900 text-[#2D6A4F]">${m.base_points} P</span>
                             </div>
                             <button onclick="completeMission('${m.id}', '${m.mission_name}')" class="complete-btn">
                                 <i class="fa-solid fa-check-circle"></i>
@@ -233,7 +217,7 @@
                     </div>
                 `).join('');
             } catch (e) {
-                listDiv.innerHTML = `<div class="text-center py-20 text-red-400 font-bold">Error: ${e.message}</div>`;
+                listDiv.innerHTML = `<div class="text-center py-20 text-red-400 font-bold text-xs">Error: ${e.message}</div>`;
             }
         }
 
@@ -244,18 +228,18 @@
             toast.style.transform = 'translate(-50%, 0)';
             setTimeout(() => { 
                 toast.style.opacity = '0';
-                toast.style.transform = 'translate(-50%, 20px)';
-            }, 2500);
+                toast.style.transform = 'translate(-50%, 15px)';
+            }, 2000);
         }
 
         function toggleWishlist(id, btn) {
             btn.classList.toggle('active');
             const isActive = btn.classList.contains('active');
-            showToast(isActive ? '❤️ 찜 목록에 추가되었습니다' : '💔 찜 목록에서 제거되었습니다');
+            showToast(isActive ? '❤️ Added to wishlist' : '💔 Removed from wishlist');
         }
 
         function completeMission(id, name) {
-            showToast(`✨ 미션 완료: ${name}`);
+            showToast(`✨ Mission Completed: ${name}`);
         }
 
         window.onload = () => { renderFilters(); fetchMissions(); };
