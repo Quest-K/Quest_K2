@@ -39,18 +39,24 @@
         .stat-content { display: none; }
         .stat-content.active { display: block; animation: fadeIn 0.3s ease-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* 스크롤바 숨기기 */
+        ::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-[#F8FAFC]">
     <div class="max-w-2xl mx-auto min-h-screen flex flex-col bg-white shadow-2xl relative">
         
+        <!-- 상단 헤더 -->
         <header class="px-6 py-5 flex justify-between items-center sticky top-0 bg-white/95 z-50 backdrop-blur-md border-b border-slate-50">
             <h1 class="text-2xl font-900 text-brand-navy tracking-tighter italic cursor-pointer" onclick="location.href='index.html'">MeoGo</h1>
             <div id="user-status" class="text-xs font-800 text-slate-400">Loading...</div>
         </header>
 
+        <!-- 메인 콘텐츠 영역 (하단바 공간 확보를 위해 pb-32 추가) -->
         <main class="flex-grow pb-32 px-6 py-4">
             
+            <!-- 히어로 섹션 -->
             <div class="hero-gradient rounded-[2.5rem] p-8 text-white shadow-xl relative overflow-hidden mb-8">
                 <div class="flex justify-between items-end relative z-10">
                     <div class="acrostic-container">
@@ -59,10 +65,12 @@
                         <div class="acrostic-row"><span class="first-letter">o</span><span class="rest-letters">rdinary</span></div>
                         <div class="go-text">GO <span class="text-white">KOREA</span></div>
                     </div>
+                    <!-- 미션 페이지로 이동 -->
                     <a href="mission.html" class="bg-white text-brand-navy px-6 py-3 rounded-full font-900 text-sm shadow-lg active:scale-95 transition-transform">Start Now</a>
                 </div>
             </div>
 
+            <!-- 미션 현황 대시보드 -->
             <section class="mb-8">
                 <div class="flex items-center justify-between mb-4 px-1">
                     <h3 class="text-base font-900 text-brand-navy">My Mission Status</h3>
@@ -73,6 +81,7 @@
                 </div>
 
                 <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm">
+                    <!-- 카테고리 뷰 -->
                     <div id="stat-category-content" class="stat-content active space-y-4">
                         <h4 class="text-[10px] font-900 text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-layer-group text-yellow-500"></i> Mission by Category
@@ -105,6 +114,7 @@
                         </div>
                     </div>
 
+                    <!-- 지역 뷰 -->
                     <div id="stat-region-content" class="stat-content space-y-4">
                         <h4 class="text-[10px] font-900 text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                             <i class="fa-solid fa-map-location-dot text-brand-green"></i> Mission by Region
@@ -118,11 +128,12 @@
                                 <div class="flex justify-between text-[10px] font-bold mb-1 text-brand-navy"><span>제주</span><span>8/10</span></div>
                                 <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-brand-navy" style="width: 80%;"></div></div>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
+            <!-- 추천 미션 리스트 -->
             <div class="flex justify-between items-center mb-5 px-1">
                 <h3 class="text-lg font-900 text-brand-navy tracking-tight">Today's Hot Missions</h3>
                 <a href="mission.html" class="text-sm font-800 text-slate-400">View All</a>
@@ -133,10 +144,12 @@
 
         </main>
 
+        <!-- 하단 네비게이션 바 (고정 상태 및 블러 효과) -->
         <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/80 border-t border-slate-100 px-6 py-5 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
             <a href="index.html" class="nav-item active">
                 <i class="fa-solid fa-house"></i><span>홈</span>
             </a>
+            <!-- 탐색 탭 클릭 시 mission.html 이동 -->
             <a href="mission.html" class="nav-item">
                 <i class="fa-solid fa-compass"></i><span>탐색</span>
             </a>
@@ -154,6 +167,7 @@
         const SUPABASE_KEY = 'sb_publishable_Jm_XX_GapNRJEdlQGBP7hw_JqdtHkjX';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+        // 통계 탭 전환 로직
         function switchStat(type) {
             document.querySelectorAll('.stat-tab').forEach(el => {
                 el.classList.remove('active', 'text-white');
@@ -165,6 +179,7 @@
             document.getElementById('stat-' + type + '-content').classList.add('active');
         }
 
+        // 초기화 함수
         async function initHome() {
             const { data: { session } } = await _supabase.auth.getSession();
             const statusEl = document.getElementById('user-status');
@@ -176,6 +191,7 @@
             loadFeaturedMissions();
         }
 
+        // 오늘의 핫 미션 로드
         async function loadFeaturedMissions() {
             const { data } = await _supabase.from('missions').select('*').limit(3);
             const listDiv = document.getElementById('featured-list');
@@ -195,8 +211,12 @@
             }
         }
 
+        // 카테고리별 이모지 매핑
         function getCategoryEmoji(cat) {
-            const map = { '음식': '🍱', '자연': '⛰️', '역사': '🏛️', 'K라이프': '📱', 'K-Food': '🍱', 'K-Life': '📱', 'History': '🏛️', 'Nature': '⛰️' };
+            const map = { 
+                '음식': '🍱', '자연': '⛰️', '역사': '🏛️', 'K라이프': '📱', 
+                'K-Food': '🍱', 'K-Life': '📱', 'History': '🏛️', 'Nature': '⛰️' 
+            };
             return map[cat] || '🇰🇷';
         }
 
