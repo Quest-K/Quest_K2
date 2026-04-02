@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MeoGo | 미션 찾기</title>
+    <title>MeoGo | Find Missions</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; -webkit-tap-highlight-color: transparent; letter-spacing: -0.02em; }
-        .brand-navy { color: #0A1931; }
-        .brand-green { color: #1E5128; }
+        .brand-navy { color: #0A1931; } .brand-green { color: #1E5128; }
         .filter-btn { padding: 0.5rem 1rem; border-radius: 99px; font-size: 0.875rem; font-weight: 700; border: 1px solid #e2e8f0; background: white; color: #64748b; white-space: nowrap; transition: all 0.2s; }
-        .filter-btn.active { background: #1E5128; color: white; border-color: #1E5128; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
+        .filter-btn.active { background: #1E5128; color: white; border-color: #1E5128; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #94a3b8; font-weight: 700; flex: 1; text-decoration: none; }
         .nav-item.active { color: #1E5128; }
@@ -20,136 +19,87 @@
 </head>
 <body class="bg-[#F8FAFC]">
     <div class="max-w-2xl mx-auto min-h-screen flex flex-col bg-white shadow-2xl relative">
-        <header class="px-6 py-4 border-b border-slate-100 sticky top-0 bg-white/95 z-40 backdrop-blur-md">
-            <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-900 brand-navy tracking-tighter">MeoGo</h1>
-                <div class="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full">
-                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    <span class="text-[10px] font-800 text-slate-500 uppercase">Live Database</span>
-                </div>
+        <!-- 헤더 및 정밀 필터 -->
+        <header class="sticky top-0 bg-white/95 z-40 backdrop-blur-md border-b border-slate-100">
+            <div class="px-6 py-4 flex justify-between items-center">
+                <h1 class="text-xl font-900 brand-navy">Missions</h1>
+                <span id="mission-count" class="text-xs font-900 bg-slate-100 text-slate-500 px-3 py-1 rounded-full">-</span>
             </div>
+            <!-- 지역 필터 (한글) -->
+            <div class="px-6 pb-2 overflow-x-auto flex gap-2 no-scrollbar" id="region-filters"></div>
+            <!-- 카테고리 필터 (매핑) -->
+            <div class="px-6 pb-4 overflow-x-auto flex gap-2 no-scrollbar" id="category-filters"></div>
         </header>
 
         <main class="flex-grow pb-24">
-            <div class="px-6 py-4 overflow-x-auto flex gap-2 no-scrollbar" id="region-filters"></div>
-
-            <div class="px-6 py-2 overflow-x-auto flex gap-2 no-scrollbar" id="category-filters"></div>
-
             <div id="mission-list" class="px-6 pt-6 space-y-4">
-                <div class="text-center py-20 text-slate-400 font-700">미션을 동기화하는 중...</div>
+                <div class="text-center py-20 text-slate-400 font-700">Loading missions...</div>
             </div>
         </main>
 
+        <!-- 네비게이션 -->
         <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white border-t border-slate-100 px-6 py-4 flex justify-between items-center z-50 rounded-t-[2rem] shadow-2xl">
-            <a href="mission.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span>미션</span></a>
+            <a href="index.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg><span>홈</span></a>
+            <a href="mission.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg><span>탐색</span></a>
             <a href="wishlist.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg><span>찜</span></a>
-            <a href="history.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg><span>기록</span></a>
             <a href="mypage.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg><span>마이</span></a>
         </nav>
     </div>
 
     <script>
-        // 1. Supabase 연동 정보
         const SUPABASE_URL = 'https://xyyoeovwrkcwhwdmjeyx.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_Jm_XX_GapNRJEdlQGBP7hw_JqdtHkjX';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 2. 지역 데이터 (한글)
         const regions = ['전체', '전국공통', '서울', '경기', '강원', '충청', '전라', '경상', '제주'];
-
-        // 3. 카테고리 매핑 데이터 (화면표시이름: DB값)
-        const categoryMap = {
-            '전체': '전체',
-            'K-음식': 'K-Food',
-            'K-라이프': 'K-Life',
-            '역사': 'History',
-            '자연': 'Nature'
-        };
+        const categoryMap = { '전체': '전체', 'K-음식': 'K-Food', 'K-라이프': 'K-Life', '역사': 'History', '자연': 'Nature' };
 
         let activeRegion = '전체';
-        let activeCategoryLabel = '전체'; // 화면에 표시될 라벨
+        let activeCatLabel = '전체';
 
-        // 4. 필터 UI 생성 및 렌더링
         function renderFilters() {
-            const regionDiv = document.getElementById('region-filters');
-            const categoryDiv = document.getElementById('category-filters');
-
-            // 지역 렌더링
-            regionDiv.innerHTML = regions.map(r => `
+            document.getElementById('region-filters').innerHTML = regions.map(r => `
                 <button onclick="setRegion('${r}')" class="filter-btn ${activeRegion === r ? 'active' : ''}">${r}</button>
             `).join('');
-
-            // 카테고리 렌더링 (한글 이름으로 버튼 생성)
-            categoryDiv.innerHTML = Object.keys(categoryMap).map(label => `
-                <button onclick="setCategory('${label}')" class="filter-btn ${activeCategoryLabel === label ? 'active' : ''}">${label}</button>
+            document.getElementById('category-filters').innerHTML = Object.keys(categoryMap).map(label => `
+                <button onclick="setCategory('${label}')" class="filter-btn ${activeCatLabel === label ? 'active' : ''}">${label}</button>
             `).join('');
         }
 
         function setRegion(r) { activeRegion = r; renderFilters(); fetchMissions(); }
-        function setCategory(label) { activeCategoryLabel = label; renderFilters(); fetchMissions(); }
+        function setCategory(l) { activeCatLabel = l; renderFilters(); fetchMissions(); }
 
-        // 5. 미션 데이터 패칭 (핵심 로직)
         async function fetchMissions() {
             const listDiv = document.getElementById('mission-list');
-            listDiv.innerHTML = '<div class="text-center py-20 text-slate-400 font-700">임무를 탐색하고 있습니다...</div>';
+            listDiv.innerHTML = '<div class="text-center py-20 text-slate-400 font-700">Searching...</div>';
 
             try {
                 let query = _supabase.from('missions').select('*');
-
-                // 지역 필터 (한글 일치)
-                if (activeRegion !== '전체') {
-                    query = query.eq('region', activeRegion);
-                }
-
-                // 카테고리 필터 (매핑된 영문 값 사용 + ilike로 대소문자 방어)
-                if (activeCategoryLabel !== '전체') {
-                    const dbValue = categoryMap[activeCategoryLabel];
-                    query = query.ilike('category', dbValue); 
-                }
+                if (activeRegion !== '전체') query = query.eq('region', activeRegion);
+                if (activeCatLabel !== '전체') query = query.ilike('category', categoryMap[activeCatLabel]);
 
                 const { data, error } = await query;
-
                 if (error) throw error;
 
-                if (!data || data.length === 0) {
-                    listDiv.innerHTML = '<div class="text-center py-20 text-slate-400 font-700">조건에 맞는 임무를 찾지 못했습니다. <br><span class="text-xs">다른 필터를 선택해보세요.</span></div>';
-                    return;
-                }
+                document.getElementById('mission-count').innerText = `${data.length} Missions`;
 
-                // 카드 렌더링
                 listDiv.innerHTML = data.map(m => `
-                    <div class="bg-white border border-slate-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="bg-white border border-slate-100 rounded-3xl p-5 shadow-sm">
                         <div class="flex justify-between items-start mb-3">
                             <div class="flex gap-2">
-                                <span class="text-[10px] font-900 bg-brand-green/10 text-brand-green px-2 py-1 rounded tracking-tighter uppercase">${m.category}</span>
+                                <span class="text-[10px] font-900 bg-brand-green/10 text-brand-green px-2 py-1 rounded uppercase tracking-tighter">${m.category}</span>
                                 <span class="text-[10px] font-900 bg-slate-100 text-slate-500 px-2 py-1 rounded tracking-tighter">${m.region}</span>
                             </div>
-                            <span class="text-sm font-900 text-brand-green">${m.base_points || 0}P</span>
+                            <span class="text-sm font-900 text-brand-green">${m.base_points}P</span>
                         </div>
-                        <h3 class="text-lg font-900 brand-navy mb-2">${m.mission_name}</h3>
-                        <p class="text-sm font-600 text-slate-500 mb-5 leading-relaxed line-clamp-2">${m.guide || '한국의 특별한 문화를 체험하는 미션입니다.'}</p>
-                        <div class="flex gap-2">
-                            <button onclick="startMission('${m.mission_id}')" class="flex-grow bg-brand-navy text-white py-3 rounded-xl font-800 text-sm active:scale-95 transition-transform shadow-lg shadow-navy/20">미션 시작하기</button>
-                            <button onclick="toggleWish('${m.mission_id}')" class="px-4 border border-slate-200 rounded-xl active:scale-95 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                            </button>
-                        </div>
+                        <h3 class="text-lg font-900 brand-navy mb-1">${m.mission_name}</h3>
+                        <p class="text-xs font-600 text-slate-400 mb-4 line-clamp-2">${m.guide}</p>
+                        <button onclick="alert('Start!')" class="w-full bg-brand-navy text-white py-3 rounded-2xl font-800 text-sm">Start Mission</button>
                     </div>
                 `).join('');
-
             } catch (e) {
-                console.error("데이터 로드 오류:", e);
-                listDiv.innerHTML = `<div class="text-center py-20 text-red-400 font-700">연결 상태를 확인해주세요. <br><span class="text-xs">${e.message}</span></div>`;
+                listDiv.innerHTML = `<div class="text-center py-20 text-red-400">Error: ${e.message}</div>`;
             }
-        }
-
-        function startMission(id) { 
-            // 실제 구현 시 mission_detail.html로 이동하거나 팝업을 띄울 수 있습니다.
-            alert('미션을 시작합니다! (ID: ' + id + ')'); 
-        }
-        
-        function toggleWish(id) { 
-            alert('관심 미션에 저장되었습니다.'); 
         }
 
         window.onload = () => { renderFilters(); fetchMissions(); };
