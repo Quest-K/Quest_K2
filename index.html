@@ -35,13 +35,13 @@
         .stat-tab { cursor: pointer; padding: 6px 12px; border-radius: 99px; font-size: 11px; font-weight: 800; transition: all 0.2s; }
         .stat-tab.active { background-color: var(--brand-navy); color: white; }
         .stat-content { display: none; }
-        .stat-content.active { display: block; animation: fadeIn 0.3s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .stat-content.active { display: block; }
 
         ::-webkit-scrollbar { display: none; }
         
         /* 페이지 전환 애니메이션 */
         .page-fade { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-[#F8FAFC]">
@@ -53,7 +53,7 @@
         </header>
 
         <main id="content-area" class="flex-grow pb-32">
-            </main>
+        </main>
 
         <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/80 border-t border-slate-100 px-6 py-5 flex justify-between items-center z-50 rounded-t-[2.5rem] shadow-[0_-10px_40px_rgba(0,0,0,0.08)] backdrop-blur-xl">
             <div onclick="loadPage('home')" id="nav-home" class="nav-item active">
@@ -76,40 +76,55 @@
         const SUPABASE_KEY = 'sb_publishable_Jm_XX_GapNRJEdlQGBP7hw_JqdtHkjX';
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 페이지 로드 엔진
+        /**
+         * 페이지 전환 엔진
+         * @param {string} pageName 로드할 페이지 이름 (home, mission, wishlist, mypage)
+         */
         async function loadPage(pageName) {
             const contentArea = document.getElementById('content-area');
             
-            // 네비게이션 활성화 표시 변경
+            // 1. 네비게이션 활성화 표시 업데이트
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-            const activeNav = document.getElementById('nav-' + (pageName === 'home' ? 'home' : (pageName === 'mission' ? 'mission' : pageName === 'wishlist' ? 'wish' : 'my')));
+            const navMap = { 'home': 'nav-home', 'mission': 'nav-mission', 'wishlist': 'nav-wish', 'mypage': 'nav-my' };
+            const activeNav = document.getElementById(navMap[pageName]);
             if(activeNav) activeNav.classList.add('active');
 
+            // 2. 콘텐츠 로드
             if (pageName === 'home') {
-                contentArea.innerHTML = renderHomeHtml();
-                contentArea.classList.add('page-fade');
+                contentArea.innerHTML = `<div class="page-fade">${renderHomeHtml()}</div>`;
                 initHomeData();
             } else {
+                // 로딩 표시
+                contentArea.innerHTML = `<div class="p-20 text-center text-slate-300"><i class="fa-solid fa-circle-notch fa-spin text-2xl"></i></div>`;
+                
                 try {
-                    // mission.html 등 외부 파일을 가져와서 main 안에 삽입
-                    // 주의: 외부 파일은 <body> 내부 태그만 포함하거나 적절히 파싱해야 함
-                    const response = await fetch(`${pageName}.html`);
+                    // 동일 경로의 파일 fetch (GitHub Pages 대응: ./ 사용)
+                    const response = await fetch(`./${pageName}.html`);
+                    if (!response.ok) throw new Error('Network response was not ok');
                     const html = await response.text();
                     
-                    // 가져온 HTML에서 필요한 부분(main 태그 안쪽 등)만 추출하거나 전체 삽입
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(html, 'text/html');
-                    const newContent = doc.querySelector('main') ? doc.querySelector('main').innerHTML : html;
+                    
+                    // mission.html 내부의 <main> 태그 내용만 가져오기 (없으면 전체 본문)
+                    const newContent = doc.querySelector('main') ? doc.querySelector('main').innerHTML : doc.body.innerHTML;
                     
                     contentArea.innerHTML = `<div class="page-fade">${newContent}</div>`;
+                    
+                    // 페이지 로드 후 실행해야 할 데이터 함수가 있다면 여기서 호출 (예: mission 페이지 데이터 로드)
+                    // if(pageName === 'mission') { initMissionData(); }
+                    
                 } catch (error) {
-                    contentArea.innerHTML = `<div class="p-10 text-center text-slate-400">준비 중인 페이지입니다.</div>`;
+                    console.error('Page load error:', error);
+                    contentArea.innerHTML = `<div class="p-10 text-center text-slate-400">페이지를 찾을 수 없습니다.<br><small>${pageName}.html</small></div>`;
                 }
             }
             window.scrollTo(0, 0);
         }
 
-        // 초기 홈 화면 레이아웃 (기존의 main 내용을 함수로 분리)
+        /**
+         * 홈 화면 레이아웃 생성
+         */
         function renderHomeHtml() {
             return `
             <div class="px-6 py-4">
@@ -151,33 +166,15 @@
                                     </div>
                                     <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-brand-green rounded-full" style="width: 53%;"></div></div>
                                 </div>
-                                <div>
-                                    <div class="flex justify-between text-[11px] font-bold mb-1.5 text-brand-navy">
-                                        <span>역사 (History)</span><span class="text-brand-green">5/10</span>
-                                    </div>
-                                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-brand-green rounded-full" style="width: 50%;"></div></div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-[11px] font-bold mb-1.5 text-brand-navy">
-                                        <span>K-라이프 (K-Life)</span><span class="text-yellow-500">13/30</span>
-                                    </div>
-                                    <div class="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-yellow-500 rounded-full" style="width: 43%;"></div></div>
-                                </div>
                             </div>
                         </div>
                         <div id="stat-region-content" class="stat-content space-y-4">
                             <h4 class="text-[10px] font-900 text-slate-400 uppercase tracking-widest mb-2 flex items-center gap-2">
                                 <i class="fa-solid fa-map-location-dot text-brand-green"></i> Mission by Region
                             </h4>
-                            <div class="grid grid-cols-2 gap-x-6 gap-y-4">
-                                <div>
-                                    <div class="flex justify-between text-[10px] font-bold mb-1 text-brand-navy"><span>서울</span><span>4/10</span></div>
-                                    <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-brand-navy" style="width: 40%;"></div></div>
-                                </div>
-                                <div>
-                                    <div class="flex justify-between text-[10px] font-bold mb-1 text-brand-navy"><span>제주</span><span>8/10</span></div>
-                                    <div class="h-1 w-full bg-slate-100 rounded-full overflow-hidden"><div class="h-full bg-brand-navy" style="width: 80%;"></div></div>
-                                </div>
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-4 text-brand-navy text-[10px] font-bold">
+                                <div>서울 <div class="h-1 bg-slate-100 rounded-full mt-1"><div class="h-full bg-brand-navy" style="width: 40%"></div></div></div>
+                                <div>제주 <div class="h-1 bg-slate-100 rounded-full mt-1"><div class="h-full bg-brand-navy" style="width: 80%"></div></div></div>
                             </div>
                         </div>
                     </div>
@@ -193,15 +190,10 @@
             </div>`;
         }
 
-        // 홈 화면 데이터 초기화
         async function initHomeData() {
             const { data: { session } } = await _supabase.auth.getSession();
             const statusEl = document.getElementById('user-status');
-            if (session) {
-                statusEl.innerText = session.user.email.split('@')[0];
-            } else {
-                statusEl.innerHTML = '<button onclick="loadPage(\'mypage\')" class="text-brand-green font-900 underline">Sign In</button>';
-            }
+            statusEl.innerText = session ? session.user.email.split('@')[0] : 'Sign In';
             loadFeaturedMissions();
         }
 
@@ -211,9 +203,7 @@
             if (data && listDiv) {
                 listDiv.innerHTML = data.map(m => `
                     <div class="bg-white border border-slate-100 p-5 rounded-3xl flex items-center gap-4 shadow-sm active:scale-[0.98] transition-transform cursor-pointer" onclick="loadPage('mission')">
-                        <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-2xl">
-                            ${getCategoryEmoji(m.category)}
-                        </div>
+                        <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-2xl">${getCategoryEmoji(m.category)}</div>
                         <div class="flex-grow">
                             <h4 class="font-900 text-brand-navy text-sm mb-1">${m.mission_name}</h4>
                             <p class="text-[10px] font-800 text-slate-400 uppercase tracking-widest">${m.region} · ${m.category}</p>
@@ -225,10 +215,7 @@
         }
 
         function switchStat(type) {
-            document.querySelectorAll('.stat-tab').forEach(el => {
-                el.classList.remove('active');
-                el.classList.add('text-slate-400');
-            });
+            document.querySelectorAll('.stat-tab').forEach(el => { el.classList.remove('active'); el.classList.add('text-slate-400'); });
             document.querySelectorAll('.stat-content').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + type).classList.add('active');
             document.getElementById('tab-' + type).classList.remove('text-slate-400');
@@ -240,7 +227,6 @@
             return map[cat] || '🇰🇷';
         }
 
-        // 앱 시작 시 홈 로드
         window.onload = () => loadPage('home');
     </script>
 </body>
