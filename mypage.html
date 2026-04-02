@@ -8,12 +8,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;900&display=swap');
         body { font-family: 'Pretendard', sans-serif; -webkit-tap-highlight-color: transparent; letter-spacing: -0.02em; }
-        .brand-navy { color: #0A1931; }
-        .brand-green { color: #1E5128; }
-        .bg-brand-navy { background-color: #0A1931; }
-        .bg-brand-green { background-color: #1E5128; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.4s ease-out; }
+        .brand-navy { color: #0A1931; } .brand-green { color: #1E5128; }
         .nav-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #94a3b8; font-weight: 700; cursor: pointer; flex: 1; text-decoration: none; }
         .nav-item.active { color: #1E5128; }
         .pb-safe { padding-bottom: 100px; }
@@ -23,102 +18,20 @@
     </style>
 </head>
 <body class="bg-[#F8FAFC] text-[#1A202C]">
-
     <div class="max-w-2xl mx-auto min-h-screen flex flex-col relative bg-white shadow-2xl">
-
         <header class="bg-white/95 backdrop-blur-md px-6 py-4 flex justify-between items-center sticky top-0 z-[100] border-b border-slate-100">
             <a href="Index.html" class="text-2xl font-900 brand-navy tracking-tighter no-underline">MeoGo</a>
-            <div class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 overflow-hidden">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MeoGo" alt="avatar">
-            </div>
+            <div class="w-9 h-9 rounded-full bg-slate-100 overflow-hidden"><img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MeoGo" alt="avatar"></div>
         </header>
-
-        <main class="flex-grow pb-safe px-6">
-            <div class="py-8 fade-in">
-                <div class="text-center mb-10">
-                    <div class="relative inline-block mb-4">
-                        <div class="w-28 h-28 rounded-full bg-slate-100 border-4 border-white shadow-xl overflow-hidden mx-auto">
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MeoGo" alt="avatar" class="w-full h-full object-cover">
-                        </div>
-                    </div>
-                    <h2 class="text-2xl font-900 brand-navy mb-1" id="nick-display">GUEST</h2>
-                    <p class="text-xs font-800 text-slate-400 uppercase tracking-widest">MeoGo Member</p>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 mb-10">
-                    <div class="bg-brand-navy rounded-3xl p-5 text-white flex flex-col items-center">
-                        <span class="text-[10px] font-800 text-white/50 uppercase mb-1">My Points</span>
-                        <h4 class="text-xl font-900 leading-none">1,250 <span class="text-xs text-brand-green ml-0.5">P</span></h4>
-                    </div>
-                    <div class="bg-brand-green rounded-3xl p-5 text-white flex flex-col items-center">
-                        <span class="text-[10px] font-800 text-white/50 uppercase mb-1">COMPLETED</span>
-                        <h4 class="text-xl font-900 leading-none" id="completed-count">0</h4>
-                    </div>
-                </div>
-
-                <div class="mb-10">
-                    <h3 class="text-xs font-800 text-slate-400 uppercase tracking-wider px-2 mb-3">Personal Profile</h3>
-                    <div class="info-field">
-                        <span class="info-label">Nickname</span>
-                        <span class="info-value" id="info-nick">-</span>
-                    </div>
-                    <div class="info-field">
-                        <span class="info-label">Gender</span>
-                        <span class="info-value" id="info-gender">-</span>
-                    </div>
-                    <div class="info-field">
-                        <span class="info-label">Birth Date</span>
-                        <span class="info-value" id="info-birth">-</span>
-                    </div>
-                    <div class="info-field">
-                        <span class="info-label">Country</span>
-                        <span class="info-value" id="info-country">-</span>
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <h3 class="text-xs font-800 text-slate-400 uppercase tracking-wider px-2 mb-3">Quick Menu</h3>
-                    <a href="Wishlist.html" class="flex items-center justify-between p-5 bg-[#F8FAFC] border border-f1f5f9 rounded-[1.25rem] no-underline">
-                        <span class="font-800 text-slate-700">?�️ 찜한 미션 목록</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7" /></svg>
-                    </a>
-                    <a href="History.html" class="flex items-center justify-between p-5 bg-[#F8FAFC] border border-f1f5f9 rounded-[1.25rem] no-underline">
-                        <span class="font-800 text-slate-700">?�� ?�료??미션 기록</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7" /></svg>
-                    </a>
-                    <a href="Signup.html" class="flex items-center justify-between p-5 bg-[#F8FAFC] border border-f1f5f9 rounded-[1.25rem] no-underline">
-                        <span class="font-800 text-slate-700">?�� ?�원가??/ 계정 관�?/span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5l7 7-7 7" /></svg>
-                    </a>
-                </div>
-
-                <button onclick="localStorage.clear(); location.reload();" class="w-full mt-10 py-5 bg-slate-100 text-slate-500 rounded-[1.5rem] font-800 text-sm active:scale-95 transition-all">로그?�웃 / ?�이??초기??/button>
+        <main class="flex-grow pb-safe px-6 pt-10">
+            <div class="text-center mb-10"><h2 id="nick-display" class="text-2xl font-900 brand-navy">GUEST</h2><p class="text-xs font-800 text-slate-400">MeoGo Member</p></div>
+            <div class="mb-10"><h3 class="text-xs font-800 text-slate-400 uppercase tracking-widest px-2 mb-3">Personal Profile</h3>
+                <div class="info-field"><span class="info-label">Nickname</span><span class="info-value" id="info-nick">-</span></div>
+                <div class="info-field"><span class="info-label">Gender</span><span class="info-value" id="info-gender">-</span></div>
+                <div class="info-field"><span class="info-label">Birth Date</span><span class="info-value" id="info-birth">-</span></div>
+                <div class="info-field"><span class="info-label">Country</span><span class="info-value" id="info-country">-</span></div>
             </div>
-        </main>
-
-        <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-2xl bg-white/98 backdrop-blur-xl border-t border-slate-100 px-6 py-4 flex justify-between items-center z-50 rounded-t-[2rem] shadow-2xl">
-            <a href="Index.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg><span>미션</span></a>
-            <a href="Wishlist.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg><span>�?/span></a>
-            <a href="History.html" class="nav-item"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg><span>기록</span></a>
-            <a href="Mypage.html" class="nav-item active"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg><span>마이</span></a>
         </nav>
     </div>
-
-    <script>
-        function loadData() {
-            try {
-                const user = JSON.parse(localStorage.getItem('meogo_user') || '{}');
-                const history = JSON.parse(localStorage.getItem('meogo_history') || '[]');
-                
-                document.getElementById('nick-display').textContent = user.nickname || 'GUEST';
-                document.getElementById('info-nick').textContent = user.nickname || '-';
-                document.getElementById('info-gender').textContent = user.gender || '-';
-                document.getElementById('info-birth').textContent = user.birth_date || '-';
-                document.getElementById('info-country').textContent = user.country || '-';
-                document.getElementById('completed-count').textContent = history.length;
-            } catch (e) { console.error(e); }
-        }
-        window.onload = loadData;
-    </script>
 </body>
 </html>
