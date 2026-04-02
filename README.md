@@ -1,73 +1,46 @@
-# React + TypeScript + Vite
+K-Quest Web App
+외국인 관광객을 위한 K-컬처 미션 및 퀘스트 기반 웹 어플리케이션의 메인 홈화면입니다.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🚀 주요 기능
+반응형 디자인: 모바일 및 태블릿 환경 최적화 (Max-width 28rem 설정)
+지역 카테고리: 서울, 경기, 지역무관 등 초기 런칭 타겟 설정
+광고 배너: 수익화를 위한 광고 시청 유도 섹션
+미션 카드: 드라마 촬영지, 전통 문화 등 테마별 미션 큐레이션
+실시간 랭킹: 유저 간 경쟁을 유도하는 포인트 랭킹 시스템
 
-Currently, two official plugins are available:
+🛠 사용 기술
+HTML5
+CSS3 (Tailwind CSS CDN 활용)
+JavaScript (Vanilla JS)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📁 파일 구조
+- Index.html: 메인 레이아웃 및 마크업
+-   지역별
+-   Seoul.html
+-    강남권	강남구, 서초구, 송파구, 관악구	강남의 세련된 도시미와 관악(샤로수길)의 젊은 로컬 감성이 결합된 코스
+-    강서권	강서구, 양천구, 영등포구, 구로구, 금천구, 동작구	마곡, 여의도 금융가, 노량진 수산시장을 잇는 한강 이남 서쪽 생활권
+-    강동권	강동구, 성동구, 광진구	성수동 카페거리, 올림픽공원, 천호동을 잇는 트렌디한 포토존 중심
+-    강북권	강북구, 도봉구, 노원구, 중랑구, 성북구	북한산 국립공원과 로컬 시장 중심의 자연 및 힐링 액티비티
+-    동대문권	동대문구, 종로구, 중구, 용산구	경복궁, DDP, 이태원 등 외국인 필수 버킷리스트 밀집 지역
+-    서대문권	서대문구, 마포구, 은평구	홍대, 연남동 등 대학가 음악 미션과 미디어 문화 중심
 
-## React Compiler
+-   Gyeonggi.html
+-   Gangwon.html
+-   Chungcheong.html
+-   Jeonla.html
+-   Gyeongsang.html
+-   Jeju.html
+-   카테고리별
+-   Food.html (신규 생성필요)
+-   Music.html (신규 생성필요)
+-   Photozone.html (신규 생성필요)
+-   K-life.html (신규 생성필요)
+-   activity.html (신규 생성필요)
+  
+- Mission.html: 미션 (상단바, 하단바 삭제 필요)
+- Rank.html: 랭킹 (신규 생성필요)
+- History.html: 기록 (상단바, 하단바 삭제 필요)
+- Mypage.html: 마이페이지 (신규 생성필요)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- style.css: 반응형 스타일링 및 애니메이션 정의
+- script.js: 버튼 클릭 및 데이터 처리 로직

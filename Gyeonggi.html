@@ -1,0 +1,116 @@
+<style>
+    .gyeonggi-region-card {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #f1f5f9;
+        background: white;
+    }
+    .gyeonggi-region-card:active {
+        transform: scale(0.96);
+        background-color: #f0fbff;
+    }
+</style>
+
+<div class="opacity-0 animate-[fadeIn_0.5s_ease-in_forwards]">
+    <section class="px-6 py-8">
+        <h2 id="gyeonggi-guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
+            ê²½ê¸°?„ì˜ ?¨ê²¨ì§?br>ë§¤ë ¥??ì°¾ì•„ë³´ì„¸??
+        </h2>
+        <p id="gyeonggi-guide-sub" class="text-slate-500 mt-2 text-sm font-bold">?í—˜?˜ê³  ?¶ì? ì§€??„ ? íƒ??ì£¼ì„¸??</p>
+    </section>
+
+    <section class="px-4 grid grid-cols-2 gap-4">
+        <div class="gyeonggi-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('ê²½ê¸° ë¶ë? ë¯¸ì…˜ ì¤€ë¹?ì¤?')">
+            <div class="text-3xl mb-2">?¡</div>
+            <span id="gyeonggi-label-north" class="text-sm font-black text-slate-900">ë¶ë?</span>
+            <p id="gyeonggi-desc-north" class="text-[10px] text-slate-400 font-bold mt-1">ê³ ì–‘ Â· ?Œì£¼ Â· ?˜ì •ë¶€</p>
+        </div>
+
+        <div class="gyeonggi-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('ê²½ê¸° ?¨ë? ë¯¸ì…˜ ì¤€ë¹?ì¤?')">
+            <div class="text-3xl mb-2">?°</div>
+            <span id="gyeonggi-label-south" class="text-sm font-black text-slate-900">?¨ë?</span>
+            <p id="gyeonggi-desc-south" class="text-[10px] text-slate-400 font-bold mt-1">?˜ì› Â· ?©ì¸ Â· ?”ì„±</p>
+        </div>
+
+        <div class="gyeonggi-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('ê²½ê¸° ?œë? ë¯¸ì…˜ ì¤€ë¹?ì¤?')">
+            <div class="text-3xl mb-2">?ŒŠ</div>
+            <span id="gyeonggi-label-west" class="text-sm font-black text-slate-900">?œë?</span>
+            <p id="gyeonggi-desc-west" class="text-[10px] text-slate-400 font-bold mt-1">?ˆì‚° Â· ?ˆì–‘ Â· ?œí¥</p>
+        </div>
+
+        <div class="gyeonggi-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('ê²½ê¸° ?™ë? ë¯¸ì…˜ ì¤€ë¹?ì¤?')">
+            <div class="text-3xl mb-2">?–¼ï¸?/div>
+            <span id="gyeonggi-label-east" class="text-sm font-black text-slate-900">?™ë?</span>
+            <p id="gyeonggi-desc-east" class="text-[10px] text-slate-400 font-bold mt-1">ê°€??Â· ?‘í‰</p>
+        </div>
+    </section>
+
+    <section class="px-5 mt-10 mb-10">
+        <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-3xl p-6 flex items-start gap-4 shadow-xl">
+            <div class="text-xl bg-white/20 p-2 rounded-xl">?’¡</div>
+            <div>
+                <h4 id="gyeonggi-info-title" class="text-sm font-black text-white">ê²½ê¸°??ì¶”ì²œ ì½”ìŠ¤</h4>
+                <p id="gyeonggi-info-desc" class="text-xs text-indigo-50 mt-2 leading-relaxed font-medium">
+                    ê°€ì¡??¬í–‰?´ë¼ë©?<span class='font-black underline'>?˜ì› ?”ì„±</span>?´ë‚˜ <span class='font-black underline'>?©ì¸ ?ë²„?œë“œ</span>ë¥? <br>
+                    ?ì—° ???ë§?€ <span class='font-black underline'>ê°€???‘í‰</span> ì½”ìŠ¤ë¥?ì¶”ì²œ?´ìš”!
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+(function() {
+    const i18n = {
+        KO: {
+            guideMain: "ê²½ê¸°?„ì˜ ?¨ê²¨ì§?br>ë§¤ë ¥??ì°¾ì•„ë³´ì„¸??",
+            guideSub: "?í—˜?˜ê³  ?¶ì? ì§€??„ ? íƒ??ì£¼ì„¸??",
+            north: "ë¶ë?", northDesc: "ê³ ì–‘ Â· ?Œì£¼ Â· ?˜ì •ë¶€",
+            south: "?¨ë?", southDesc: "?˜ì› Â· ?©ì¸ Â· ?”ì„±",
+            west: "?œë?", westDesc: "?ˆì‚° Â· ?ˆì–‘ Â· ?œí¥",
+            east: "?™ë?", eastDesc: "ê°€??Â· ?‘í‰",
+            infoTitle: "ê²½ê¸°??ì¶”ì²œ ì½”ìŠ¤",
+            infoDesc: "ê°€ì¡??¬í–‰?´ë¼ë©?<span class='font-black underline text-white'>?˜ì› ?”ì„±</span>?´ë‚˜ <span class='font-black underline text-white'>?ë²„?œë“œ</span>ë¥? ?ì—° ???ë§?€ <span class='font-black underline text-white'>ê°€???‘í‰</span> ì½”ìŠ¤ë¥?ì¶”ì²œ?´ìš”!"
+        },
+        EN: {
+            guideMain: "Find the hidden<br>charms of Gyeonggi!",
+            guideSub: "Please select the area you want to explore.",
+            north: "North", northDesc: "Goyang, Paju, Uijeongbu",
+            south: "South", southDesc: "Suwon, Yongin, Hwaseong",
+            west: "West", westDesc: "Ansan, Anyang, Siheung",
+            east: "East", eastDesc: "Gapyeong, Yangpyeong",
+            infoTitle: "Recommended Courses",
+            infoDesc: "Try <span class='font-black underline text-white'>Suwon Hwaseong</span> or <span class='font-black underline text-white'>Everland</span> for family trips, or heal in <span class='font-black underline text-white'>Gapyeong/Yangpyeong</span>!"
+        }
+    };
+
+    function applyLanguage() {
+        const lang = localStorage.getItem('selectedLang') || 'KO';
+        const data = i18n[lang] || i18n.KO;
+        
+        const updates = {
+            'gyeonggi-guide-main': data.guideMain,
+            'gyeonggi-guide-sub': data.guideSub,
+            'gyeonggi-label-north': data.north,
+            'gyeonggi-desc-north': data.northDesc,
+            'gyeonggi-label-south': data.south,
+            'gyeonggi-desc-south': data.southDesc,
+            'gyeonggi-label-west': data.west,
+            'gyeonggi-desc-west': data.westDesc,
+            'gyeonggi-label-east': data.east,
+            'gyeonggi-desc-east': data.eastDesc,
+            'gyeonggi-info-title': data.infoTitle,
+            'gyeonggi-info-desc': data.infoDesc
+        };
+
+        for (const [id, value] of Object.entries(updates)) {
+            const el = document.getElementById(id);
+            if (el) {
+                if (id.includes('main') || id.includes('desc')) el.innerHTML = value;
+                else el.innerText = value;
+            }
+        }
+    }
+
+    applyLanguage();
+})();
+</script>

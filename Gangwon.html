@@ -1,0 +1,93 @@
+<style>
+    .gangwon-region-card {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #f1f5f9;
+        background: white;
+    }
+    .gangwon-region-card:active {
+        transform: scale(0.96);
+        background-color: #f0fdf4; /* ê°•ì›?„ì˜ ?¸ë¥¸ ?ë‚Œ???´ì? ?°í•œ ?¹ìƒ‰/ì²?ƒ‰ ê³„ì—´ */
+    }
+</style>
+
+<div class="opacity-0 animate-[fadeIn_0.5s_ease-in_forwards]">
+    <section class="px-6 py-8">
+        <h2 id="gangwon-guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
+            ?¸ë¥¸ ë°”ë‹¤?€ ?°ì˜<br>ê°•ì›?„ë¡œ ? ë‚˜ë³´ì„¸??
+        </h2>
+        <p id="gangwon-guide-sub" class="text-slate-500 mt-2 text-sm font-bold">?í—˜?˜ê³  ?¶ì? ì§€??„ ? íƒ??ì£¼ì„¸??</p>
+    </section>
+
+    <section class="px-4 grid grid-cols-1 gap-4">
+        <div class="gangwon-region-card rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px]" onclick="alert('?ë™ ì§€??ë¯¸ì…˜ ì¤€ë¹?ì¤?')">
+            <div class="text-5xl mb-4">?ŒŠ</div>
+            <span id="gangwon-label-yd" class="text-lg font-black text-slate-900">?ë™ ì§€??/span>
+            <p id="gangwon-desc-yd" class="text-sm text-slate-400 font-bold mt-1">ê°•ë¦‰ Â· ?ì´ˆ Â· ?‘ì–‘</p>
+        </div>
+
+        <div class="gangwon-region-card rounded-3xl p-8 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px]" onclick="alert('?ì„œ ì§€??ë¯¸ì…˜ ì¤€ë¹?ì¤?')">
+            <div class="text-5xl mb-4">?°ï¸</div>
+            <span id="gangwon-label-ys" class="text-lg font-black text-slate-900">?ì„œ ì§€??/span>
+            <span id="gangwon-desc-ys" class="text-sm text-slate-400 font-bold mt-1">ì¶˜ì²œ Â· ?ì£¼ Â· ?‰ì°½</span>
+        </div>
+    </section>
+
+    <section class="px-5 mt-10 mb-10">
+        <div class="bg-emerald-600 rounded-3xl p-6 flex items-start gap-4 shadow-xl">
+            <div class="text-xl bg-white/20 p-2 rounded-xl">?“</div>
+            <div>
+                <h4 id="gangwon-info-title" class="text-sm font-black text-white">ê°•ì›???¬í–‰ ??/h4>
+                <p id="gangwon-info-desc" class="text-xs text-emerald-50 mt-2 leading-relaxed font-medium">
+                    ?œí•‘ê³?ë°”ë‹¤ë¥?ì¦ê¸°?¤ë©´ <span class='font-black underline text-white'>?‘ì–‘/ê°•ë¦‰</span>??<br>
+                    ?¸ìˆ˜?€ ?°ì˜ ?•ì·¨ë¥??ë¼?¤ë©´ <span class='font-black underline text-white'>ì¶˜ì²œ/?‰ì°½</span>??ì¶”ì²œ?©ë‹ˆ??
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+(function() {
+    const i18n = {
+        KO: {
+            guideMain: "?¸ë¥¸ ë°”ë‹¤?€ ?°ì˜<br>ê°•ì›?„ë¡œ ? ë‚˜ë³´ì„¸??",
+            guideSub: "?í—˜?˜ê³  ?¶ì? ì§€??„ ? íƒ??ì£¼ì„¸??",
+            yd: "?ë™ ì§€??, ydDesc: "ê°•ë¦‰ Â· ?ì´ˆ Â· ?‘ì–‘",
+            ys: "?ì„œ ì§€??, ysDesc: "ì¶˜ì²œ Â· ?ì£¼ Â· ?‰ì°½",
+            infoTitle: "ê°•ì›???¬í–‰ ??,
+            infoDesc: "?œí•‘ê³?ë°”ë‹¤ë¥?ì¦ê¸°?¤ë©´ <span class='font-black underline text-white'>?‘ì–‘/ê°•ë¦‰</span>?? ?¸ìˆ˜?€ ?°ì˜ ?•ì·¨ë¥??ë¼?¤ë©´ <span class='font-black underline text-white'>ì¶˜ì²œ/?‰ì°½</span>??ì¶”ì²œ?©ë‹ˆ??"
+        },
+        EN: {
+            guideMain: "Explore mountains and<br>seas in Gangwon!",
+            guideSub: "Please select the area you want to explore.",
+            yd: "Yeongdong Area", ydDesc: "Gangneung, Sokcho, Yangyang",
+            ys: "Yeongseo Area", ysDesc: "Chuncheon, Wonju, Pyeongchang",
+            infoTitle: "Travel Tips",
+            infoDesc: "Choose <span class='font-black underline text-white'>Yangyang/Gangneung</span> for surfing and sea, or <span class='font-black underline text-white'>Chuncheon/Pyeongchang</span> for lakes and mountains!"
+        }
+    };
+
+    function applyLanguage() {
+        const lang = localStorage.getItem('selectedLang') || 'KO';
+        const data = i18n[lang] || i18n.KO;
+        
+        const updates = {
+            'gangwon-guide-main': data.guideMain,
+            'gangwon-guide-sub': data.guideSub,
+            'gangwon-label-yd': data.yd,
+            'gangwon-desc-yd': data.ydDesc,
+            'gangwon-label-ys': data.ys,
+            'gangwon-desc-ys': data.ysDesc,
+            'gangwon-info-title': data.infoTitle,
+            'gangwon-info-desc': data.infoDesc
+        };
+
+        for (const [id, value] of Object.entries(updates)) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = value;
+        }
+    }
+
+    applyLanguage();
+})();
+</script>

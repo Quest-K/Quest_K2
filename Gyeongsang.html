@@ -1,0 +1,140 @@
+<!-- 경상???�이지 ?�용 ?��???-->
+<style>
+    .gyeongsang-region-card {
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 1px solid #f1f5f9;
+        background: white;
+    }
+    .gyeongsang-region-card:active {
+        transform: scale(0.96);
+        background-color: #fffbeb; /* 경상?�의 ?�정?�인 ?�금�?베이지 ??*/
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fadeIn {
+        animation: fadeIn 0.5s ease-out forwards;
+    }
+</style>
+
+<!-- 본문 컨텐�??�역 -->
+<div class="opacity-0 animate-fadeIn">
+    <!-- Guide Section -->
+    <section class="px-6 py-8">
+        <h2 id="gyeongsang-guide-main" class="text-2xl font-black text-slate-900 leading-tight tracking-tight">
+            ?�정�???��가 ?�아?�는<br>경상?�로 ?�세??
+        </h2>
+        <p id="gyeongsang-guide-sub" class="text-slate-500 mt-2 text-sm font-bold">?�험?�고 ?��? 지??�� ?�택??주세??</p>
+    </section>
+
+    <!-- Region Cards Grid -->
+    <section class="px-4 grid grid-cols-2 gap-4">
+        <!-- 북�? (Andong, Yeongju, Mungyeong) -->
+        <div class="gyeongsang-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('북�? ?�스??준�?�?')">
+            <div class="text-3xl mb-2">?��</div>
+            <span id="label-north" class="text-sm font-black text-slate-900">북�?</span>
+            <p id="desc-north" class="text-[10px] text-slate-400 font-bold mt-1">?�동 · ?�주 · 문경</p>
+        </div>
+
+        <!-- ?��? (Busan, Ulsan, Geoje) -->
+        <div class="gyeongsang-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('?��? ?�스??준�?�?')">
+            <div class="text-3xl mb-2">?��</div>
+            <span id="label-south" class="text-sm font-black text-slate-900">?��?</span>
+            <p id="desc-south" class="text-[10px] text-slate-400 font-bold mt-1">부??· ?�산 · 거제</p>
+        </div>
+
+        <!-- ?��? (Jinju, Sacheon, Namhae) -->
+        <div class="gyeongsang-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('?��? ?�스??준�?�?')">
+            <div class="text-3xl mb-2">?��</div>
+            <span id="label-west" class="text-sm font-black text-slate-900">?��?</span>
+            <p id="desc-west" class="text-[10px] text-slate-400 font-bold mt-1">진주 · ?�천 · ?�해</p>
+        </div>
+
+        <!-- ?��? (Gyeongju, Pohang, Daegu) -->
+        <div class="gyeongsang-region-card rounded-3xl p-6 shadow-sm flex flex-col items-center justify-center text-center cursor-pointer min-h-[140px]" onclick="alert('?��? ?�스??준�?�?')">
+            <div class="text-3xl mb-2">?�️</div>
+            <span id="label-east" class="text-sm font-black text-slate-900">?��?</span>
+            <p id="desc-east" class="text-[10px] text-slate-400 font-bold mt-1">경주 · ?�항 · ?��?/p>
+        </div>
+    </section>
+
+    <!-- Info Card -->
+    <section class="px-5 my-10">
+        <div class="bg-amber-500 rounded-3xl p-6 flex items-start gap-4 shadow-xl shadow-amber-100">
+            <div class="text-xl bg-white/20 p-2 rounded-xl">?��</div>
+            <div>
+                <h4 id="gyeongsang-info-title" class="text-sm font-black text-white">경상??추천 코스</h4>
+                <p id="gyeongsang-info-desc" class="text-xs text-amber-50 mt-2 leading-relaxed font-medium">
+                    ??�� ?�행???�하?�다�?<span class='font-black underline text-white'>경주</span>?� <span class='font-black underline text-white'>?�동</span>?? <br>
+                    ?�려???�경�?바다??<span class='font-black underline text-white'>부??/span> 코스�?강력 추천?�요!
+                </p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    /**
+     * 경상???�이지 ?�용 ?�국???�스???�데?�트
+     */
+    (function() {
+        const langData = {
+            KO: {
+                guideMain: "?�정�???��가 ?�아?�는<br>경상?�로 ?�세??",
+                guideSub: "?�험?�고 ?��? 지??�� ?�택??주세??",
+                north: "북�?", northDesc: "?�동 · ?�주 · 문경",
+                south: "?��?", southDesc: "부??· ?�산 · 거제",
+                west: "?��?", westDesc: "진주 · ?�천 · ?�해",
+                east: "?��?", eastDesc: "경주 · ?�항 · ?��?,
+                infoTitle: "경상??추천 코스",
+                infoDesc: "??�� ?�행???�하?�다�?<span class='font-black underline text-white'>경주</span>?� <span class='font-black underline text-white'>?�동</span>?? ?�려???�경�?바다??<span class='font-black underline text-white'>부??/span> 코스�?강력 추천?�요!"
+            },
+            EN: {
+                guideMain: "Experience history and<br>passion in Gyeongsang!",
+                guideSub: "Please select the area you want to explore.",
+                north: "North", northDesc: "Andong · Yeongju · Mungyeong",
+                south: "South", southDesc: "Busan · Ulsan · Geoje",
+                west: "West", westDesc: "Jinju · Sacheon · Namhae",
+                east: "East", eastDesc: "Gyeongju · Pohang · Daegu",
+                infoTitle: "Recommended Courses",
+                infoDesc: "Try <span class='font-black underline text-white'>Gyeongju</span> or <span class='font-black underline text-white'>Andong</span> for history, or explore <span class='font-black underline text-white'>Busan</span> for vibrant nights and sea!"
+            },
+            JP: {
+                guideMain: "?�熱?��??��???��??br>?�尚?�へ?�越?�く?�さ?�！",
+                guideSub: "?�検?�た?�区?�を?�択?�て?�だ?�い??,
+                north: "?�部", northDesc: "安東 · ?�州 · ?�慶",
+                south: "?�部", southDesc: "?�山 · ?�山 · 巨済",
+                west: "西部", westDesc: "?�州 · 泗川 · ?�海",
+                east: "?�部", eastDesc: "?�州 · �?�� · 大邱",
+                infoTitle: "?�す?�め?�ー??,
+                infoDesc: "歴史?�行?�ら <span class='font-black underline text-white'>?�州</span>??<span class='font-black underline text-white'>安東</span>?�、華?�か?�夜??��海は <span class='font-black underline text-white'>?�山</span>?�ー?�を強く?�す?�め?�ま?�！"
+            }
+        };
+
+        const currentLang = localStorage.getItem('selectedLang') || 'KO';
+        const data = langData[currentLang] || langData.KO;
+
+        // ?�스???�데?�트
+        const updates = {
+            'gyeongsang-guide-main': data.guideMain,
+            'gyeongsang-guide-sub': data.guideSub,
+            'label-north': data.north,
+            'desc-north': data.northDesc,
+            'label-south': data.south,
+            'desc-south': data.southDesc,
+            'label-west': data.west,
+            'desc-west': data.westDesc,
+            'label-east': data.east,
+            'desc-east': data.eastDesc,
+            'gyeongsang-info-title': data.infoTitle,
+            'gyeongsang-info-desc': data.infoDesc
+        };
+
+        for (const [id, value] of Object.entries(updates)) {
+            const el = document.getElementById(id);
+            if (el) el.innerHTML = value;
+        }
+    })();
+</script>
